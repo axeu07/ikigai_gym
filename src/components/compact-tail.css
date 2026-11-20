@@ -1,0 +1,103 @@
+/*
+ * Compact tail: sections 05 Restore → footer were each a full screen with giant headings, which made the
+ * second half of the page very long. Here they size to their content, with smaller type and media.
+ * IDs are used on purpose so these win over the older globals.css / sections.css rules.
+ */
+
+/* ── shared: no forced full-screen height, tighter padding, smaller headings ── */
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit).section {
+  min-height: 0;
+  padding-block: clamp(44px, 5vw, 76px);
+}
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit) .h-mega,
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit) .h-display {
+  font-size: clamp(2.1rem, 4.2vw, 4.4rem);
+  line-height: 0.92;
+}
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit) .ghost-num { font-size: clamp(6rem, 15vw, 16rem); }
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit) .section-head { margin-bottom: clamp(16px, 2vw, 28px); }
+:is(#restore, #sensei, #tribe, #proof, #plans, #book, #visit) .lede { margin-top: 12px; font-size: clamp(15px, 1.15vw, 17px); }
+
+/* ── 05 Restore: smaller lockers and menu board ── */
+#restore .rs-hygiene { margin-top: 18px; font-size: 14px; }
+#restore .lk-cabinet { max-width: 640px; margin-left: auto; padding: 10px; }
+#restore .lk-sign { margin-bottom: 8px; padding: 4px 14px; }
+#restore .lk-sign .jp { font-size: 15px; }
+#restore .lk-grid { gap: 8px; }
+#restore .lk-media { aspect-ratio: 16 / 10; margin-bottom: 8px; }
+#restore .lk-inside { padding: 8px 8px 12px; }
+#restore .lk-inside h3 { font-size: 17px; }
+#restore .lk-inside h3 .jp { font-size: 11px; }
+#restore .lk-inside p { font-size: 12.5px; margin-top: 4px; }
+#restore .lk-face { gap: 8px; padding: 10px; }
+#restore .lk-kanji { font-size: clamp(20px, 1.8vw, 30px); }
+#restore .lk-plate .jp { font-size: 14px; }
+#restore .lk-fuda { height: 44px; width: 18px; margin-left: -9px; }
+#restore .lk-menu { margin-top: 30px; padding: 16px 18px; max-width: 400px; }
+#restore .lk-menu-line { font-size: 20px; margin: 4px 0 10px; }
+#restore .lk-menu-rows { gap: 8px; margin-bottom: 10px; }
+/* phones: keep two lockers per row instead of one long column */
+@media (max-width: 560px) {
+  #restore .lk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #restore .lk-inside h3 { font-size: 15px; flex-direction: column; gap: 2px; }
+  #restore .lk-inside p { font-size: 12px; }
+  #restore .lk-vent, #restore .lk-name { display: none; }
+}
+
+/* ── 06 Sensei ── */
+#sensei .ss-name { padding: 12px 4px; }
+#sensei .ss-text { font-size: clamp(26px, 3.2vw, 48px); }
+#sensei .ss-arrow { font-size: 22px; }
+
+/* ── 07 Tribe ── */
+#tribe .tb-events { gap: 12px; }
+#tribe .tb-events li { padding: 14px 18px; }
+#tribe .tb-events h3 { font-size: 21px; }
+#tribe .tb-strip { margin-top: 24px; gap: 14px; padding-bottom: 12px; }
+#tribe .tb-frame { width: clamp(140px, 14vw, 190px); }
+#tribe .tb-follow { margin-top: 16px; }
+
+/* ── 08 Proof (reviews + progress; layout in results.css) ── */
+#proof .pf-numbers { margin-bottom: 28px; }
+#proof .pf-num dd { width: min(100%, 170px); font-size: clamp(30px, 3.2vw, 52px); }
+#proof .pf-themes { gap: 16px; }
+#proof .pf-themes h3 { font-size: 16px; }
+#proof .pf-themes p { font-size: 14px; }
+#proof .pf-note { margin-top: 20px; }
+
+/* ── 10 Plans ── */
+#plans .pl-card { padding: 18px 18px; gap: 8px; }
+#plans .pl-card h3 { font-size: 22px; }
+#plans .pl-price { font-size: 34px; }
+#plans .pl-call { font-size: 20px; }
+
+/* ── 13 Visit ── */
+
+/* ── footer: smaller giant wordmark ── */
+.footer .ft-giant { font-size: 17vw; margin-top: -8vw; } /* overridden below for the one-screen footer */
+.footer { padding-bottom: 72px; }
+.footer .footer-base { margin-top: 20px; }
+/* outline and ember fill must line up exactly now that the word no longer spans the full width */
+.footer :is(.ft-giant, .ft-giant-outline, .ft-fill, .ft-fill-inner) { text-align: center; }
+.footer .ft-giant-outline { display: block; width: 100%; }
+
+/* Visit merged into the footer: actions left, building photo right */
+.vs-merged { position: relative; padding-block: clamp(40px, 5vh, 64px) 0; }
+.vs-merged .vs-grid { align-items: center; }
+.vs-photo { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 9; max-height: 34vh; width: 100%; background: var(--sumi-2); border: 1px solid var(--line); }
+.vs-photo picture, .vs-photo img, .vs-photo iframe { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.vs-photo iframe { filter: grayscale(0.6) contrast(1.05); }
+.vs-photo-toggle { position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: rgb(10 10 10 / 0.78); backdrop-filter: blur(6px); color: var(--washi); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.vs-photo-toggle:hover { border-color: var(--sun); }
+.vs-photo-toggle .vs-pin { width: 10px; height: 10px; box-shadow: 0 0 0 4px rgb(255 90 31 / 0.25); }
+
+/* one-screen footer: Visit + hills + IKIGAI + info all fit in ~one viewport on desktop */
+.vs-merged .section-head::after { margin-top: 16px; }
+.vs-merged .vs-actions { margin-top: 16px; }
+.footer .ft-hero { padding-top: 0; margin-top: clamp(-40px, -3vw, -16px); }
+.footer .ft-hills .hills { display: block; width: 100%; height: clamp(110px, 13vw, 200px); }
+.footer .ft-giant { font-size: clamp(64px, 10.5vw, 200px); margin-top: clamp(-130px, -7vw, -44px); }
+.footer .footer-grid { padding-top: 16px; gap: 24px; }
+.footer .footer-nav { padding-top: 14px; }
+.footer .footer-base { margin-top: 14px; }
+@media (min-width: 1024px) { .vs-merged .vs-photo { justify-self: end; max-width: 760px; } }

@@ -1,7 +1,7 @@
 /*
  * Sections 03 → footer: composition, signature motion and global interaction polish.
  * Loaded after globals.css (overrides it where needed). Transform/opacity animation only, except
- * the image clip-path wipes, the Find-your-circle morph and the FAQ grid-rows accordion.
+ * the image clip-path wipes and the Find-your-circle morph.
  */
 @layer components {
 
@@ -259,19 +259,6 @@ html.is-stacked .bands + .section[data-stack] { margin-top: -12px; }
 .hanko.is-stamped { animation: hanko-slam 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
 @keyframes hanko-slam { 0% { opacity: 0; transform: rotate(-20deg) scale(2.6); } 60% { opacity: 1; transform: rotate(-12deg) scale(0.9); } 100% { opacity: 0.95; transform: rotate(-12deg) scale(1); } }
 
-/* ── 13 faq: accordion ── */
-.faq .faq-list { border-top: 0; display: grid; gap: 10px; }
-.faq .faq-item { border: 1px solid rgb(242 238 230 / 0.14); border-radius: 16px; background: rgb(242 238 230 / 0.02); transition: border-color 0.3s, box-shadow 0.3s; }
-.faq .faq-item.is-open { border-color: var(--sun); box-shadow: 0 0 0 1px rgb(255 90 31 / 0.35), 0 14px 40px rgb(255 90 31 / 0.12); }
-.faq .faq-item h3 { margin: 0; }
-.faq .faq-item button { width: 100%; min-height: 64px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px; border: 0; background: none; color: var(--washi); font: inherit; font-weight: 800; font-size: 18px; text-align: left; cursor: pointer; transition: color 0.3s; }
-.faq .faq-item button:hover { color: var(--glow); }
-.faq .faq-plus { transition: transform 0.4s var(--ease); }
-.faq .is-open .faq-plus { transform: rotate(45deg); color: var(--sun); }
-.faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
-.faq .is-open .faq-a { grid-template-rows: 1fr; }
-.faq-a-inner { overflow: hidden; }
-.faq .faq-item .faq-a p { padding: 0 22px 22px; color: rgb(242 238 230 / 0.75); }
 
 /* ── footer: giant fill wordmark + hills ── */
 .ft-hero { position: relative; overflow: hidden; padding-top: 24px; }
@@ -291,7 +278,6 @@ html.is-stacked .bands + .section[data-stack] { margin-top: -12px; }
   .bk-slot .ticket { transition: none; }
   .js [data-section]:not(.is-in) .bk-slot .ticket { transform: none; }
   .pf-ring-fill { stroke-dashoffset: 0; }
-  .faq-a { transition: none; }
 }
 
 } /* end @layer components */

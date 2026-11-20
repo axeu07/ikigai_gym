@@ -1,16 +1,20 @@
 "use client";
 /**
- * 08 仲間 Nakama: community events (TO CONFIRM), a draggable photo strip and the Instagram CTA.
- * Desktop (fine pointer, motion OK): drag the strip with inertia (transform only, clamped with a soft
- * edge); each photo sits at a slight rotation. Touch: native swipe. Click / tap opens a lightbox.
+ * 07 仲間 Nakama: community events (TO CONFIRM), a photo strip and the Instagram CTA, on light washi
+ * paper so it breaks the run of dark sections.
+ * Desktop (≥1024px, motion OK): the section pins and the photo strip travels sideways as you scroll,
+ * like a trek, with a trail line from Rajpur Road to the hills filling underneath.
+ * Smaller fine-pointer screens: drag the strip with inertia (transform only, soft edges).
+ * Touch: native swipe. Click / tap opens a lightbox.
  */
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/motion";
+import { useHorizontalPin } from "@/lib/useHorizontalPin";
 import { useFinePointer, useReducedMotion } from "@/lib/useReducedMotion";
 import { contact, tribe } from "@/lib/content";
 import Lightbox from "./Lightbox";
 import Section, { SectionHead } from "./Section";
-import { BgLayer, LoopVideo, Picture } from "./Media";
+import { LoopVideo, Picture } from "./Media";
 import { Confirm } from "./ui";
 import Button from "./Button";
 
@@ -18,12 +22,18 @@ export default function Tribe() {
   const ig = contact.instagram;
   const fine = useFinePointer();
   const reduced = useReducedMotion();
-  const drag = fine && !reduced;
+  const pin = useRef<HTMLDivElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLUListElement>(null);
+  const trail = useRef<HTMLSpanElement>(null);
   const [box, setBox] = useState<number | null>(null);
   const n = tribe.strip.length;
 
+  // pinned sideways journey (desktop), shared with Sensei / Proof / Plans
+  const pinned = useHorizontalPin({ pin, viewport, track, onProgress: (p) => trail.current && gsap.set(trail.current, { scaleX: p }) });
+  const drag = fine && !reduced && !pinned;
+
+  // drag with inertia (fine pointer, not pinned)
   useEffect(() => {
     const vp = viewport.current;
     const tr = track.current;
@@ -92,35 +102,55 @@ export default function Tribe() {
 
   const item = box !== null ? tribe.strip[box] : null;
   return (
-    <Section id="tribe" className="tribe">
-      <BgLayer id={tribe.bg} />
-      <div className="wrap">
-        <SectionHead id="tribe" title={tribe.heading} sub={tribe.sub} />
-        <ul className="tb-events">
-          {tribe.events.map((e, i) => (
-            <li key={e.name} className="reveal" style={{ ["--d" as string]: `${i * 90}ms` }}>
-              <h3>
-                {e.name} <Confirm confirmed={e.confirmed} />
-              </h3>
-              <p>{e.line}</p>
-            </li>
-          ))}
-        </ul>
+    // the journey layout comes from a CSS media query (tail-motion.css), not from `pinned`, so it is in
+    // place before the pin measures
+    <Section id="tribe" className="tribe tribe-light">
+      <div ref={pin} className="tb-pin hp-pin fx-pin">
+        <div className="wrap tb-top hp-side">
+          <SectionHead id="tribe" title={tribe.heading} sub={tribe.sub} />
+          <ul className="tb-events">
+            {tribe.events.map((e, i) => (
+              <li key={e.name} className="reveal" style={{ ["--d" as string]: `${i * 90}ms` }}>
+                <h3>
+                  {e.name} <Confirm confirmed={e.confirmed} />
+                </h3>
+                <p>{e.line}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="tb-follow reveal">
+            <Button href={ig.value.url} external variant="ghost">
+              {tribe.follow} · {ig.value.handle}
+            </Button>
+            <Confirm confirmed={ig.confirmed} />
+          </div>
+        </div>
+
+        <div ref={viewport} className={`tb-viewport hp-viewport ${drag ? "is-draggable" : ""}`} data-cursor={drag ? "Drag" : undefined}>
+          <ul ref={track} className="tb-strip hp-track" aria-label="Life at IKIGAI">
+            {tribe.strip.map((m, i) => (
+              <li key={m.caption} className="tb-frame reveal" style={{ ["--d" as string]: `${i * 70}ms`, ["--r" as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg` }}>
+                <button type="button" className="tb-open" onClick={() => setBox(i)} aria-label={`Open photo: ${m.caption}`}>
+                  <div className="tb-media" data-skew>
+                    {m.video ? <LoopVideo id={m.video} /> : <Picture id={m.photo!} alt={m.alt ?? ""} sizes="(min-width: 1024px) 22vw, 70vw" />}
+                  </div>
+                  <p>{m.caption}</p>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* trek trail: fills as the strip travels (desktop pin only) */}
+        <div className="tb-trail" aria-hidden>
+          <span>Rajpur Road</span>
+          <i>
+            <span ref={trail} className="tb-trail-fill" />
+          </i>
+          <span>The hills</span>
+        </div>
       </div>
-      <div ref={viewport} className={`tb-viewport ${drag ? "is-draggable" : ""}`} data-cursor="Drag">
-        <ul ref={track} className="tb-strip" aria-label="Life at IKIGAI">
-          {tribe.strip.map((m, i) => (
-            <li key={m.caption} className="tb-frame reveal" style={{ ["--d" as string]: `${i * 70}ms`, ["--r" as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg` }}>
-              <button type="button" className="tb-open" onClick={() => setBox(i)} aria-label={`Open photo: ${m.caption}`}>
-                <div className="tb-media" data-skew>
-                  {m.video ? <LoopVideo id={m.video} /> : <Picture id={m.photo!} alt={m.alt ?? ""} sizes="(min-width: 1024px) 26vw, 70vw" />}
-                </div>
-                <p>{m.caption}</p>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+
       <Lightbox
         open={item !== null}
         onClose={() => setBox(null)}
@@ -131,12 +161,6 @@ export default function Tribe() {
       >
         {item && (item.video ? <LoopVideo id={item.video} eager /> : <Picture id={item.photo!} alt={item.alt ?? ""} sizes="90vw" eager />)}
       </Lightbox>
-      <div className="wrap tb-follow reveal">
-        <Button href={ig.value.url} external variant="ghost">
-          {tribe.follow} · {ig.value.handle}
-        </Button>
-        <Confirm confirmed={ig.confirmed} />
-      </div>
     </Section>
   );
 }

@@ -77,18 +77,14 @@ export const pillarById = (id: PillarId) => pillars.find((p) => p.id === id)!;
 export const sections = [
   { id: "top", index: "01", numeral: "一", kanji: "始め", romaji: "Hajime", label: "Begin" },
   { id: "philosophy", index: "02", numeral: "二", kanji: "生き甲斐", romaji: "Ikigai", label: "Four circles, one reason" },
-  { id: "circle", index: "03", numeral: "三", kanji: "", romaji: "", label: "Find your circle" },
-  { id: "programs", index: "04", numeral: "四", kanji: "道", romaji: "Michi", label: "Programs & timetable" },
-  { id: "boxing", index: "05", numeral: "五", kanji: "拳", romaji: "Ken", label: "Ikigai Boxing Club" },
-  { id: "restore", index: "06", numeral: "六", kanji: "癒し", romaji: "Iyashi", label: "Restore" },
-  { id: "sensei", index: "07", numeral: "七", kanji: "先生", romaji: "Sensei", label: "Coaches" },
-  { id: "tribe", index: "08", numeral: "八", kanji: "仲間", romaji: "Nakama", label: "The tribe" },
-  { id: "kaizen", index: "09", numeral: "九", kanji: "改善", romaji: "Kaizen", label: "Transformations" },
-  { id: "proof", index: "10", numeral: "十", kanji: "", romaji: "", label: "What members say" },
-  { id: "plans", index: "11", numeral: "十一", kanji: "約束", romaji: "Yakusoku", label: "Membership" },
-  { id: "book", index: "12", numeral: "十二", kanji: "", romaji: "", label: "Book a free trial" },
-  { id: "faq", index: "13", numeral: "十三", kanji: "", romaji: "", label: "Questions" },
-  { id: "visit", index: "14", numeral: "十四", kanji: "", romaji: "", label: "Visit us" },
+  { id: "programs", index: "03", numeral: "三", kanji: "道", romaji: "Michi", label: "Programs & timetable" },
+  { id: "boxing", index: "04", numeral: "四", kanji: "拳", romaji: "Ken", label: "Ikigai Boxing Club" },
+  { id: "restore", index: "05", numeral: "五", kanji: "癒し", romaji: "Iyashi", label: "Restore" },
+  { id: "sensei", index: "06", numeral: "六", kanji: "先生", romaji: "Sensei", label: "Coaches" },
+  { id: "tribe", index: "07", numeral: "七", kanji: "仲間", romaji: "Nakama", label: "The tribe" },
+  { id: "proof", index: "08", numeral: "八", kanji: "改善", romaji: "Kaizen", label: "Reviews & progress" },
+  { id: "plans", index: "09", numeral: "九", kanji: "約束", romaji: "Yakusoku", label: "Membership & free trial" },
+  { id: "visit", index: "10", numeral: "十", kanji: "", romaji: "", label: "Visit us" },
 ] as const;
 export type SectionId = (typeof sections)[number]["id"];
 export const sectionById = (id: SectionId) => sections.find((s) => s.id === id)!;
@@ -98,7 +94,7 @@ export const progressMap: { pillar: PillarId; from: SectionId; to: SectionId }[]
   { pillar: "joy", from: "philosophy", to: "programs" },
   { pillar: "power", from: "boxing", to: "boxing" },
   { pillar: "restore", from: "restore", to: "restore" },
-  { pillar: "tribe", from: "sensei", to: "kaizen" },
+  { pillar: "tribe", from: "sensei", to: "proof" },
 ];
 
 export const nav = {
@@ -120,9 +116,9 @@ export const hero = {
   headline: ["Find your", "Ikigai"],
   tagline: "Find your reason to move.",
   sub: "Strength, cardio, boxing, dance, yoga and recovery under one roof. A unisex, women-friendly gym with a community that keeps you coming back.",
-  /** sharp still painted first (preloaded), then the reel fades in over it */
-  bg: "gym-floor",
+  /** two full portrait loops framing the dark centre: treadmill promo on the left, Zumba class on the right */
   video: "hero-reel",
+  videoRight: "hero-zumba",
   ctaPrimary: { label: "Book a free trial", href: "#book" },
   ctaWhatsApp: { label: "WhatsApp us", text: "Hi IKIGAI! I'd like to know more about joining." },
   wallLine: "This place will change you, if you let it.",
@@ -142,7 +138,7 @@ export const bands = {
   b: ["Iki = life", "Gai = worth", "Every rep has a reason", "Train for a life worth living"],
 } as const;
 
-// ── 03 Find your circle ─────────────────────────────────────────────────────
+// ── (retired) Find your circle — section removed; data kept for the booking prefill ─────────────────────────────────────────────────────
 // Suggestions only (SAMPLE): built from things IKIGAI offers. Nothing here is a fixed program.
 export type GoalId = "fun" | "stronger" | "box" | "fitter" | "unwind" | "people";
 export type Goal = { id: GoalId; label: string; pillar: PillarId; program: string; try: string[]; media: MediaRef };
@@ -165,14 +161,14 @@ export const programs = {
   heading: "Seven ways in.",
   sub: "Everything below happens under one roof at Jakhan. Every class has a beginner pace.",
   list: [
-    { name: "Gym floor", line: "Plate-loaded machines, power racks and free weights, with a turf track down the middle.", pillar: "power", media: { photo: "racks", alt: "Power racks with loaded barbells on the IKIGAI floor" } },
-    { name: "Cardio", line: "Treadmills by the window and a row of air bikes.", pillar: "power", media: { video: "treadmills" } },
-    { name: "Boxing", line: "Our own Ikigai Boxing Club zone, inside the gym.", pillar: "power", media: { photo: "punchbag", alt: "A heavy punching bag in the IKIGAI studio" } },
-    { name: "Yoga", line: "Mobility, breath and calm.", pillar: "joy", media: null },
-    { name: "Zumba", line: "High-energy dance cardio.", pillar: "joy", media: { video: "dance-group" } },
-    { name: "Bhangra", line: "Doon energy, Punjabi beats. A proper workout.", pillar: "joy", media: null },
-    { name: "Personal training", line: "One-to-one coaching with a plan built for you.", pillar: "power", media: { photo: "plate-machine", alt: "A red plate-loaded strength machine" } },
-  ] as { name: string; line: string; pillar: PillarId; media: MediaRef | null }[],
+    { name: "Gym floor", jp: "鍛錬", line: "Plate-loaded machines, power racks and free weights, with a turf track down the middle.", pillar: "power", media: { photo: "racks", alt: "Power racks with loaded barbells on the IKIGAI floor" } },
+    { name: "Cardio", jp: "持久", line: "Treadmills by the window and a row of air bikes.", pillar: "power", media: { video: "treadmills" } },
+    { name: "Boxing", jp: "拳闘", line: "Our own Ikigai Boxing Club zone, inside the gym.", pillar: "power", media: { photo: "punchbag", alt: "A heavy punching bag in the IKIGAI studio" } },
+    { name: "Yoga", jp: "ヨガ", line: "Mobility, breath and calm.", pillar: "joy", media: { photo: "yoga", alt: "Two women holding a side-angle yoga stretch" } },
+    { name: "Zumba", jp: "ズンバ", line: "High-energy dance cardio.", pillar: "joy", media: { video: "dance-group" } },
+    { name: "Bhangra", jp: "バングラ", line: "Doon energy, Punjabi beats. A proper workout.", pillar: "joy", media: { photo: "bhangra", alt: "A dance class mid-move, led from the front" } },
+    { name: "Personal training", jp: "個人指導", line: "One-to-one coaching with a plan built for you.", pillar: "power", media: { photo: "plate-machine", alt: "A red plate-loaded strength machine" } },
+  ] as { name: string; jp: string; line: string; pillar: PillarId; media: MediaRef | null }[],
 };
 
 export type ClassSlot = { time: string; mins: number; name: string; pillar: PillarId };
@@ -211,16 +207,17 @@ export const boxing = {
   },
 } as const;
 
-// ── 06 Iyashi: Restore (café merged in) ─────────────────────────────────────
-export type RestoreItem = { id: string; name: string; line: string; media: MediaRef | null };
+// ── 05 Iyashi: Restore (café merged in) ─────────────────────────────────────
+/** jp = kanji painted on the locker door (always shown with the English name). */
+export type RestoreItem = { id: string; name: string; jp: string; line: string; media: MediaRef | null };
 export const restore = {
   heading: "Recovery is part of the workout.",
   sub: "The things most local gyms skip, and the reason members call IKIGAI premium at a local price.",
   items: [
-    { id: "steam", name: "Steam room", line: "Wooden bench, proper heat. Loosen up after a heavy day.", media: { photo: "steam-room", alt: "The steam room with a wooden bench" } },
-    { id: "washrooms", name: "Premium washrooms", line: "Clean, modern washrooms with vessel basins.", media: { photo: "washroom", alt: "Washroom with two vessel basins" } },
-    { id: "showers", name: "Showers", line: "Shower before you head to work or college.", media: null },
-    { id: "lockers", name: "Lockers", line: "Keep your bag and phone safe while you train.", media: null },
+    { id: "steam", name: "Steam room", jp: "蒸し風呂", line: "Proper heat, soft light. Loosen up after a heavy day.", media: { photo: "restore-steam", alt: "Tiled steam room with benches, warm light and drifting steam" } },
+    { id: "washrooms", name: "Premium washrooms", jp: "洗面所", line: "Clean, modern washrooms with vessel basins.", media: { photo: "restore-washroom", alt: "Marble washroom counter with vessel basins and backlit mirrors" } },
+    { id: "showers", name: "Showers", jp: "シャワー", line: "Shower before you head to work or college.", media: { photo: "restore-showers", alt: "Row of glass-screened rain showers" } },
+    { id: "lockers", name: "Lockers", jp: "ロッカー", line: "Keep your bag and phone safe while you train.", media: { photo: "restore-lockers", alt: "Wooden locker room with a bench" } },
   ] as RestoreItem[],
   cafe: {
     name: "Cafeteria",
@@ -235,10 +232,11 @@ export const sensei = {
   heading: "Coaches who know your name.",
   sub: "Reviewers describe IKIGAI's trainers as friendly and qualified. Full team profiles are coming soon.",
   people: [
-    { name: "Coach Arun", role: "Coach", confirmed: false },
-    { name: "Trainer", role: "Name to confirm", confirmed: false },
-    { name: "Trainer", role: "Name to confirm", confirmed: false },
-    { name: "Trainer", role: "Name to confirm", confirmed: false },
+    // photo = AI-generated stand-in portrait (shown with a SAMPLE PHOTO tag) until real trainer photos arrive
+    { name: "Coach Arun", role: "Coach", confirmed: false, photo: "coach-01" },
+    { name: "Trainer", role: "Name to confirm", confirmed: false, photo: "coach-02" },
+    { name: "Trainer", role: "Name to confirm", confirmed: false, photo: "coach-03" },
+    { name: "Trainer", role: "Name to confirm", confirmed: false, photo: "coach-04" },
   ],
 } as const;
 
@@ -262,16 +260,16 @@ export const tribe = {
   follow: "Follow the tribe",
 } as const;
 
-// ── 09 Kaizen ───────────────────────────────────────────────────────────────
-export const kaizen = {
-  heading: "Small steps. Every day.",
-  sub: "Kaizen means continuous improvement. Real member transformations will appear here, shared with their permission.",
-  slots: 3,
-} as const;
-
-// ── 10 Proof ────────────────────────────────────────────────────────────────
+// ── 08 Kaizen: reviews + progress (one section) ─────────────────────────────
 export const proof = {
-  heading: "What members keep saying.",
+  heading: "Small steps. Real results.",
+  sub: "Kaizen means continuous improvement. Here's what members say about training with us, and where their progress stories will go.",
+  reviews: { title: "What members keep saying" },
+  progress: {
+    title: "Member progress",
+    line: "Real transformations will appear here, shared with each member's permission.",
+    slots: 3,
+  },
   numbers: [
     { value: "4.8", suffix: "★", label: "Google rating", confirmed: false },
     { value: "230", suffix: "+", label: "Google reviews", confirmed: false },
@@ -287,17 +285,19 @@ export const proof = {
   note: "Themes summarised from public reviews (Google, Justdial). Not direct quotes.",
 } as const;
 
-// ── 11 Yakusoku: plans ──────────────────────────────────────────────────────
-export type Plan = { id: string; name: string; price: string | null; per: string; confirmed: boolean; note: string; featured?: boolean };
+// ── 09 Yakusoku: plans ──────────────────────────────────────────────────────
+// `demoPrice` is a placeholder for layout only (shown with a SAMPLE tag), NOT a real IKIGAI price.
+// Replace with the client's real price list (then move it to `price` and set confirmed: true).
+export type Plan = { id: string; name: string; price: string | null; demoPrice?: string; per: string; confirmed: boolean; note: string; featured?: boolean };
 export const plans = {
   heading: "A promise to yourself.",
   sub: "Simple plans. Ask us anything before you join.",
   list: [
-    { id: "monthly", name: "Monthly", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
-    { id: "quarterly", name: "3 months", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
+    { id: "monthly", name: "Monthly", price: null, demoPrice: "₹2,000", per: "/ month", confirmed: false, note: "Demo price. Call or WhatsApp for the real one." },
+    { id: "quarterly", name: "3 months", price: null, demoPrice: "₹5,000", per: "/ 3 months", confirmed: false, note: "Demo price. Call or WhatsApp for the real one." },
     { id: "half", name: "6 months", price: "₹8,000", per: "/ 6 months", confirmed: false, note: "Seen in a promo. May be an offer." },
     { id: "annual", name: "12 months", price: "₹12,000", per: "/ 12 months", confirmed: false, note: "Seen in a promo. May be an offer.", featured: true },
-    { id: "pt", name: "Personal training", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
+    { id: "pt", name: "Personal training", price: null, demoPrice: "₹7,000", per: "/ month", confirmed: false, note: "Demo price. Call or WhatsApp for the real one." },
   ] as Plan[],
 } as const;
 
@@ -309,18 +309,7 @@ export const booking = {
   interests: ["Free trial", "Membership", "Boxing Club", "Personal training", "Yoga / Zumba / Bhangra"] as const,
 } as const;
 
-// ── 13 FAQ ──────────────────────────────────────────────────────────────────
-export const faq: { q: string; a: string; confirmed: boolean }[] = [
-  { q: "What are your timings?", a: "Monday to Saturday, 6:00 AM to 10:00 PM. Please check Sunday timings with us on WhatsApp.", confirmed: false },
-  { q: "Where exactly are you?", a: "138/345, First Floor, Doon Zone Tower, Jakhan, Rajpur Road, Dehradun 248001.", confirmed: true },
-  { q: "Is there parking?", a: "One listing mentions free on-site parking. Please confirm with us before you visit.", confirmed: false },
-  { q: "Is IKIGAI good for women?", a: "Yes. IKIGAI is a unisex, women-friendly gym. Ask us about women-only batches.", confirmed: false },
-  { q: "Can I try before joining?", a: "Message us on WhatsApp to book a trial session and we'll set it up.", confirmed: false },
-  { q: "I've never boxed. Can I join the Boxing Club?", a: "Message us and we'll tell you which batch suits a beginner.", confirmed: false },
-  { q: "What should I bring?", a: "Comfortable workout clothes, clean indoor shoes, a water bottle and a small towel.", confirmed: true },
-];
-
-// ── 14 Visit + footer ───────────────────────────────────────────────────────
+// ── 13 Visit + footer ───────────────────────────────────────────────────────
 export const visit = {
   heading: "Come and see it.",
   sub: "First floor, Doon Zone Tower, on Rajpur Road at Jakhan.",

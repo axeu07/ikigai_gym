@@ -14,8 +14,10 @@ export const sources = {
   airbike: { file: "ikigai-airbike.mp4", crop: "368:464:0:0" }, // 368x464
   treadmills: { file: "ikigai-treadmills.mp4", crop: "720:900:0:0" }, // 720x900, sharpest clip
   danceGroup: { file: "ikigai-dance-group.mp4", crop: "478:850:0:0" }, // 478x850
-  // background.mp4 (the edited treadmill promo). Captions are burned in from y≈448 down, so only the top 440px is used.
-  heroReel: { file: "ikigai-background.mp4", crop: "478:440:0:0" },
+  // background.mp4 (the edited treadmill promo), used whole: full 478x850 frame incl. its own captions.
+  heroReel: { file: "ikigai-background.mp4", crop: "478:850:0:0" },
+  // zumba.mp4: Zumba class, 478x850, 20.6 s, burned-in "Ikigai" logo + "Just another day at Ikigai!" (kept)
+  zumba: { file: "ikigai-zumba.mp4", crop: "478:850:0:0" },
 };
 
 /** Default output size for portrait loops. */
@@ -28,8 +30,10 @@ export const clips = [
   { id: "joy", size: circle, label: "Group dance class, women in front (JOY)", segments: [["danceGroup", 1.0, 8.0]], crop: { danceGroup: "478:478:0:300" } },
   { id: "power", size: circle, label: "Member on an air bike (POWER)", segments: [["airbike", 0.0, 4.9]], crop: { airbike: "368:368:0:50" } },
   { id: "tribe", size: circle, label: "Shadowboxing on a footbridge, Doon hills behind (TRIBE)", segments: [["shadowbox", 0.5, 8.0]], crop: { shadowbox: "478:478:0:300" } },
-  // hero background: the single steady treadmill shot (9–13.6 s; before that it's a collage, after it fades out)
-  { id: "hero-reel", size: { w: 478, h: 440 }, label: "Member running on a treadmill by the window (hero background)", segments: [["heroReel", 9.0, 13.6]] },
+  // hero video: the full background.mp4 promo (0–14.3 s), uncropped portrait, looped in the hero's left panel
+  { id: "hero-reel", size: { w: 478, h: 850 }, label: "Treadmill promo reel, full clip (hero left panel)", segments: [["heroReel", 0.0, 14.3]] },
+  // hero right panel: the full zumba.mp4, uncropped portrait
+  { id: "hero-zumba", size: { w: 478, h: 850 }, label: "Zumba class, full clip (hero right panel)", segments: [["zumba", 0.0, 20.6]] },
   { id: "sun", size: { w: 480, h: 480 }, label: "Treadmill row by the daylight window (hero sun circle)", boomerang: true, segments: [["treadmills", 0.0, 2.9]], crop: { treadmills: "720:720:0:120" } },
   // portrait cards
   { id: "dance-lead", size: { w: 360, h: 480 }, label: "Dance class, lead in front (caption cropped off)", segments: [["danceLead", 0.5, 9.5]] },
@@ -59,6 +63,19 @@ export const photos = [
   { id: "racks", file: "ikigai-racks.png", crop: "275:413:2:2", label: "Power racks with loaded barbells" },
   { id: "dumbbells", file: "ikigai-dumbbells.png", crop: "255:449:2:2", label: "Dumbbell rack along the mirror wall" },
   { id: "functional", file: "ikigai-functional.png", crop: "280:447:2:2", label: "Functional zone: storage cages, plyo box, machines" },
+  // Restore: AI-rendered facility stills supplied by the client team (2026-11-20). Labels/UI bars cropped off.
+  { id: "restore-steam", file: "ikigai-steam-ai.png", crop: "522:300:2:2", label: "Steam room: tiled benches, warm cove light, drifting steam" },
+  { id: "restore-washroom", file: "ikigai-washroom-ai.png", crop: "520:314:2:2", label: "Washroom: marble counter, vessel basins, backlit mirrors" },
+  { id: "restore-showers", file: "ikigai-showers-ai.png", crop: "530:288:0:0", label: "Row of glass-screened rain showers" },
+  { id: "restore-lockers", file: "ikigai-lockers-ai.png", crop: "520:296:0:0", label: "Wooden locker room with a bench" },
+  // Programs: stand-in photos supplied by the client team (not shot at IKIGAI) for Yoga + Bhangra
+  { id: "yoga", file: "ikigai-yoga.png", crop: "436:580:0:0", label: "Two women in a side-angle yoga stretch (programs, stand-in)" },
+  { id: "bhangra", file: "ikigai-bhangra.png", crop: "415:279:0:0", label: "Dance class mid-move, bhangra-style (programs, stand-in)" },
+  // Sensei: AI-generated stand-in portraits (640x800) until real trainer photos arrive.
+  { id: "coach-01", file: "ikigai-coach-02.png", crop: "640:800:0:0", label: "Coach portrait (AI stand-in)" },
+  { id: "coach-02", file: "ikigai-coach-01.png", crop: "640:800:0:0", label: "Coach portrait (AI stand-in)" },
+  { id: "coach-03", file: "ikigai-coach-03.png", crop: "640:800:0:0", label: "Coach portrait (AI stand-in)" },
+  { id: "coach-04", file: "ikigai-coach-04.png", crop: "640:800:0:0", label: "Coach portrait (AI stand-in)" },
 ];
 
 /**

@@ -1,0 +1,44 @@
+/*
+ * 08 Kaizen: reviews + progress on the pinned sideways journey (.hp-* in tail-motion.css).
+ * Left column: heading + the four rings. Track: a label card, four review-theme cards, a label card,
+ * three before/after sliders. IDs used so these win over older rules in sections.css / compact-tail.css.
+ */
+
+/* rings */
+#proof .rs-numbers { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); margin: 8px 0 0; }
+#proof .rs-numbers .pf-num dd { width: min(100%, 130px); font-size: clamp(26px, 2.4vw, 40px); }
+
+/* track cards */
+#proof .rs-sub { font-family: var(--ff-mono), monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sun); margin: 0; }
+#proof .pf-label { width: clamp(190px, 14vw, 230px); align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding-left: 18px; border-left: 2px solid var(--sun); }
+#proof .pf-note { margin: 0; font-size: 12.5px; color: var(--ash); }
+#proof .pf-theme { width: clamp(240px, 18vw, 300px); min-height: 250px; display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 18px; background: var(--sumi-2); border: 1px solid rgb(242 238 230 / 0.1); box-shadow: 0 24px 60px rgb(0 0 0 / 0.4); }
+#proof .pf-quote { font-family: var(--ff-display), Impact, sans-serif; font-size: 64px; line-height: 0.6; height: 30px; color: var(--sun); }
+#proof .pf-theme h4 { margin: 0; font-family: var(--ff-display), Impact, sans-serif; font-weight: 400; font-size: 24px; line-height: 1; text-transform: uppercase; color: var(--washi); }
+#proof .pf-theme p { margin: 0; font-size: 14px; color: rgb(242 238 230 / 0.72); }
+
+#proof .kz-card { width: clamp(220px, 17vw, 280px); }
+#proof .cmp { aspect-ratio: 4 / 5; border-radius: 14px; }
+#proof .cmp-handle { width: 36px; height: 36px; margin: -18px 0 0 -18px; font-size: 13px; }
+#proof .cmp-tag { font-size: 9px; top: 8px; }
+#proof .cmp-tag-before { left: 8px; }
+#proof .cmp-tag-after { right: 8px; }
+#proof .cmp .ink-ph .demo-tag { display: none; }
+#proof .kz-cap { margin-top: 8px; font-size: 13px; font-weight: 600; color: rgb(242 238 230 / 0.8); }
+
+/* pinned (desktop): rings 2×2 under the heading in the left column */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  #proof .hp-side .section-head { margin-bottom: 6px; }
+  #proof .hp-side .rs-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; max-width: 360px; margin-top: 14px; }
+  #proof .hp-side .rs-numbers .pf-num dd { width: min(100%, min(108px, 13svh)); font-size: clamp(22px, 1.9vw, 32px); }
+  #proof .hp-side .pf-num dt { margin-top: 6px; font-size: 10px; }
+}
+/* phones: rings 2×2, smaller cards */
+@media (max-width: 640px) {
+  #proof .rs-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #proof .pf-theme { width: min(74vw, 280px); min-height: 0; }
+  #proof .pf-label { width: min(52vw, 200px); }
+  #proof .kz-card { width: min(56vw, 220px); }
+  #proof .cmp-tag { display: none; }
+  #proof .kz-cap { font-size: 11px; }
+}

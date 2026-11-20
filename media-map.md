@@ -12,7 +12,7 @@ Originals live in `../ikigai_media` (WhatsApp exports and Instagram screenshots,
 | ikigai-floor.jpg | WhatsApp Image 10.53.14 | 1280×1600 | — | Strength floor, turf sled track, wall slogan "This place will change you, if you let it." | Good, the sharpest asset |
 | ikigai-shadowbox.mp4 | WhatsApp Video 10.53.10 (1) | 478×850 | 13.6 s | Man shadowboxing on a footbridge, Doon hills behind | OK |
 | ikigai-dance-lead.mp4 | WhatsApp Video 10.53.10 | 478×850 | 20.6 s | Dance class, male lead in front. Burned-in logo and caption (cropped off) | OK |
-| ikigai-background.mp4 | background.mp4 (= WhatsApp Video 10.53.12) | 478×850 | 14.3 s | Edited treadmill promo with burned-in captions | Hero background (`hero-reel`: 9–13.6 s, top 478×440 only, captions cropped off) |
+| ikigai-background.mp4 | background.mp4 (= WhatsApp Video 10.53.12) | 478×850 | 14.3 s | Edited treadmill promo with burned-in captions | Hero left panel (`hero-reel`: full 0–14.3 s, uncropped 478×850, looped) |
 | ikigai-airbike.mp4 | WhatsApp Video 10.53.13 | 368×464 | 5.1 s | Member on an air bike | Low-res, fine in a circle |
 | ikigai-treadmills.mp4 | WhatsApp Video 10.53.14 | 720×900 | 3.1 s | Treadmill row by the daylight window | Good |
 | ikigai-dance-group.mp4 | WhatsApp Video 10.53.15 | 478×850 | 21.2 s | Group dance/aerobics class, women in front | OK |
@@ -30,7 +30,8 @@ Originals live in `../ikigai_media` (WhatsApp exports and Instagram screenshots,
 
 | Asset id | Source | Used in |
 |---|---|---|
-| `hero-reel` (loop) | ikigai-background.mp4 | Hero background video, over the `gym-floor` still |
+| `hero-reel` (loop) | ikigai-background.mp4 | Hero: full clip in a portrait panel on the left |
+| `hero-zumba` (loop) | ikigai-zumba.mp4 (zumba.mp4, 478×850, 20.6 s) | Hero: full clip in a portrait panel on the right (desktop only); centre stays dark |
 | `og.jpg` (1200×630) | ikigai-floor.jpg | Open Graph / Twitter share image |
 | `joy` / `power` / `tribe` (square loops) | dance-group / airbike / shadowbox | Philosophy circles JOY, POWER, TRIBE |
 | `steam-room` | poster tile | Philosophy RESTORE circle, Find your circle, Restore |
@@ -53,7 +54,7 @@ Sources: `media-src/bg/panoramic/ikigai-<id>-pano-4k.jpg` (3840×2160) and `medi
 
 | Background | Section |
 |---|---|
-| `gym-floor` | Hero, right side (preloaded); `hero-reel` (background.mp4) plays in a masked panel on the left |
+| `gym-floor` | Not used in the hero any more (hero is video-only on the left, plain dark elsewhere) |
 | `boxing-mural` | 05 Boxing (full section) |
 | `functional` | 08 Tribe |
 | `exterior` | 14 Visit |

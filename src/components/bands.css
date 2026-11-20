@@ -1,0 +1,33 @@
+/* Calmer marquee bands (only two left on the page) + the 間 seam transition. Overrides globals.css. */
+.bands-single { padding-block: 18px; }
+.bands-single .band { transform: rotate(-0.8deg); padding: 10px 0; }
+.bands-single .band-paper { transform: rotate(0.6deg); margin-top: 0; }
+.bands-single .band-track { animation-duration: 60s; }
+.bands-single .band-row span { font-size: clamp(22px, 3vw, 36px); gap: 20px; padding-right: 20px; }
+
+.seam {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(36px, 6vw, 72px) var(--gutter);
+  background: linear-gradient(180deg, var(--sumi), #100d0b 50%, var(--sumi));
+}
+.seam-line { flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, rgb(255 90 31 / 0.8)); }
+.seam-line-l { transform-origin: 100% 50%; }
+.seam-line-r { transform-origin: 0 50%; background: linear-gradient(270deg, transparent, rgb(255 90 31 / 0.8)); }
+.seam-mark { position: relative; display: grid; place-items: center; width: 48px; height: 48px; flex: none; }
+.seam-mark svg { position: absolute; inset: 0; fill: none; stroke: var(--sun); stroke-width: 2.5; stroke-linecap: round; }
+.seam-mark .jp { font-size: 16px; color: var(--washi); }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seam-line { animation: seam-draw linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+    .seam-mark { animation: seam-mark linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  }
+}
+@keyframes seam-draw { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+@keyframes seam-mark { from { transform: rotate(-120deg) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+
+html.is-stacked .seam + .section[data-stack] { margin-top: -12px; }

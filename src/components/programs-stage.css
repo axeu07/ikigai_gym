@@ -1,0 +1,100 @@
+/*
+ * 03 Michi: two-column stage (heading left, card rail right) + hanging-scroll (kakejiku) cards.
+ * Overrides the older full-width rail rules in globals.css / sections.css.
+ */
+
+/* ── layout ── */
+.programs .pg-intro { padding: clamp(80px, 11vw, 150px) var(--gutter) 8px; }
+.programs .pg-intro .section-head { margin-bottom: 0; }
+.programs .pg-intro .pg-hud { position: relative; top: auto; padding: 22px 0 14px; }
+.programs .pg-view { min-width: 0; }
+
+@media (min-width: 1024px) {
+  .programs .pg-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(16px, 2vw, 40px);
+    padding-block: clamp(80px, 9vw, 120px) 24px;
+  }
+  .programs .pg-intro { padding: 0 0 0 var(--gutter); }
+  .programs .pg-intro .pg-hud { padding-bottom: 0; }
+  .programs .pg-stage .pg-list { padding: 18px var(--gutter) 28px 36px; }
+  .programs .pg-stage .pg-card { width: clamp(240px, 19vw, 320px); }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .programs .pg-stage { height: 100svh; padding-block: 0; overflow: hidden; }
+  .programs .pg-view {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 48px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 48px), transparent);
+  }
+  .programs .pg-stage .pg-list { padding-block: 18px; }
+  .programs .pg-stage .pg-media { height: min(46vh, 25vw); }
+}
+
+/* ── kakejiku card ── */
+.programs .pg-stage .pg-card {
+  padding: 22px 16px 26px;
+  border-radius: 3px;
+  background: var(--paper-grain), linear-gradient(180deg, #181614, #121110);
+  border: 1px solid rgb(242 238 230 / 0.1);
+  box-shadow: 0 24px 50px rgb(0 0 0 / 0.45);
+  overflow: visible;
+}
+.programs .pg-stage .pg-media { border-radius: 2px; position: relative; box-shadow: 0 0 0 1px rgb(242 238 230 / 0.08), 0 0 0 6px #0d0c0b; }
+
+/* wooden rods (jiku) with ember end caps */
+.pg-rod { position: absolute; left: -9px; right: -9px; height: 11px; border-radius: 6px; background: linear-gradient(180deg, #4a3526, #1d140e 70%); box-shadow: 0 3px 8px rgb(0 0 0 / 0.6); pointer-events: none; z-index: 2; }
+.pg-rod::before, .pg-rod::after { content: ""; position: absolute; top: -2px; width: 9px; height: 15px; border-radius: 3px; background: linear-gradient(180deg, var(--glow), var(--sun-deep)); }
+.pg-rod::before { left: -4px; }
+.pg-rod::after { right: -4px; }
+.pg-rod-t { top: -6px; }
+.pg-rod-b { bottom: -6px; }
+.programs .pg-stage .pg-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -34px;
+  width: 44%;
+  height: 30px;
+  transform: translateX(-50%);
+  background: linear-gradient(to top right, transparent calc(50% - 0.6px), rgb(242 238 230 / 0.25) 50%, transparent calc(50% + 0.6px)) left / 50% 100% no-repeat,
+    linear-gradient(to top left, transparent calc(50% - 0.6px), rgb(242 238 230 / 0.25) 50%, transparent calc(50% + 0.6px)) right / 50% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* paper strip (tanzaku) pasted on the picture, program in vertical kanji */
+.pg-tanzaku {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 12px 7px;
+  writing-mode: vertical-rl;
+  font-size: 17px;
+  letter-spacing: 0.22em;
+  color: #1b1712;
+  background: var(--paper-grain), var(--washi);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.45);
+  border-top: 3px solid var(--sun);
+}
+
+/* daiji numeral line */
+.pg-no { margin: 14px 0 2px; display: flex; align-items: baseline; gap: 8px; font-family: var(--ff-mono), monospace; font-size: 11px; letter-spacing: 0.18em; color: var(--ash); }
+.pg-no .jp { font-size: 18px; letter-spacing: 0; color: var(--sun); }
+.programs .pg-stage .pg-card h3 { font-size: clamp(22px, 1.9vw, 30px); }
+.programs .pg-stage .pg-card p:not(.pg-no) { font-size: 14px; }
+
+/* pills: pillar top-left; "preview" moves off the tanzaku side */
+.programs .pg-stage .pg-pillar { top: 34px; left: 28px; }
+.programs .pg-stage .pg-play { right: auto; left: 28px; top: 64px; }
+
+/* the strip is a child of .pg-media, whose children are forced to 100% × 100% in sections.css */
+.programs .pg-media > .pg-tanzaku { display: block; width: auto; height: auto; }
+/* room between scrolls so the rods don't join into one bar */
+.programs .pg-stage .pg-list { gap: 40px; }
+.programs .pg-media > .ink-ph { display: grid; }

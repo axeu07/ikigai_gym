@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T07:14:41.875Z",
+  "generatedAt": "2026-11-20T12:04:07.340Z",
   "inventory": [
     {
       "file": "ikigai-airbike.mp4",
@@ -18,12 +18,52 @@
       "sizeKB": 2083
     },
     {
+      "file": "ikigai-bhangra.png",
+      "type": "image",
+      "width": 415,
+      "height": 279,
+      "duration": null,
+      "sizeKB": 169
+    },
+    {
       "file": "ikigai-boxing-mural.png",
       "type": "image",
       "width": 283,
       "height": 456,
       "duration": null,
       "sizeKB": 227
+    },
+    {
+      "file": "ikigai-coach-01.png",
+      "type": "image",
+      "width": 640,
+      "height": 800,
+      "duration": null,
+      "sizeKB": 174
+    },
+    {
+      "file": "ikigai-coach-02.png",
+      "type": "image",
+      "width": 640,
+      "height": 800,
+      "duration": null,
+      "sizeKB": 119
+    },
+    {
+      "file": "ikigai-coach-03.png",
+      "type": "image",
+      "width": 640,
+      "height": 800,
+      "duration": null,
+      "sizeKB": 166
+    },
+    {
+      "file": "ikigai-coach-04.png",
+      "type": "image",
+      "width": 640,
+      "height": 800,
+      "duration": null,
+      "sizeKB": 146
     },
     {
       "file": "ikigai-dance-group.mp4",
@@ -82,6 +122,14 @@
       "sizeKB": 222
     },
     {
+      "file": "ikigai-lockers-ai.png",
+      "type": "image",
+      "width": 520,
+      "height": 350,
+      "duration": null,
+      "sizeKB": 266
+    },
+    {
       "file": "ikigai-plate-machine.png",
       "type": "image",
       "width": 278,
@@ -122,6 +170,14 @@
       "sizeKB": 2361
     },
     {
+      "file": "ikigai-showers-ai.png",
+      "type": "image",
+      "width": 530,
+      "height": 307,
+      "duration": null,
+      "sizeKB": 311
+    },
+    {
       "file": "ikigai-sign-venn.png",
       "type": "image",
       "width": 286,
@@ -130,12 +186,44 @@
       "sizeKB": 224
     },
     {
+      "file": "ikigai-steam-ai.png",
+      "type": "image",
+      "width": 526,
+      "height": 304,
+      "duration": null,
+      "sizeKB": 298
+    },
+    {
       "file": "ikigai-treadmills.mp4",
       "type": "video",
       "width": 720,
       "height": 900,
       "duration": 3.1,
       "sizeKB": 442
+    },
+    {
+      "file": "ikigai-washroom-ai.png",
+      "type": "image",
+      "width": 524,
+      "height": 318,
+      "duration": null,
+      "sizeKB": 297
+    },
+    {
+      "file": "ikigai-yoga.png",
+      "type": "image",
+      "width": 436,
+      "height": 580,
+      "duration": null,
+      "sizeKB": 293
+    },
+    {
+      "file": "ikigai-zumba.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 20.62,
+      "sizeKB": 3598
     }
   ],
   "videos": {
@@ -189,18 +277,34 @@
     },
     "hero-reel": {
       "id": "hero-reel",
-      "label": "Member running on a treadmill by the window (hero background)",
+      "label": "Treadmill promo reel, full clip (hero left panel)",
       "width": 478,
-      "height": 440,
-      "duration": 4.6,
+      "height": 850,
+      "duration": 14.33,
       "mp4": "/media/video/hero-reel.mp4",
       "webm": "/media/video/hero-reel.webm",
       "poster": "/media/video/hero-reel.jpg",
       "posterAvif": "/media/video/hero-reel.avif",
       "placeholder": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBgCdASoUABIAPu1mq06ppaOiKA1RMB2JQBhp3AYIB+gHv/3YAAnSgyRcTAr+myF8VKlz9MDO8YAA+evJizQVCo7eJcLwet+38hYcSDUne0ReOPrixgplrUwYV9nC8fvMDqp0lJSptZiq0Zr42Pa0KBQFsG2Js3OybsAvAAA=",
       "sizeKB": {
-        "mp4": 152,
-        "webm": 201
+        "mp4": 1188,
+        "webm": 1493
+      }
+    },
+    "hero-zumba": {
+      "id": "hero-zumba",
+      "label": "Zumba class, full clip (hero right panel)",
+      "width": 478,
+      "height": 850,
+      "duration": 20.6,
+      "mp4": "/media/video/hero-zumba.mp4",
+      "webm": "/media/video/hero-zumba.webm",
+      "poster": "/media/video/hero-zumba.jpg",
+      "posterAvif": "/media/video/hero-zumba.avif",
+      "placeholder": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAABwBgCdASoUACQAPt1apU2opSOiOrZoARAbiWgAp00AOf8c7KuAx5k+XDvWiypVndqbk3o1oqV14RX0nbAA/qNrDj7cg/AntnGX76fuKaKTr72DcHxciRK2sP+bGmK6YPiaY8sMJVgHpDb+AWhjbzHkpifM10wg2poGMzzBFY/zSz0OV5yhaEcMXEdLE73V3Gb/yrfkOyWpia30AcRyUCMFkRq2GPGTxkpb8gGIEXcyeP4heZ4D4/Y/TXWlJYAAAAA=",
+      "sizeKB": {
+        "mp4": 2266,
+        "webm": 2917
       }
     },
     "sun": {
@@ -434,6 +538,134 @@
       "base": "/media/img/functional",
       "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQBACdASoUACAAPu1qrlCppaQiqAqpMB2JZwAAMXnhrNOUmPPeJ30Xv5kYZDMwAAD+7FOTZ31UQIcqlcx3OsWRurFY19IJmWTGOTvjS9SwwjpgolfmHC73JPyy6URnCKa1QAAA",
       "source": "ikigai-functional.png"
+    },
+    "restore-steam": {
+      "id": "restore-steam",
+      "label": "Steam room: tiled benches, warm cove light, drifting steam",
+      "width": 522,
+      "height": 300,
+      "widths": [
+        480,
+        522
+      ],
+      "base": "/media/img/restore-steam",
+      "placeholder": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4WAoAAAAQAAAAEwAACwAAQUxQSBEAAAABD/Ca/4iIMP8R/Y8AAAAAAABWUDggZAAAABAFAJ0BKhQADAA+7WKqTamlpCIwCAEwHYlsAJ0yhHAe4DBAP0A9/8B3U0V113OvfeAA/kEak9YjZSYTsIzmF+giZbv3s+z+k1QdtApfVxYydYN1ukLMS44XuGfZpikDcTpAAAA=",
+      "source": "ikigai-steam-ai.png"
+    },
+    "restore-washroom": {
+      "id": "restore-washroom",
+      "label": "Washroom: marble counter, vessel basins, backlit mirrors",
+      "width": 520,
+      "height": 314,
+      "widths": [
+        480,
+        520
+      ],
+      "base": "/media/img/restore-washroom",
+      "placeholder": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4WAoAAAAQAAAAEwAACwAAQUxQSBEAAAABD/Ca/4iIMP8R/Y8AAAAAAABWUDggcgAAAFAFAJ0BKhQADAA+7WSrTimlpCIwCAEwHYlqAJ0yhHAe4DBAP0A9/8B3M9coq//kj0kKAAD+QTfttXmMiqJYVpV1qlgNUy0l2o7isuP+j/HiEJAzd9jWrSwzXtewn9FgpFcZEoOhHQY9LkkVpiyVeZXAAA==",
+      "source": "ikigai-washroom-ai.png"
+    },
+    "restore-showers": {
+      "id": "restore-showers",
+      "label": "Row of glass-screened rain showers",
+      "width": 530,
+      "height": 288,
+      "widths": [
+        480,
+        530
+      ],
+      "base": "/media/img/restore-showers",
+      "placeholder": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4WAoAAAAQAAAAEwAACQAAQUxQSBgAAAABD/Ca/4iIQJhtNIP5W87g3mcQ0f8cTwJWUDggYAAAANAEAJ0BKhQACgA+7XKtT6mnpCIwCAEwHYlsAJ0ygoAGCAfoB7/4DuGEybAJ4vwAAP7a09B3P5ZBV0Pe9ILVJP2WdRizdZDBZ2xN1GLMj/XlRHtP7dJhuWZEQR0/bCGAAA==",
+      "source": "ikigai-showers-ai.png"
+    },
+    "restore-lockers": {
+      "id": "restore-lockers",
+      "label": "Wooden locker room with a bench",
+      "width": 520,
+      "height": 296,
+      "widths": [
+        480,
+        520
+      ],
+      "base": "/media/img/restore-lockers",
+      "placeholder": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4WAoAAAAQAAAAEwAACwAAQUxQSBEAAAABD/Ca/4iIMP8R/Y8AAAAAAABWUDggbAAAADAFAJ0BKhQADAA+7WSqTimlpCIwCAEwHYlqAJ0yhHAe4DBAP1A9/8B5caAgyf44qXiAAP6H4DjsfmlEBVpH3oAfNbfY9BYw/6P970+gsW3G23e//WDvf/ruXv42wQvn/+1+j/VfvwadlgAAAA==",
+      "source": "ikigai-lockers-ai.png"
+    },
+    "yoga": {
+      "id": "yoga",
+      "label": "Two women in a side-angle yoga stretch (programs, stand-in)",
+      "width": 436,
+      "height": 580,
+      "widths": [
+        436
+      ],
+      "base": "/media/img/yoga",
+      "placeholder": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwBQCdASoUABoAPu1mrU+ppSQiMBgIATAdiWUAx+QQ8CTfhGUmdcQ/GHSezJFOlqcAIAD+6xFPBM1TgQuzM5qRTym/Qucb7lecYq8HnSjjPnwOEcga27AYkF5Cs9JqFVn9TTEZak5SpVgcmgdgNbWaHeals67Coa90cAAA",
+      "source": "ikigai-yoga.png"
+    },
+    "bhangra": {
+      "id": "bhangra",
+      "label": "Dance class mid-move, bhangra-style (programs, stand-in)",
+      "width": 414,
+      "height": 278,
+      "widths": [
+        414
+      ],
+      "base": "/media/img/bhangra",
+      "placeholder": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADQBQCdASoUAA4APu1iqU2ppaQiMAgBMB2JbACxCX/3AP8BhAH6ge//ds36qgYFIiyh/R98QH9AAP7rRrS3JiO2ljFN/3reUVXse7ZbnHoSlzmcn4A9vRK/b4lY1xVKTPbOTm13+yzAxr+F979JMDCwO9Yypmw+suuMRvH//zyFX3/++gXmdPGJs7z7xlNWgAA=",
+      "source": "ikigai-bhangra.png"
+    },
+    "coach-01": {
+      "id": "coach-01",
+      "label": "Coach portrait (AI stand-in)",
+      "width": 640,
+      "height": 800,
+      "widths": [
+        480,
+        640
+      ],
+      "base": "/media/img/coach-01",
+      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwBACdASoUABoAPu1mq06ppaQjKA1RMB2JZwDMHBEc0eET8nhhrr8atntwearwAP7ymma/Qjm8s2/3TOvtBt55wQNJY6kse357v+V79fgAHEAA",
+      "source": "ikigai-coach-02.png"
+    },
+    "coach-02": {
+      "id": "coach-02",
+      "label": "Coach portrait (AI stand-in)",
+      "width": 640,
+      "height": 800,
+      "widths": [
+        480,
+        640
+      ],
+      "base": "/media/img/coach-02",
+      "placeholder": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBQCdASoUABoAPu1ip02ppaMiMAgBMB2JZQDGQCIj3Ry2f9mMMVSvxfl7nhgoQngAAP7w1KY7GP7FwOaeKsoU6Y7WEdUOr6DFzZ9X/yJt9fabzUP8E1rUmv0BMAAA",
+      "source": "ikigai-coach-01.png"
+    },
+    "coach-03": {
+      "id": "coach-03",
+      "label": "Coach portrait (AI stand-in)",
+      "width": 640,
+      "height": 800,
+      "widths": [
+        480,
+        640
+      ],
+      "base": "/media/img/coach-03",
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwBACdASoUABoAPu1wrlKppiQiqAgBMB2JZwAALnfigZK5DUQ5BBx9v4+wpY1gAP7uj7gJ9/lrz+ZE7iccFkxwmTcqwjsokweFIDme3SeAZ144dnWQAAAA",
+      "source": "ikigai-coach-03.png"
+    },
+    "coach-04": {
+      "id": "coach-04",
+      "label": "Coach portrait (AI stand-in)",
+      "width": 640,
+      "height": 800,
+      "widths": [
+        480,
+        640
+      ],
+      "base": "/media/img/coach-04",
+      "placeholder": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQBACdASoUABoAPu1iq1AppSOisBgIATAdiWcAzBwQ7OsXXHnY7BHELXCRk4sUAAD+6+L4AMnW1cgrE5fRWpDyleD1x+ofLGX7O8fAFHe/wifDxS+CmTwhy240AAAA",
+      "source": "ikigai-coach-04.png"
     }
   },
   "backgrounds": {

@@ -1,7 +1,7 @@
 "use client";
 /**
- * 01 始め Hajime: full-screen cinematic hero. The enhanced gym-floor still paints first (preloaded,
- * pano ≥768px / portrait below); the treadmill reel fades in over it once it plays. Dark gradient + fine grain hide the low-res footage.
+ * 01 始め Hajime: full-screen hero. Two full portrait loops frame a dark centre: the treadmill promo
+ * (background.mp4) on the left, the Zumba class (zumba.mp4) on the right; the Venn + headline sit between.
  * The intro's Venn lands exactly on `.hero-venn`. At ignite, an ember glow spreads and
  * "FIND YOUR IKIGAI" catches letter by letter.
  */
@@ -10,17 +10,15 @@ import { gsap, SplitText, useGSAP } from "@/lib/motion";
 import { whenIgnited } from "@/lib/intro";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { hero, waLink } from "@/lib/content";
-import { backgrounds, srcSet, BG_WIDE } from "@/lib/media";
 import Button, { WhatsAppIcon } from "./Button";
 import Venn from "./Venn";
-import { BgPicture, LoopVideo } from "./Media";
+import { LoopVideo } from "./Media";
 import { StatusChip } from "./ui";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const [lit, setLit] = useState(false);
-  const bg = backgrounds[hero.bg];
 
   useGSAP(
     () => {
@@ -48,23 +46,14 @@ export default function Hero() {
 
   return (
     <section ref={root} id="top" className="hero" aria-labelledby="top-title">
-      {/* the only preloaded background (React hoists these into <head>); AVIF-capable browsers only */}
-      {bg && (
-        <>
-          <link rel="preload" as="image" type="image/avif" media={BG_WIDE} imageSrcSet={srcSet(bg.pano, "avif")} imageSizes="100vw" fetchPriority="high" />
-          <link rel="preload" as="image" type="image/avif" media={`not all and ${BG_WIDE}`} imageSrcSet={srcSet(bg.portrait, "avif")} imageSizes="100vw" fetchPriority="high" />
-        </>
-      )}
-      <div className="hero-media" aria-hidden>
-        <div className="hero-par" data-parallax>
-          <BgPicture id={hero.bg} priority imgClassName="hero-poster" />
-        </div>
-      </div>
-      <div className="hero-shade" aria-hidden />
-      {/* background.mp4 (hero-reel): a clearly visible panel on the left, behind the headline, fading into
-          the photo on the right and into the page at the bottom */}
+      {/* background.mp4 (hero-reel): the full promo loops in a portrait panel on the left; the rest of
+          the hero stays on the plain dark background */}
       <div className="hero-vid" aria-hidden>
         <LoopVideo id={hero.video} className="hero-vid-el" play={lit} eager />
+      </div>
+      {/* zumba.mp4 (hero-zumba): the mirror panel on the right (desktop only); the centre stays dark */}
+      <div className="hero-vid is-right" aria-hidden>
+        <LoopVideo id={hero.videoRight} className="hero-vid-el" play={lit} />
       </div>
       <div className="grain" aria-hidden />
       <div className="hero-glow" aria-hidden />
@@ -78,6 +67,7 @@ export default function Hero() {
           <Venn className="hero-venn" />
         </div>
 
+        {/* right column (desktop): headline + intro sit under the Venn */}
         <div className="hero-copy">
           <p className="hero-kicker hero-in">{hero.kicker}</p>
           <h1 id="top-title" className="hero-title" aria-label={hero.headline.join(" ")}>
@@ -95,6 +85,10 @@ export default function Hero() {
           <p className="hero-sub hero-in" style={{ ["--d" as string]: "350ms" }}>
             <strong>{hero.tagline}</strong> {hero.sub}
           </p>
+        </div>
+
+        {/* left column (desktop): buttons + open chip, over the video */}
+        <div className="hero-actions">
           <div className="hero-ctas hero-in" style={{ ["--d" as string]: "450ms" }}>
             <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
             <Button href={waLink(hero.ctaWhatsApp.text)} external variant="ghost" icon={<WhatsAppIcon />}>

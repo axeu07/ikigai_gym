@@ -1,0 +1,224 @@
+/*
+ * Scroll motion for the second half of the page (05 Restore → 09 Plans + trial). 06–09 share the pinned
+ * sideways journey (.hp-*). Imported from page.tsx
+ * after compact-tail.css and before mobile.css. IDs are used so these win over sections.css /
+ * compact-tail.css. Pinned layouts sit behind the same media query the components use for their
+ * GSAP pins, so the layout is final before a pin measures. Transform / opacity only (plus the Sensei
+ * ink clip-path).
+ */
+
+/* ───────────── 05 Restore: pinned locker room ───────────── */
+#restore .rs-pin { position: relative; }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* block, not flex: a flex parent makes GSAP drop the pin spacing */
+  #restore.section { padding-block: 0; display: block; min-height: 0; }
+  #restore .rs-pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(84px, 10vh, 120px) clamp(28px, 5vh, 56px); }
+  #restore .rs-layout { align-items: center; }
+  /* fill the column (was a narrow cabinet pushed right, leaving a dead middle), capped by screen height */
+  #restore .lk-cabinet { max-width: min(100%, calc((100svh - 190px) * 1.2)); margin-inline: auto 0; }
+}
+/* scrubbed doors: GSAP drives --p (0 → 1) per door; a clicked door still shuts / reopens */
+#restore.rs-scrub .lk-door { transition: none; transform: rotateY(calc(var(--open) * var(--p, 0))); }
+#restore.rs-scrub .lk-door[data-touched] { transition: transform 0.9s var(--ease); }
+#restore.rs-scrub .lk-door[data-shut="true"] { transform: rotateY(0deg); }
+#restore.rs-scrub .lk-door[data-shut="true"]:hover { transform: rotateY(var(--ajar)); }
+#restore.rs-scrub .lk-menu { transition: none; }
+/* thicker steam to scrub towards */
+#restore.rs-scrub .steam span { background: radial-gradient(circle, rgb(201 163 106 / 0.26), transparent 65%); }
+
+/* ───────────── shared: pinned sideways journey (.hp-*, lib/useHorizontalPin.ts) ─────────────
+   Used by 06 Sensei, 08 Proof, 09 Plans (07 Tribe has its own rules below). Same media query as the
+   hook, so the layout is final before the pin measures. */
+.hp-section .hp-pin { position: relative; z-index: 2; }
+.hp-section .hp-trail { display: none; }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* block, not flex: a flex parent makes GSAP drop the pin spacing */
+  .hp-section.section { padding-block: 0; display: block; min-height: 0; }
+  .hp-section .hp-pin {
+    height: 100svh;
+    display: grid;
+    grid-template-columns: minmax(320px, 0.36fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: center;
+    padding-block: clamp(90px, 11vh, 120px) clamp(22px, 4vh, 44px);
+  }
+  .hp-section .hp-side { grid-column: 1; grid-row: 1 / 3; align-self: center; max-width: none; margin: 0; padding-right: 0; }
+  .hp-section .hp-viewport {
+    position: relative; z-index: 1; grid-column: 2; grid-row: 1; height: 100%; display: flex; align-items: center; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .hp-section .hp-track { list-style: none; margin: 0; display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); width: max-content; padding: 24px var(--gutter) 28px; }
+  .hp-section .hp-track > * { flex: none; }
+  .hp-section .hp-trail { grid-column: 2; grid-row: 2; display: flex; align-items: center; gap: 14px; padding-inline: var(--gutter); font-family: var(--ff-mono), monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ash); }
+  .hp-section .hp-trail i { position: relative; flex: 1; height: 2px; background: repeating-linear-gradient(90deg, rgb(242 238 230 / 0.22) 0 8px, transparent 8px 14px); }
+  .hp-section .hp-trail-fill { position: absolute; inset: 0; background: var(--sun); transform: scaleX(0); transform-origin: 0 50%; }
+}
+/* phones / tablets / reduced motion: a native swipe row */
+@media not all and (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .hp-section .hp-viewport { margin-top: 20px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .hp-section .hp-viewport::-webkit-scrollbar { display: none; }
+  .hp-section .hp-track { list-style: none; margin: 0; display: flex; align-items: stretch; gap: 14px; width: max-content; padding: 8px var(--gutter) 16px; }
+  .hp-section .hp-track > * { flex: none; scroll-snap-align: start; }
+}
+
+/* ───────────── 06 Sensei: coach cards + giant drifting name + ink-bleed portraits ───────────── */
+#sensei .ss-giant { margin: 0; white-space: nowrap; font-family: var(--ff-display), Impact, sans-serif; line-height: 0.84; text-transform: uppercase; color: rgb(242 238 230 / 0.07); pointer-events: none; user-select: none; overflow: hidden; }
+#sensei .ss-giant-track { display: inline-flex; gap: 0.3em; padding-left: var(--gutter); will-change: transform; }
+#sensei .ss-giant-track > span { display: inline-flex; align-items: center; gap: 0.18em; }
+#sensei .ss-giant-track > span:nth-child(even) { color: transparent; -webkit-text-stroke: max(1.5px, 0.004em) rgb(242 238 230 / 0.22); }
+#sensei .ss-giant i { font-style: normal; font-family: var(--ff-jp), serif; font-size: 0.3em; line-height: 1; color: var(--sun); -webkit-text-stroke: 0; opacity: 0.8; }
+
+#sensei .ss-card { width: min(19vw, 44svh, 320px); min-width: 230px; padding: 12px 12px 18px; border-radius: 18px; background: var(--sumi-2); border: 1px solid rgb(242 238 230 / 0.1); box-shadow: 0 24px 60px rgb(0 0 0 / 0.45); }
+#sensei .ss-card.is-lead { width: min(23vw, 50svh, 380px); border-color: rgb(255 90 31 / 0.55); }
+#sensei .ss-ink { position: relative; border-radius: 12px; overflow: hidden; }
+#sensei picture.ss-photo { display: block; overflow: hidden; }
+#sensei .ss-sample { position: absolute; left: 10px; bottom: 10px; z-index: 1; }
+#sensei .ss-ink .ss-photo { aspect-ratio: 4 / 5; min-height: 0; border-radius: 0; }
+#sensei .ss-idx { margin-top: 14px; font-family: var(--ff-mono), monospace; font-size: 12px; color: var(--sun); }
+#sensei .ss-card-name { margin-top: 4px; font-family: var(--ff-display), Impact, sans-serif; font-weight: 400; font-size: clamp(24px, 2vw, 34px); line-height: 1; text-transform: uppercase; color: var(--washi); }
+#sensei .ss-card.is-lead .ss-card-name { font-size: clamp(30px, 2.6vw, 44px); }
+#sensei .ss-role { grid-column: auto; margin-top: 8px; }
+#sensei .ss-bio { margin-top: 8px; font-size: 13px; color: rgb(242 238 230 / 0.65); }
+
+/* the weekly timetable shares the pinned screen with the coaches (compact version of .tt) */
+#sensei .ss-tt { position: relative; z-index: 2; margin-top: 0; padding: clamp(14px, 1.6vw, 22px); background: rgb(20 19 18 / 0.88); border: 1px solid var(--line); }
+#sensei .ss-tt .tt-head { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 10px; }
+#sensei .ss-tt .h-sub { font-size: clamp(22px, 1.8vw, 30px); }
+#sensei .ss-tt .tt-note { font-size: 11px; line-height: 1.4; }
+#sensei .ss-tt .tt-tabs { gap: 4px; padding-bottom: 0; }
+#sensei .ss-tt .tt-tab { flex: 1 0 auto; min-width: 0; min-height: 38px; padding: 6px 8px; font-size: 11px; }
+#sensei .ss-tt .tt-today { font-size: 8px; }
+#sensei .ss-tt .tt-rows { margin-top: 8px; }
+#sensei .ss-tt .tt-row { grid-template-columns: 76px 1fr auto auto; gap: 10px; padding: 8px 6px; font-size: 12px; }
+#sensei .ss-tt .tt-name { font-size: 14px; }
+#sensei .ss-tt .tt-mins { font-size: 11px; }
+#sensei .ss-tt .tt-flag { grid-column: auto; font-size: 9px; padding: 2px 8px; }
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* the giant name sits behind the cards, low on the screen */
+  #sensei .ss-giant { position: absolute; left: 0; right: 0; bottom: 5svh; z-index: 0; font-size: clamp(7rem, 16vw, 18rem); }
+  /* left column: heading + timetable; right column: coach cards + trail */
+  #sensei .ss-pin { grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 0; padding-top: clamp(84px, 10vh, 110px); }
+  #sensei .hp-side { grid-row: 1; align-self: end; }
+  #sensei .hp-side .section-head { margin-bottom: 0; }
+  #sensei .hp-side .h-mega { font-size: clamp(36px, min(3.6vw, 6.4svh), 64px); }
+  #sensei .hp-side .lede { margin-top: 8px; font-size: 14px; }
+  #sensei .ss-tt { grid-column: 1; grid-row: 2 / 4; align-self: start; margin: clamp(14px, 2.4svh, 24px) 0 0 var(--gutter); }
+  #sensei .hp-viewport { grid-row: 1 / 3; }
+  #sensei .hp-trail { grid-row: 3; }
+  #sensei .ss-card { width: min(17vw, 38svh, 300px); min-width: 210px; }
+  #sensei .ss-card.is-lead { width: min(20vw, 44svh, 340px); }
+}
+/* short laptop screens: drop the lede so heading + timetable still fit */
+@media (min-width: 1024px) and (max-height: 820px) and (prefers-reduced-motion: no-preference) {
+  #sensei .hp-side .lede { display: none; }
+}
+@media not all and (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  #sensei .ss-pin { display: flex; flex-direction: column; }
+  #sensei .hp-side { order: 1; }
+  #sensei .ss-giant { order: 2; margin-top: 16px; font-size: 22vw; color: rgb(242 238 230 / 0.12); }
+  #sensei .hp-viewport { order: 3; }
+  #sensei .ss-tt { order: 4; margin: 16px var(--gutter) 0; }
+  #sensei .ss-card, #sensei .ss-card.is-lead { width: min(70vw, 280px); min-width: 0; }
+}
+
+/* ───────────── 07 Tribe: light washi paper + sideways journey ───────────── */
+#tribe.tribe-light {
+  --fg: var(--sumi);
+  --muted: #5f5a55;
+  --line: var(--line-paper);
+  --sun: #c2410c; /* deep ember for contrast on paper */
+  background: var(--washi) var(--paper-grain);
+  color: var(--sumi);
+}
+#tribe.tribe-light .lede { color: #4a4642; }
+#tribe.tribe-light .ghost-num { -webkit-text-stroke-color: rgb(14 14 14 / 0.09); }
+#tribe.tribe-light .micro-kanji .jp { color: var(--sumi); }
+#tribe.tribe-light .tb-events li { background: rgb(255 255 255 / 0.6); border-color: rgb(14 14 14 / 0.1); box-shadow: 0 10px 30px rgb(60 40 20 / 0.06); }
+#tribe.tribe-light .tb-events h3 { color: var(--sumi); }
+#tribe.tribe-light .tb-events p { color: #4a4642; }
+#tribe.tribe-light .tb-open { background: #fff; box-shadow: 0 14px 30px rgb(60 40 20 / 0.18); }
+#tribe.tribe-light .tb-open:hover { box-shadow: 0 24px 50px rgb(194 65 12 / 0.22); }
+#tribe.tribe-light .stack-shade { background: #2a2016; }
+#tribe .tb-pin { position: relative; z-index: 2; }
+#tribe .tb-follow { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+#tribe .tb-trail { display: none; }
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  #tribe.section { padding-block: 0; display: block; min-height: 0; }
+  #tribe .tb-pin {
+    position: relative;
+    z-index: 2;
+    height: 100svh;
+    display: grid;
+    grid-template-columns: minmax(320px, 0.36fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: center;
+    padding-block: clamp(84px, 10vh, 120px) clamp(22px, 4vh, 44px);
+  }
+  #tribe .tb-top { grid-column: 1; grid-row: 1 / 3; max-width: none; margin: 0; padding-right: 0; }
+  #tribe .tb-top .tb-events { grid-template-columns: 1fr; gap: 10px; }
+  #tribe .tb-top .tb-follow { margin-top: 18px; }
+  #tribe .tb-viewport {
+    grid-column: 2; grid-row: 1; margin: 0; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  #tribe .tb-viewport .tb-strip { margin: 0; padding: 22px var(--gutter) 28px; gap: clamp(16px, 2vw, 28px); will-change: auto; }
+  #tribe .tb-viewport .tb-frame { width: min(21vw, 40svh); }
+  #tribe .tb-trail { grid-column: 2; grid-row: 2; display: flex; align-items: center; gap: 14px; padding-inline: var(--gutter); font-family: var(--ff-mono), monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #5f5a55; }
+  #tribe .tb-trail i { position: relative; flex: 1; height: 2px; background: repeating-linear-gradient(90deg, rgb(14 14 14 / 0.25) 0 8px, transparent 8px 14px); }
+  #tribe .tb-trail-fill { position: absolute; inset: 0; background: var(--sun); transform: scaleX(0); transform-origin: 0 50%; }
+}
+
+/* ───────────── 09 Plans: one journey, plans dealt onto the table, then the trial pass ───────────── */
+#plans .pl-hanko { top: auto; bottom: 22px; right: 22px; width: 78px; height: 78px; font-size: 17px; opacity: 0; transform: rotate(-12deg) scale(1.6); }
+#plans .pl-hanko.is-stamped { opacity: 0.95; transform: rotate(-12deg) scale(1); }
+/* beside the price (under the toggle), never over the WhatsApp button */
+#plans .pl-hanko { pointer-events: none; top: clamp(84px, 7vw, 100px); bottom: auto; right: 20px; width: 70px; height: 70px; font-size: 15px; }
+@media (max-width: 767px) {
+  #plans .pl-hanko { top: 74px; right: 14px; width: 52px; height: 52px; font-size: 12px; border-width: 2px; }
+}
+/* the price number is a <span>; an old globals rule (.pl-price span) shrank it to 14px body text */
+#plans .pl-price > span:first-child { font: inherit; color: inherit; }
+#plans .pl-demo { font-family: var(--ff-display), Impact, sans-serif; font-size: clamp(30px, 2.4vw, 40px); line-height: 1; color: var(--washi); }
+#plans .pl-demo .pl-per { font-size: 13px; }
+
+#book.pl-book { position: relative; z-index: 2; margin-top: clamp(56px, 7vw, 110px); padding-top: clamp(40px, 5vw, 72px); border-top: 1px solid rgb(242 238 230 / 0.12); scroll-margin-top: 72px; }
+#book .bk-title { font-size: clamp(2.1rem, 4.2vw, 4.4rem); line-height: 0.92; }
+/* the ticket prints when this block (not the whole Plans section) scrolls into view */
+.js #book:not(.is-in) .bk-slot .ticket { transform: translateY(-104%); }
+
+/* below desktop: the swipe row of plan cards (mobile.css), then the trial pass underneath */
+@media not all and (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  #plans .hp-viewport { overflow: visible; margin-top: 0; scroll-snap-type: none; }
+  #plans .hp-track.pl-track { display: block; width: auto; padding: 0; }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* the CSS flip-in / tilt transforms must be off before GSAP reads the cards (it kept their rotateY
+     as a starting angle, which skewed the cards); GSAP deals them instead */
+  #plans.pl-deal .pl-card { transition: none; transform: none; opacity: 1; }
+  /* .pl-layout is an old 2-column grid (sections.css), which squeezed the heading into half the column */
+  #plans .hp-side.pl-layout { display: block; }
+  #plans .pl-track .pl-cards, #plans .pl-track .pl-grid { display: contents; }
+  #plans .pl-track .pl-card { order: 0; width: clamp(240px, 16vw, 280px); flex: none; align-self: center; }
+  #plans .pl-track .pl-card.is-featured { order: 1; width: clamp(330px, 24vw, 400px); }
+  #plans .pl-track #book.pl-book { order: 2; flex: none; width: min(1080px, 62vw); margin: 0 0 0 clamp(12px, 2vw, 32px); padding: 0 0 0 clamp(24px, 3vw, 48px); border-top: 0; border-left: 1px dashed rgb(242 238 230 / 0.2); }
+  #plans .pl-track #book .wrap { max-width: none; padding: 0; margin: 0; }
+  #plans .pl-track #book .bk-grid { grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr); gap: clamp(20px, 2.5vw, 40px); align-items: center; }
+  #plans .pl-track #book .section-head { margin: 0; }
+  #plans .pl-track #book .bk-title { font-size: clamp(1.9rem, 2.8vw, 3.2rem); }
+  /* a compact ticket so it fits the pinned screen */
+  #plans .pl-track #book .bk-slot-window { padding-bottom: 10px; }
+  #plans .pl-track #book .ticket-body { padding: 16px 22px; gap: 9px; }
+  #plans .pl-track #book .ticket-title { font-size: 26px; }
+  #plans .pl-track #book .field { gap: 4px; }
+  #plans .pl-track #book .field input, #plans .pl-track #book .field select { min-height: 40px; padding-block: 6px; }
+  #plans .pl-track #book .ticket-send { min-height: 46px; padding-block: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #plans .pl-hanko.is-stamped { animation: none; }
+}

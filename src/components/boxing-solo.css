@@ -1,0 +1,28 @@
+/* 05 Boxing on the shared pinned sideways journey (.hp-* in tail-motion.css; Boxing.tsx).
+   Track: three point cards, then the one shadow-boxing clip. */
+#boxing .ken-pin { position: relative; z-index: 2; }
+#boxing .ken-kanji { z-index: 0; will-change: transform; }
+#boxing .hp-side, #boxing .hp-viewport, #boxing .hp-trail { position: relative; z-index: 1; }
+
+/* point cards */
+#boxing .ken-card { position: relative; width: clamp(240px, 19vw, 300px); padding: 22px 20px 24px; border-radius: 18px; background: rgb(20 19 18 / 0.86); border: 1px solid rgb(242 238 230 / 0.1); border-left: 3px solid var(--sun); box-shadow: 0 24px 60px rgb(0 0 0 / 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+#boxing .ken-card-no { display: block; margin-bottom: 18px; font-family: var(--ff-mono), monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--sun); }
+#boxing .ken-card h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--ff-display), Impact, sans-serif; font-weight: 400; font-size: clamp(26px, 2.1vw, 34px); line-height: 1; text-transform: uppercase; color: var(--washi); }
+#boxing .ken-card p { margin-top: 12px; font-size: 14px; line-height: 1.5; color: rgb(242 238 230 / 0.72); }
+
+/* photo + clip cards */
+#boxing .ken-shot figure { margin: 0; border-radius: 16px; overflow: hidden; background: var(--sumi-3); box-shadow: 0 30px 60px rgb(0 0 0 / 0.5); }
+#boxing .ken-shot .ken-clip { aspect-ratio: 360 / 576; }
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* everything on the left has to fit one screen */
+  #boxing .h-mega { font-size: clamp(48px, min(5.4vw, 10svh), 112px); }
+  #boxing .lede { margin-top: 10px; font-size: clamp(14px, 1.05vw, 16px); }
+  #boxing .section-head { margin-bottom: clamp(16px, 2.6svh, 30px); }
+  #boxing .ken-shot.ken-shot-clip { width: calc(min(66svh, 600px) * 0.625); }
+}
+@media not all and (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  #boxing .ken-card { width: min(72vw, 280px); }
+  #boxing .ken-shot { width: min(62vw, 260px); }
+  #boxing .ken-track { align-items: center; }
+}

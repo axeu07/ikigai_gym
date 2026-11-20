@@ -1,0 +1,78 @@
+/* Footer row: brand | Visit | Hours | IKIGAI word + contact rings (FooterRings.tsx). */
+
+/* ── grid: the word + rings cell takes the rest of the row, so the rings end up under the map ── */
+@media (min-width: 1024px) {
+  .footer .ft-grid { grid-template-columns: minmax(180px, 220px) minmax(180px, 230px) minmax(170px, 210px) 1fr; align-items: start; }
+}
+.ft-mark { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(16px, 2.4vw, 40px); min-width: 0; }
+
+/* ── the word: outline that fills with ember from the bottom (scrubbed in Effects.tsx) ── */
+.ft-word { position: relative; flex: none; font-family: var(--ff-display), Impact, sans-serif; font-size: clamp(56px, 6.4vw, 124px); line-height: 0.9; letter-spacing: 0.02em; user-select: none; }
+.ft-word-outline { display: block; color: transparent; -webkit-text-stroke: max(1.5px, 0.008em) rgb(242 238 230 / 0.35); }
+.ft-word-fill { position: absolute; inset: 0; display: block; overflow: hidden; }
+.ft-word-fill-inner { display: block; color: var(--sun); }
+
+/* ── rings ── */
+.ft-rings {
+  --s: clamp(54px, 4.6vw, 76px);        /* ring size */
+  position: relative; flex: 1 1 280px; min-width: 0;
+  padding-block: calc(var(--s) * 0.31) 34px;  /* room for the joined cluster and the labels */
+}
+.ft-rings-list { list-style: none; margin: 0; padding: 0; display: flex; justify-content: flex-end; gap: clamp(14px, 2vw, 34px); }
+.ft-ring {
+  --jx: 0px; --jy: 0px;
+  flex: none; width: var(--s); height: var(--s);
+  transform: translate(var(--jx), var(--jy)) rotate(-420deg);
+  transition: transform 1.1s var(--ease) calc((3 - var(--i)) * 70ms);
+}
+.ft-ring a {
+  position: relative; display: grid; place-items: center;
+  width: 100%; height: 100%; border-radius: 50%;
+  border: 2.5px solid var(--washi);
+  color: var(--washi); text-decoration: none;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+.ft-ring-icon { display: grid; width: 42%; height: 42%; opacity: 0; transform: scale(0.6); transition: opacity 0.4s, transform 0.5s var(--ease); }
+.ft-ring-icon svg { width: 100%; height: 100%; }
+.ft-ring-label {
+  position: absolute; top: calc(100% + 10px); left: 50%; translate: -50% 0;
+  font-family: var(--ff-mono), monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+  color: var(--ash); opacity: 0; transition: opacity 0.4s, color 0.3s;
+}
+
+/* the ember centre of the joined logo */
+.ft-rings-core {
+  position: absolute; left: var(--cx, 50%); top: calc(var(--s) * 0.81);
+  width: calc(var(--s) * 0.16); height: calc(var(--s) * 0.16); border-radius: 50%;
+  background: var(--sun); box-shadow: 0 0 18px rgb(255 90 31 / 0.7);
+  transform: translate(-50%, -50%); transition: opacity 0.4s, transform 0.6s var(--ease);
+  pointer-events: none; z-index: 1;
+}
+
+/* broken apart: each ring rolls right into its own spot (the natural row layout) */
+.ft-rings.is-broken .ft-ring { transform: none; }
+.ft-rings.is-broken .ft-ring a { border-color: rgb(242 238 230 / 0.28); }
+.ft-rings.is-broken .ft-ring-icon { opacity: 1; transform: none; transition-delay: 0.7s; }
+.ft-rings.is-broken .ft-ring-label { opacity: 1; transition-delay: 0.8s; }
+.ft-rings.is-broken .ft-rings-core { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+
+.ft-ring a:hover, .ft-ring a:focus-visible { border-color: var(--sun); background: rgb(255 90 31 / 0.1); color: var(--sun); }
+.ft-ring a:hover .ft-ring-label, .ft-ring a:focus-visible .ft-ring-label { color: var(--washi); }
+/* keyboard users always get the readable (broken-apart) state */
+.ft-rings:focus-within .ft-ring { transform: none; }
+.ft-rings:focus-within .ft-ring-icon, .ft-rings:focus-within .ft-ring-label { opacity: 1; transform: none; }
+.ft-rings:focus-within .ft-rings-core { opacity: 0; }
+
+/* below desktop the word sits on its own line and the rings roll out across the full width */
+@media (max-width: 1023px) {
+  .ft-mark { grid-column: 1 / -1; }
+  .ft-rings { flex-basis: 100%; }
+  .ft-rings-list { justify-content: space-between; max-width: 420px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-ring, .ft-ring-icon, .ft-ring-label, .ft-rings-core { transition: none !important; }
+  .ft-ring { transform: none; }
+  .ft-ring-icon, .ft-ring-label { opacity: 1; transform: none; }
+  .ft-rings-core { opacity: 0; }
+}

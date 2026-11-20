@@ -1,30 +1,26 @@
 /**
- * Footer: hills silhouette (parallax) + a giant outline "IKIGAI" that fills with ember as you reach the
- * bottom (both scrubbed in <Effects />, transform only), then address, hours, socials and links.
+ * Footer: hills silhouette (parallax), then brand / address / hours and, on the same row, an outline
+ * "IKIGAI" that fills with ember as you reach the bottom (scrubbed in <Effects />, transform only) with
+ * the four contact rings beside it (FooterRings: they roll out to the right, under the map), then links.
  */
-import { contact, footer, fullAddress, hours, nav, site, telLink, waLink } from "@/lib/content";
+import { contact, footer, fullAddress, hours, nav, site, telLink } from "@/lib/content";
 import Enso from "./Enso";
+import FooterRings from "./FooterRings";
 import Hills from "./Hills";
 import Logo from "./Logo";
+import Visit from "./Visit";
 import { Confirm } from "./ui";
 
 export default function Footer() {
   return (
     <footer className="footer">
+      <Visit />
       <div className="ft-hero">
         <div className="ft-hills" data-ft-hills>
           <Hills className="footer-hills" />
         </div>
-        <p className="ft-giant" aria-hidden>
-          <span className="ft-giant-outline">IKIGAI</span>
-          <span className="ft-fill" data-ft-fill>
-            <span className="ft-fill-inner" data-ft-fill-inner>
-              IKIGAI
-            </span>
-          </span>
-        </p>
       </div>
-      <div className="wrap footer-grid">
+      <div className="wrap footer-grid ft-grid">
         <div className="footer-brand">
           <Logo />
           <p className="footer-line">{footer.line}</p>
@@ -46,25 +42,16 @@ export default function Footer() {
           </p>
           <p className="muted">{hours.sunday.label}</p>
         </div>
-        <div>
-          <h2 className="footer-h">Follow</h2>
-          <ul className="footer-links">
-            <li>
-              <a href={contact.instagram.value.url} target="_blank" rel="noopener noreferrer">
-                Instagram {contact.instagram.value.handle}
-              </a>
-            </li>
-            <li>
-              <a href={contact.facebook.value.url} target="_blank" rel="noopener noreferrer">
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a href={waLink()} target="_blank" rel="noopener noreferrer">
-                WhatsApp
-              </a>
-            </li>
-          </ul>
+        <div className="ft-mark">
+          <div className="ft-word" aria-hidden>
+            <span className="ft-word-outline">IKIGAI</span>
+            <span className="ft-word-fill" data-ft-fill>
+              <span className="ft-word-fill-inner" data-ft-fill-inner>
+                IKIGAI
+              </span>
+            </span>
+          </div>
+          <FooterRings />
         </div>
         <nav aria-label="Footer" className="footer-nav">
           {nav.links.map((l) => (

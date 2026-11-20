@@ -98,15 +98,15 @@ export default function Effects() {
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
         document.documentElement.classList.add("is-stacked");
         const stack = gsap.utils.toArray<HTMLElement>("[data-stack]");
-        const from = stack.findIndex((el) => el.id === "circle");
+        const from = stack.findIndex((el) => el.id === "programs");
         stack.slice(Math.max(1, from)).forEach((next) => {
           const i = stack.indexOf(next);
           const prev = stack[i - 1];
           if (!prev || prev.id === "philosophy" || prev.id === "top") return;
-          // never transform a section that contains a GSAP pin (Programs): a transformed ancestor turns
+          // never transform a section that contains a GSAP pin (Programs, Restore, Tribe: .fx-pin): a transformed ancestor turns
           // the pin's position:fixed into "relative to the section", so the pinned row scrolled away and
           // left empty black screens
-          if (prev.querySelector(".pin-spacer, .pg-pin, .ph-pin")) return;
+          if (prev.querySelector(".pin-spacer, .pg-pin, .ph-pin, .fx-pin")) return;
           const shade = prev.querySelector(":scope > .stack-shade");
           const tl = gsap.timeline({ scrollTrigger: { trigger: next, start: "top bottom", end: "top top", scrub: true } });
           tl.fromTo(prev, { scale: 1 }, { scale: 0.97, transformOrigin: "50% 100%", ease: "none" }, 0);

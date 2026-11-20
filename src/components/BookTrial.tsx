@@ -1,16 +1,18 @@
 "use client";
 /**
- * 12 Book a free trial: an honest WhatsApp enquiry (no backend), styled as a Japanese ticket with a
+ * Book a free trial: the last stop of 09 Plans' sideways journey (no longer its own section; keeps id="book" so every
+ * "Book free trial" link still lands here). An honest WhatsApp enquiry (no backend), styled as a Japanese ticket with a
  * red hanko stamp. The ticket prints out of a slot as the section enters (CSS, transform only); on send
  * the hanko slams down with a small shake. Valid form → a pre-filled WhatsApp message in a new tab. Picks up the goal chosen
- * in "Find your circle" (lib/booking.ts).
+ * in "Find your circle" (lib/booking.ts). The ticket prints once this block scrolls into view (.is-in,
+ * added here; tail-motion.css).
  */
-import { useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
-import { punch } from "@/lib/motion";
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { punch, prefersReducedMotion, ScrollTrigger } from "@/lib/motion";
 import { booking, waLink } from "@/lib/content";
 import { GOAL_EVENT, getGoalPrefill } from "@/lib/booking";
-import Section, { SectionHead } from "./Section";
-import { Tag } from "./ui";
+import { HPIN_MQ } from "@/lib/useHorizontalPin";
+import { MicroLabel, Tag } from "./ui";
 import { WhatsAppIcon } from "./Button";
 
 type Errors = Partial<Record<"name" | "phone", string>>;
@@ -30,6 +32,20 @@ export default function BookTrial() {
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const ticket = useRef<HTMLFormElement>(null);
+  const root = useRef<HTMLDivElement>(null);
+
+  // print the ticket when this block (not the whole Plans section) comes into view. On the desktop
+  // sideways journey Plans prints it instead, when the ticket is carried on screen.
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia(HPIN_MQ).matches) return;
+    if (prefersReducedMotion()) {
+      el.classList.add("is-in");
+      return;
+    }
+    const st = ScrollTrigger.create({ trigger: el, start: "top 75%", once: true, onEnter: () => el.classList.add("is-in") });
+    return () => st.kill();
+  }, []);
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,15 +80,24 @@ export default function BookTrial() {
   };
 
   return (
-    <Section id="book" className="book">
+    <div ref={root} id="book" className="book pl-book" role="region" aria-labelledby="book-title">
       <div className="wrap bk-grid">
-        <SectionHead id="book" title={booking.heading} sub={booking.sub}>
+        <header className="section-head bk-head">
+          <MicroLabel kanji="入場券" romaji="Nyūjōken" className="reveal">
+            Free trial
+          </MicroLabel>
+          <h3 id="book-title" className="h-display bk-title reveal">
+            {booking.heading}
+          </h3>
+          <p className="lede reveal" style={{ ["--d" as string]: "160ms" }}>
+            {booking.sub}
+          </p>
           {!booking.trialConfirmed && (
             <p className="bk-tag reveal">
               <Tag>TO CONFIRM</Tag> Free-trial policy to be confirmed by IKIGAI.
             </p>
           )}
-        </SectionHead>
+        </header>
 
         <div className="bk-slot">
           <span className="bk-slot-mouth" aria-hidden />
@@ -155,6 +180,6 @@ export default function BookTrial() {
           </div>
         </div>
       </div>
-    </Section>
+    </div>
   );
 }
