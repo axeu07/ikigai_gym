@@ -9,6 +9,7 @@ import CircleProgress from "@/components/CircleProgress";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Nav from "@/components/Nav";
 import Intro from "@/components/Intro";
+import Effects from "@/components/Effects";
 import { SITE_URL } from "@/lib/seo";
 import { INTRO_BOOT } from "@/lib/intro";
 
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0E0E0E",
+  themeColor: "#0A0A0A",
   colorScheme: "dark",
 };
 
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScroll />
         <Nav />
         {children}
+        <Effects />
         <CircleProgress />
         <FloatingWhatsApp />
         <Intro />

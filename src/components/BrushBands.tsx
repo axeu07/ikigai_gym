@@ -1,7 +1,7 @@
 /** Two ink-brush bands crossing the page with drifting words. CSS-only marquee; static under reduced motion. */
 import { bands } from "@/lib/content";
 
-function Band({ words, tone }: { words: readonly string[]; tone: "sun" | "paper" }) {
+export function Band({ words, tone }: { words: readonly string[]; tone: "sun" | "paper" }) {
   const row = [...words, ...words];
   return (
     <div className={`band band-${tone}`}>
@@ -17,6 +17,15 @@ function Band({ words, tone }: { words: readonly string[]; tone: "sun" | "paper"
           </p>
         ))}
       </div>
+    </div>
+  );
+}
+
+/** A single infinite marquee band (used between sections). */
+export function Marquee({ words, tone = "sun" }: { words: readonly string[]; tone?: "sun" | "paper" }) {
+  return (
+    <div className="bands bands-single" role="presentation">
+      <Band words={words} tone={tone} />
     </div>
   );
 }

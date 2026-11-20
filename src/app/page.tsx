@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Philosophy from "@/components/Philosophy";
-import BrushBands from "@/components/BrushBands";
+import BrushBands, { Marquee } from "@/components/BrushBands";
+import { programs } from "@/lib/content";
 import FindCircle from "@/components/FindCircle";
 import Programs from "@/components/Programs";
 import Boxing from "@/components/Boxing";
@@ -26,11 +27,13 @@ export default function Home() {
         <FindCircle />
         <Programs />
         <Boxing />
+        <Marquee words={programs.list.map((p) => p.name)} />
         <Restore />
         <Sensei />
         <Tribe />
         <Kaizen />
         <Proof />
+        <Marquee words={programs.list.map((p) => p.name)} tone="paper" />
         <Plans />
         <BookTrial />
         <Faq />

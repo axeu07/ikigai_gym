@@ -71,7 +71,8 @@ export function LoopVideo({ id, className = "", style, play = true, eager = fals
       muted
       loop
       playsInline
-      preload={eager ? "auto" : "metadata"}
+      preload={eager ? "auto" : "none"}
+      onPlaying={(e) => e.currentTarget.classList.add("is-playing")}
       aria-hidden
       tabIndex={-1}
       disablePictureInPicture

@@ -1,9 +1,11 @@
 "use client";
 /**
- * 04 道 Michi: the seven ways to train, then a SAMPLE weekly timetable with a live NOW / NEXT UP
- * marker (IST) on today's tab. Real batch times are TO CONFIRM.
+ * 04 道 Michi: the seven ways to train as large cards. Desktop (≥1024px, motion OK): the row pins and
+ * scrolls horizontally. Mobile: a native swipe carousel (scroll-snap). Video cards play a muted preview
+ * on hover or tap. Then a SAMPLE weekly timetable with a live NOW / NEXT UP marker (IST).
  */
-import { useEffect, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { gsap, useGSAP } from "@/lib/motion";
 import { programs, timetable, pillarById } from "@/lib/content";
 import { istNow, toMinutes, to12h } from "@/lib/hours";
 import Section, { SectionHead } from "./Section";
@@ -13,6 +15,42 @@ import { Tag } from "./ui";
 export default function Programs() {
   const [picked, setDay] = useState<number | null>(null);
   const [now, setNow] = useState<{ day: number; mins: number } | null>(null);
+  const [preview, setPreview] = useState<number | null>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLUListElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+        const track = trackRef.current;
+        const pin = pinRef.current;
+        if (!track || !pin) return;
+        const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
+        const tween = gsap.to(track, {
+          x: () => -dist(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: pin,
+            start: "top top",
+            end: () => `+=${dist()}`,
+            pin: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onToggle: (st) => track.style.setProperty("will-change", st.isActive ? "transform" : "auto"),
+          },
+        });
+        return () => {
+          tween.scrollTrigger?.kill();
+          tween.kill();
+          gsap.set(track, { clearProps: "transform,willChange" });
+        };
+      });
+      return () => mm.revert();
+    },
+    { scope: pinRef },
+  );
 
   useEffect(() => {
     const tick = () => setNow(istNow());
@@ -44,14 +82,24 @@ export default function Programs() {
   return (
     <Section id="programs" tone="paper" className="programs">
       <div className="wrap">
-        <SectionHead id="programs" title={programs.heading} sub={programs.sub} />
+        <SectionHead id="programs" title={programs.heading} sub={programs.sub} mega />
+      </div>
 
-        <ul className="pg-list">
+      <div ref={pinRef} className="pg-pin">
+        <ul ref={trackRef} className="pg-list" aria-label="Programs">
           {programs.list.map((p, i) => (
-            <li key={p.name} className="pg-card reveal" style={{ ["--d" as string]: `${i * 60}ms` }}>
+            <li
+              key={p.name}
+              className={`pg-card reveal tilt-card ${p.media?.video ? "has-video" : ""} ${preview === i ? "is-preview" : ""}`}
+              style={{ ["--d" as string]: `${i * 60}ms` }}
+              data-tilt
+              onPointerEnter={(e) => e.pointerType === "mouse" && setPreview(i)}
+              onPointerLeave={(e) => e.pointerType === "mouse" && setPreview((v) => (v === i ? null : v))}
+              onClick={() => p.media?.video && setPreview((v) => (v === i ? null : i))}
+            >
               <div className="pg-media">
                 {p.media?.video ? (
-                  <LoopVideo id={p.media.video} />
+                  <LoopVideo id={p.media.video} play={preview === i} />
                 ) : p.media?.photo ? (
                   <Picture id={p.media.photo} alt={p.media.alt ?? ""} sizes="(min-width: 1024px) 22vw, 45vw" />
                 ) : (
@@ -64,10 +112,13 @@ export default function Programs() {
               </h3>
               <p>{p.line}</p>
               <span className="pg-pillar">{pillarById(p.pillar).word}</span>
+              {p.media?.video && <span className="pg-play" aria-hidden>{preview === i ? "Playing" : "Preview"}</span>}
             </li>
           ))}
         </ul>
+      </div>
 
+      <div className="wrap">
         <div className="tt reveal">
           <div className="tt-head">
             <h3 className="h-sub">This week</h3>

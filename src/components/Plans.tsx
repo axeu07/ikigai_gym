@@ -11,7 +11,7 @@ export default function Plans() {
         <SectionHead id="plans" title={plans.heading} sub={plans.sub} />
         <ul className="pl-grid">
           {plans.list.map((p, i) => (
-            <li key={p.id} className={`pl-card reveal ${p.price ? "has-price" : ""}`} style={{ ["--d" as string]: `${i * 70}ms` }}>
+            <li key={p.id} data-tilt className={`pl-card reveal tilt-card ${p.price ? "has-price" : ""} ${p.featured ? "is-featured" : ""}`} style={{ ["--d" as string]: `${i * 70}ms` }}>
               <h3>{p.name}</h3>
               {p.price ? (
                 <p className="pl-price">

@@ -8,6 +8,8 @@ type BtnProps = Common & { href?: undefined; type?: "button" | "submit"; onClick
 export default function Button(props: LinkProps | BtnProps) {
   const { children, variant = "sun", className = "", icon } = props;
   const cls = `btn btn-${variant} ${className}`;
+  // main (ember) buttons get the magnetic hover from <Cursor />
+  const mag = variant === "sun" ? { "data-magnetic": "" } : {};
   const inner = (
     <>
       {icon && <span aria-hidden className="btn-icon">{icon}</span>}
@@ -17,13 +19,13 @@ export default function Button(props: LinkProps | BtnProps) {
   if (props.href !== undefined) {
     const ext = props.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
     return (
-      <a href={props.href} className={cls} onClick={props.onClick} {...ext}>
+      <a href={props.href} className={cls} onClick={props.onClick} {...ext} {...mag}>
         {inner}
       </a>
     );
   }
   return (
-    <button type={props.type ?? "button"} className={cls} onClick={props.onClick} disabled={props.disabled}>
+    <button type={props.type ?? "button"} className={cls} onClick={props.onClick} disabled={props.disabled} {...mag}>
       {inner}
     </button>
   );

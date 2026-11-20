@@ -16,7 +16,7 @@ export default function Proof() {
                 {n.label} <Confirm confirmed={n.confirmed} />
               </dt>
               <dd>
-                {n.value}
+                <span data-count={n.value}>{n.value}</span>
                 <span>{n.suffix}</span>
               </dd>
             </div>

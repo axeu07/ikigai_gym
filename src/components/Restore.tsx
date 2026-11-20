@@ -19,13 +19,13 @@ export default function Restore() {
         <SectionHead id="restore" title={restore.heading} sub={restore.sub} />
         <ul className="rs-grid">
           {restore.items.map((it, i) => (
-            <li key={it.id} className="rs-card reveal" style={{ ["--d" as string]: `${i * 80}ms` }}>
+            <li key={it.id} className="rs-card reveal tilt-card" data-tilt style={{ ["--d" as string]: `${i * 80}ms` }}>
               <div className="rs-media">{it.media?.photo ? <Picture id={it.media.photo} alt={it.media.alt ?? ""} sizes="(min-width: 1024px) 24vw, 90vw" /> : <InkPlaceholder label={`${it.name} photo`} />}</div>
               <h3>{it.name}</h3>
               <p>{it.line}</p>
             </li>
           ))}
-          <li className="rs-card rs-cafe reveal" style={{ ["--d" as string]: "320ms" }}>
+          <li className="rs-card rs-cafe reveal tilt-card" data-tilt style={{ ["--d" as string]: "320ms" }}>
             <p className="rs-cafe-kicker">Fuel</p>
             <h3>{restore.cafe.name}</h3>
             <p>{restore.cafe.line}</p>

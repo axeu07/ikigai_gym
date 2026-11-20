@@ -117,8 +117,10 @@ export const nav = {
 // ── 01 Hero ─────────────────────────────────────────────────────────────────
 export const hero = {
   kicker: "IKIGAI Fitness Club · Jakhan, Rajpur Road · Dehradun",
-  headline: ["Find your", "reason", "to move."],
+  headline: ["Find your", "Ikigai"],
+  tagline: "Find your reason to move.",
   sub: "Strength, cardio, boxing, dance, yoga and recovery under one roof. A unisex, women-friendly gym with a community that keeps you coming back.",
+  video: "dance-group",
   ctaPrimary: { label: "Book a free trial", href: "#book" },
   ctaWhatsApp: { label: "WhatsApp us", text: "Hi IKIGAI! I'd like to know more about joining." },
   wallLine: "This place will change you, if you let it.",
@@ -284,7 +286,7 @@ export const proof = {
 } as const;
 
 // ── 11 Yakusoku: plans ──────────────────────────────────────────────────────
-export type Plan = { id: string; name: string; price: string | null; per: string; confirmed: boolean; note: string };
+export type Plan = { id: string; name: string; price: string | null; per: string; confirmed: boolean; note: string; featured?: boolean };
 export const plans = {
   heading: "A promise to yourself.",
   sub: "Simple plans. Ask us anything before you join.",
@@ -292,7 +294,7 @@ export const plans = {
     { id: "monthly", name: "Monthly", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
     { id: "quarterly", name: "3 months", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
     { id: "half", name: "6 months", price: "₹8,000", per: "/ 6 months", confirmed: false, note: "Seen in a promo. May be an offer." },
-    { id: "annual", name: "12 months", price: "₹12,000", per: "/ 12 months", confirmed: false, note: "Seen in a promo. May be an offer." },
+    { id: "annual", name: "12 months", price: "₹12,000", per: "/ 12 months", confirmed: false, note: "Seen in a promo. May be an offer.", featured: true },
     { id: "pt", name: "Personal training", price: null, per: "", confirmed: false, note: "Call or WhatsApp for pricing" },
   ] as Plan[],
 } as const;

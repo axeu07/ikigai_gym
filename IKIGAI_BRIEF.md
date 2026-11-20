@@ -72,12 +72,18 @@ Fusion idea — "Japanese soul, Doon energy": a red rising sun over a Mussoorie-
 
 Visual system
 Token	Value	Use
-Sumi black	
-#0E0E0E	Main background (replaces Viva --wall)
+Deep black	
+#0A0A0A	Main background (updated: "Find your Ikigai" direction)
 Washi paper	
 #F2EEE6	Primary text / light sections
-Rising-sun red	
-#D7261E	The ONE accent: CTAs, centre circle, highlights
+Ember (accent)	
+#FF5A1F	The ONE accent: CTAs, centre core, highlights (dark text on it)
+Ember glow	
+#FF8A3D	Glows, hovers, spotlight
+Ember deep	
+#C2410C	Pressed states; accent text on light (paper) sections
+Hanko red	
+#D7261E	The hanko stamp ONLY
 Ash stone	
 #8A8580	Muted text, lines
 Steam gold	

@@ -11,7 +11,7 @@ export default function Sensei() {
         <SectionHead id="sensei" title={sensei.heading} sub={sensei.sub} />
         <ul className="ss-grid">
           {sensei.people.map((p, i) => (
-            <li key={i} className="ss-card reveal" style={{ ["--d" as string]: `${i * 80}ms` }}>
+            <li key={i} className="ss-card reveal tilt-card" data-tilt style={{ ["--d" as string]: `${i * 80}ms` }}>
               <InkPlaceholder className="ss-photo" label={`${p.name} portrait`} tag="PORTRAIT COMING" />
               <h3>{p.name}</h3>
               <p>
