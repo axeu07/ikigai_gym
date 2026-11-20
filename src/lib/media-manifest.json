@@ -1,0 +1,481 @@
+{
+  "generatedAt": "2026-11-20T06:17:34.648Z",
+  "inventory": [
+    {
+      "file": "ikigai-airbike.mp4",
+      "type": "video",
+      "width": 368,
+      "height": 464,
+      "duration": 5.13,
+      "sizeKB": 817
+    },
+    {
+      "file": "ikigai-boxing-mural.png",
+      "type": "image",
+      "width": 283,
+      "height": 456,
+      "duration": null,
+      "sizeKB": 227
+    },
+    {
+      "file": "ikigai-coach-reel.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 14.32,
+      "sizeKB": 2083
+    },
+    {
+      "file": "ikigai-dance-group.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 21.2,
+      "sizeKB": 3788
+    },
+    {
+      "file": "ikigai-dance-lead.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 20.62,
+      "sizeKB": 3598
+    },
+    {
+      "file": "ikigai-dumbbells.png",
+      "type": "image",
+      "width": 259,
+      "height": 453,
+      "duration": null,
+      "sizeKB": 209
+    },
+    {
+      "file": "ikigai-exterior.png",
+      "type": "image",
+      "width": 287,
+      "height": 301,
+      "duration": null,
+      "sizeKB": 178
+    },
+    {
+      "file": "ikigai-floor-dark.png",
+      "type": "image",
+      "width": 267,
+      "height": 458,
+      "duration": null,
+      "sizeKB": 220
+    },
+    {
+      "file": "ikigai-floor.jpg",
+      "type": "image",
+      "width": 1280,
+      "height": 1600,
+      "duration": 0.04,
+      "sizeKB": 212
+    },
+    {
+      "file": "ikigai-functional.png",
+      "type": "image",
+      "width": 284,
+      "height": 451,
+      "duration": null,
+      "sizeKB": 222
+    },
+    {
+      "file": "ikigai-plate-machine.png",
+      "type": "image",
+      "width": 278,
+      "height": 440,
+      "duration": null,
+      "sizeKB": 224
+    },
+    {
+      "file": "ikigai-poster.jpg",
+      "type": "image",
+      "width": 1080,
+      "height": 1258,
+      "duration": 0.04,
+      "sizeKB": 101
+    },
+    {
+      "file": "ikigai-punchbag.png",
+      "type": "image",
+      "width": 279,
+      "height": 401,
+      "duration": null,
+      "sizeKB": 198
+    },
+    {
+      "file": "ikigai-racks.png",
+      "type": "image",
+      "width": 279,
+      "height": 417,
+      "duration": null,
+      "sizeKB": 220
+    },
+    {
+      "file": "ikigai-shadowbox.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 13.57,
+      "sizeKB": 2361
+    },
+    {
+      "file": "ikigai-sign-venn.png",
+      "type": "image",
+      "width": 286,
+      "height": 464,
+      "duration": null,
+      "sizeKB": 224
+    },
+    {
+      "file": "ikigai-treadmills.mp4",
+      "type": "video",
+      "width": 720,
+      "height": 900,
+      "duration": 3.1,
+      "sizeKB": 442
+    }
+  ],
+  "videos": {
+    "joy": {
+      "id": "joy",
+      "label": "Group dance class, women in front (JOY)",
+      "width": 360,
+      "height": 360,
+      "duration": 7,
+      "mp4": "/media/video/joy.mp4",
+      "webm": "/media/video/joy.webm",
+      "poster": "/media/video/joy.jpg",
+      "posterAvif": "/media/video/joy.avif",
+      "placeholder": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBgCdASoUABQAPu1krFAppSQisBgIATAdiWQArC+v9gD9APf/APRCQR4sGsUz81XEqfnmOMeNVAAA/uOtj/1oksmotZ//6esDRRbwmkLRH+J+qJVma7zGLwfOuXMF3Ge7ViSW9fQodWEduIJnDfY3uD1RtPFJ6p/+i1XTADmUtX9wBlQJOwAA",
+      "sizeKB": {
+        "mp4": 468,
+        "webm": 661
+      }
+    },
+    "power": {
+      "id": "power",
+      "label": "Member on an air bike (POWER)",
+      "width": 360,
+      "height": 360,
+      "duration": 4.9,
+      "mp4": "/media/video/power.mp4",
+      "webm": "/media/video/power.webm",
+      "poster": "/media/video/power.jpg",
+      "posterAvif": "/media/video/power.avif",
+      "placeholder": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAwBgCdASoUABQAPu1orE+ppiQiMBgIATAdiWIAyLLgMEA/QD3/wEDEwiGDN9q1+Q3AdPoocXCHiEAAAP13M6Jr75bB2ZcEGxGRvX/uoZeu3S/PCojm1Zk3VEcTdRizYz05+usycBg1yuyLuEQIqJvFs/OoOIlpUYUHXqbxWHDxbN2RBvoAAA==",
+      "sizeKB": {
+        "mp4": 328,
+        "webm": 524
+      }
+    },
+    "tribe": {
+      "id": "tribe",
+      "label": "Shadowboxing on a footbridge, Doon hills behind (TRIBE)",
+      "width": 360,
+      "height": 360,
+      "duration": 7.5,
+      "mp4": "/media/video/tribe.mp4",
+      "webm": "/media/video/tribe.webm",
+      "poster": "/media/video/tribe.jpg",
+      "posterAvif": "/media/video/tribe.avif",
+      "placeholder": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQBQCdASoUABQAPuFgqE2opaQiMAwBEBwJYgDIsuAwQD9APf/ATjhUKzOg0EDZURopoSAA/nGt3Y09wUrOdRfIDTkAndDLLtL+yzqMWby0MFQeX+4Cme9+k3V1lgPktiaoLEBiF/+CFdqSLICRXbty401OFq0vdAAAAA==",
+      "sizeKB": {
+        "mp4": 510,
+        "webm": 963
+      }
+    },
+    "sun": {
+      "id": "sun",
+      "label": "Treadmill row by the daylight window (hero sun circle)",
+      "width": 480,
+      "height": 480,
+      "duration": 5.8,
+      "mp4": "/media/video/sun.mp4",
+      "webm": "/media/video/sun.webm",
+      "poster": "/media/video/sun.jpg",
+      "posterAvif": "/media/video/sun.avif",
+      "placeholder": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBgCdASoUABQAPu1kqE2ppaOiMBgMATAdiWIAqQ7gMEA/QD3/wDFoqx/JybVLNiWY9O+bentsNeAAAP53GLx80gezX+X6pnTnSjRIFNfKvyxMl7K2hWoh3AUW8v9wFM7Md5nJXTBZAZ+guWCZdamr+IaNhVl1tFXXT8KbkNMNazbdkAD44AAA",
+      "sizeKB": {
+        "mp4": 243,
+        "webm": 412
+      }
+    },
+    "dance-lead": {
+      "id": "dance-lead",
+      "label": "Dance class, lead in front (caption cropped off)",
+      "width": 360,
+      "height": 480,
+      "duration": 9,
+      "mp4": "/media/video/dance-lead.mp4",
+      "webm": "/media/video/dance-lead.webm",
+      "poster": "/media/video/dance-lead.jpg",
+      "posterAvif": "/media/video/dance-lead.avif",
+      "placeholder": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACQBACdASoUABoAPuFep02opSOiMAwBEBwJYgCsABbUvN2X7yM9L2Pk5yPDW4AA7akYzFjnif6jer6gvHs33cXMHN0pRjaocJYz7oLaAPswmvLztoFfE7HlQP9IyZxUvtyWwGLHAVQ/Kge3ZFBywOnXEBlOwYvCxKGWTA4GT703tAAA",
+      "sizeKB": {
+        "mp4": 797,
+        "webm": 1044
+      }
+    },
+    "dance-group": {
+      "id": "dance-group",
+      "label": "Group dance / aerobics class",
+      "width": 360,
+      "height": 576,
+      "duration": 8,
+      "mp4": "/media/video/dance-group.mp4",
+      "webm": "/media/video/dance-group.webm",
+      "poster": "/media/video/dance-group.jpg",
+      "posterAvif": "/media/video/dance-group.avif",
+      "placeholder": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAADQBACdASoUACAAPu1kqU4ppaOiMAgBMB2JQBS5ndBUhNZ2dGP9lP6BJQzUiy6kgAD+JQNhv6uQMH7U6fNlm+YtcjJiSFRVHKlEb42gUfcr514o+pITzvGoZygbYXgw9bvSNBfGnze+E14+Q42WdmaTCBhszZRjrAyVeJBSLr+WxlPIsfW5TsIGFgAAAA==",
+      "sizeKB": {
+        "mp4": 504,
+        "webm": 719
+      }
+    },
+    "shadowbox": {
+      "id": "shadowbox",
+      "label": "Shadowboxing outdoors on a footbridge",
+      "width": 360,
+      "height": 576,
+      "duration": 9.5,
+      "mp4": "/media/video/shadowbox.mp4",
+      "webm": "/media/video/shadowbox.webm",
+      "poster": "/media/video/shadowbox.jpg",
+      "posterAvif": "/media/video/shadowbox.avif",
+      "placeholder": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwBACdASoUACAAPuVipk2pJaOiMAwBIByJZQC2yCG6X3/VuGKPmFcxDigw07XVYeAA/nDoXhGe9oUzLOd4oaMeTou1F9eRM1Eyp6BN/n2kcsUvrE4G4BiqsYEzU+c4dEc3kMzdy2SahnyhMF5UGWIAAAA=",
+      "sizeKB": {
+        "mp4": 932,
+        "webm": 1718
+      }
+    },
+    "airbike": {
+      "id": "airbike",
+      "label": "Air bike sprint",
+      "width": 360,
+      "height": 454,
+      "duration": 4.9,
+      "mp4": "/media/video/airbike.mp4",
+      "webm": "/media/video/airbike.webm",
+      "poster": "/media/video/airbike.jpg",
+      "posterAvif": "/media/video/airbike.avif",
+      "placeholder": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQBQCdASoUABoAPu1wr1IppiQiqAgBMB2JZwCyzBDhhTTwv5jb/vsLvgLHoXXNLfST0yAA4ec8aGnUXtRidVR6eMD/ll/UtnSwaJZ9xJBQ83g6y5mSvFcZocjm6LjG2M/noWQYflERwN4kTG1Y12XWJ4HsUnrx8AAAAA==",
+      "sizeKB": {
+        "mp4": 375,
+        "webm": 601
+      }
+    },
+    "treadmills": {
+      "id": "treadmills",
+      "label": "Treadmill row by the window",
+      "width": 480,
+      "height": 600,
+      "duration": 5.8,
+      "mp4": "/media/video/treadmills.mp4",
+      "webm": "/media/video/treadmills.webm",
+      "poster": "/media/video/treadmills.jpg",
+      "posterAvif": "/media/video/treadmills.avif",
+      "placeholder": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAACwBQCdASoUABoAPu1grFAppSQisBgIATAdiWUAv+wQ2te/PjntJweYouWniIjJMhVuX1mFTwAA/nhDpCHox0oEJxR35Z97BA7YSaKaO86X+S5yJZZSL8R2+Jn8vrcQlKl2GCBfnUvK4RP+Q+AI/CMhnhXcsZlB+GIwgEpcEWJEULtW9eAAAA==",
+      "sizeKB": {
+        "mp4": 289,
+        "webm": 466
+      }
+    }
+  },
+  "images": {
+    "floor": {
+      "id": "floor",
+      "label": "Strength floor: turf sled track, plate-loaded machines, wall slogan",
+      "width": 1180,
+      "height": 1600,
+      "widths": [
+        480,
+        800,
+        1180
+      ],
+      "base": "/media/img/floor",
+      "placeholder": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBQCdASoUABwAPu1gqk2ppaQiMBgMATAdiWMAwoAPXwqrPvCU1Y2YEaFE46NN+WWAAP7xeLM+IKYR3cpKahQqC7QVwQnWJ0BWhBv5CBeVdxYxPYHC7Qo8Y6OQGxqgQGD+2PN4cLT2XMtK3AXyUtczMPajAAAA",
+      "source": "ikigai-floor.jpg"
+    },
+    "floor-wide": {
+      "id": "floor-wide",
+      "label": "Strength floor, landscape crop with the wall slogan",
+      "width": 1280,
+      "height": 860,
+      "widths": [
+        480,
+        800,
+        1280
+      ],
+      "base": "/media/img/floor-wide",
+      "placeholder": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBQCdASoUAA4APu1iqk2ppaQiMAgBMB2JbACdHX/3AP8BhAHr/3bN+qoDgGL7YDLTAAD+7EQ5rkdgRE1G2a0eiw6xY82CGJPdIW0tciFLW71DvjoVsohOdp5Q+jcfZmBtEePHdxDsFgql70nL18SF+AUhV9//w8ymwDDy/oHymfe+gfJcAAAA",
+      "source": "ikigai-floor.jpg"
+    },
+    "boxing-sign": {
+      "id": "boxing-sign",
+      "label": "The Ikigai Boxing Club wooden sign",
+      "width": 420,
+      "height": 262,
+      "widths": [
+        420
+      ],
+      "base": "/media/img/boxing-sign",
+      "placeholder": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwBQCdASoUAAwAPu1kq04ppaQiMAgBMB2JbACdMoHCAfoB7/92AAXyGybJyUdNsNEwAAD+9DsxuALNpk3NbMtXUwxCuUEAnJWXZfQzu1CXRvaF1A+MHMYKLJ3WrpPlphKl5fxi0AhRmGj9Y2HCAAAA",
+      "source": "ikigai-poster.jpg"
+    },
+    "air-bikes": {
+      "id": "air-bikes",
+      "label": "Row of air bikes",
+      "width": 420,
+      "height": 262,
+      "widths": [
+        420
+      ],
+      "base": "/media/img/air-bikes",
+      "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABwBQCdASoUAAwAPu1oqk6ppiQiMAgBMB2JagCdGuAwQD9APf/uwAC+QylwF4yIuomCrqsIAP7vKXA6kW62TPjgLC2f7P6S9PU1TkLGZ4VDy9qzJcShq6G12S9AghaS+I+FIgAA",
+      "source": "ikigai-poster.jpg"
+    },
+    "steam-room": {
+      "id": "steam-room",
+      "label": "Steam room with wooden bench",
+      "width": 420,
+      "height": 258,
+      "widths": [
+        420
+      ],
+      "base": "/media/img/steam-room",
+      "placeholder": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAACwBACdASoUAAwAPu1iqk2ppaQiMAgBMB2JagCdGuAwQD9APf/uwAC+Pwymn38AAP7kYqV19TTdk4emaWzd5/KS9PU1TjtuL9JenWAvyxz65h8MAZDTF0sMOI+/pjVQ0gAAAA==",
+      "source": "ikigai-poster.jpg"
+    },
+    "washroom": {
+      "id": "washroom",
+      "label": "Washroom with vessel basins",
+      "width": 420,
+      "height": 258,
+      "widths": [
+        420
+      ],
+      "base": "/media/img/washroom",
+      "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQBQCdASoUAAwAPu1kq04ppaQiMAgBMB2JbACdGuAwQD9APf/Adz3kxpbi5R3Af13AAP7kYoFHH7+KsXd+uHGDD2sVN7P6TVeshgxWPfXFjJ2bGenP11gEuwhp1ulAzP6WgAAA",
+      "source": "ikigai-poster.jpg"
+    },
+    "sign-venn": {
+      "id": "sign-venn",
+      "label": "The ikigai four-circle diagram sign on the glass entrance door",
+      "width": 282,
+      "height": 460,
+      "widths": [
+        282
+      ],
+      "base": "/media/img/sign-venn",
+      "placeholder": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwBACdASoUACAAPu1krE+ppSQiMBgIATAdiWUAsOwQ7MkXGbuJOXT4JN7pAAD+8QqBofU2rFrzgVSRLjAHZPQPWLv+sLCJobRg7IGF7uWPuv98XLtooLgcNfc2koLi5WZvjZvh1rQsKhXQAAA=",
+      "source": "ikigai-sign-venn.png"
+    },
+    "boxing-mural": {
+      "id": "boxing-mural",
+      "label": "Ikigai Boxing Club sign above the boxer mural on the glass wall",
+      "width": 278,
+      "height": 452,
+      "widths": [
+        278
+      ],
+      "base": "/media/img/boxing-mural",
+      "placeholder": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABQBQCdASoUACAAPu1oq04ppiQiMAgBMB2JZQC/a1XDTqQHsv4gxhJriirJmbglZnwSHlgA/vKYNLv0v3JUwgtqqt6NQ7PJbDfiBSaLdXYlTl4X5WBFqFIyOBrcnLJpt3FhrxxTCQoF9HsWHtxpsoUGIxAAAA==",
+      "source": "ikigai-boxing-mural.png"
+    },
+    "floor-dark": {
+      "id": "floor-dark",
+      "label": "Strength floor in low light: benches, plate trees, turf strip",
+      "width": 262,
+      "height": 454,
+      "widths": [
+        262
+      ],
+      "base": "/media/img/floor-dark",
+      "placeholder": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBgCdASoUACIAPuloqk2pJqQiMBqqqSAdCWcA0JAX093IXL3L4Ul+78iiKIyykQ97okkQRm2kYAAA/vLFJm0emsxpg1lPgYkt/VVqsBhyPjfbOb6QpjvrF2fvqV21GQz+W2PFSRyVIK0nyAA=",
+      "source": "ikigai-floor-dark.png"
+    },
+    "punchbag": {
+      "id": "punchbag",
+      "label": "Heavy punching bag in the wood-floored studio",
+      "width": 274,
+      "height": 396,
+      "widths": [
+        274
+      ],
+      "base": "/media/img/punchbag",
+      "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABQBACdASoUABwAPu1mqk+ppSOiMBgIATAdiWcAtsgQ4Y9bKLR/VZ36xhIAAP7vCdl4HJWAb01vCaNJO34jXLsTayaOiulmjdnc9Tgm/zWWlIBO2sUfpvRnQwbxFe1nO0E0EAAA",
+      "source": "ikigai-punchbag.png"
+    },
+    "plate-machine": {
+      "id": "plate-machine",
+      "label": "Red plate-loaded strength machine",
+      "width": 274,
+      "height": 436,
+      "widths": [
+        274
+      ],
+      "base": "/media/img/plate-machine",
+      "placeholder": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABwBACdASoUACAAPu1osFAppaSiqAqpMB2JZQAAIdjbz0l3Ic8DzSD5kTrgQAD+5GQL1QaHlYCncWoGDIcXZP3W+nknWwz+nNi3q7q9kuMUFT3AiD2da+sVq3QV2nqcIfntZTRk5bayNeFoPrC+a1YkDQAAAA==",
+      "source": "ikigai-plate-machine.png"
+    },
+    "racks": {
+      "id": "racks",
+      "label": "Power racks with loaded barbells",
+      "width": 274,
+      "height": 412,
+      "widths": [
+        274
+      ],
+      "base": "/media/img/racks",
+      "placeholder": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwBQCdASoUAB4APu1gq02ppaQiMBgMATAdiWcAygAQP9VzCX+weiN/hw7iHdiKhSoAAAD+vl5D9lX+HRFsK1b/MJpMatl7IMuB7xogsU5L0DTWJiiHYbq2ZaPkex61UmJCqnKwAAAAAA==",
+      "source": "ikigai-racks.png"
+    },
+    "dumbbells": {
+      "id": "dumbbells",
+      "label": "Dumbbell rack along the mirror wall",
+      "width": 254,
+      "height": 448,
+      "widths": [
+        254
+      ],
+      "base": "/media/img/dumbbells",
+      "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACQBACdASoUACQAPu1ysVOppqQipWgBMB2JaWfkABKbF2XpIHzJpHb3R1ymUwAA/vAk7PgNC7DlHjVpIeJR19CvPMLbPOyiaQwgfCf+tgdg27/em8f19ZzVhee/xUwiuORyeAAA",
+      "source": "ikigai-dumbbells.png"
+    },
+    "functional": {
+      "id": "functional",
+      "label": "Functional zone: storage cages, plyo box, machines",
+      "width": 280,
+      "height": 446,
+      "widths": [
+        280
+      ],
+      "base": "/media/img/functional",
+      "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQBACdASoUACAAPu1qrlCppaQiqAqpMB2JZwAAMXnhrNOUmPPeJ30Xv5kYZDMwAAD+7FOTZ31UQIcqlcx3OsWRurFY19IJmWTGOTvjS9SwwjpgolfmHC73JPyy6URnCKa1QAAA",
+      "source": "ikigai-functional.png"
+    },
+    "exterior": {
+      "id": "exterior",
+      "label": "Building front at dusk with the IKIGAI FITNESS CLUB sign",
+      "width": 282,
+      "height": 296,
+      "widths": [
+        282
+      ],
+      "base": "/media/img/exterior",
+      "placeholder": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACQBQCdASoUABQAPuFeqk2opSQiMAwBEBwJYgDE6yAfoB7/92AAVyIOUtd4ITrTZzEpvTlrAAD+7q8yLjYartq+1R4v8G4hifb/YjqoX++DmMFFA8T9UPLrJ3WuA+WkoO86jON64ghunkDKpTbroARGiiQbAAAA",
+      "source": "ikigai-exterior.png"
+    }
+  },
+  "backdropBlur": {
+    "id": "floor-wide",
+    "webp": "/media/img/floor-wide-blur.webp",
+    "avif": "/media/img/floor-wide-blur.avif"
+  },
+  "unmapped": [
+    "ikigai-coach-reel.mp4"
+  ]
+}
