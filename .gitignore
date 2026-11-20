@@ -44,4 +44,6 @@ next-env.d.ts
 /media-src/raw/*
 !/media-src/raw/.gitkeep
 /.media-tmp/
+# enhanced background stills (sources for bg-* images; see backgrounds in scripts/media.config.mjs)
+/media-src/bg/
 /.patches/

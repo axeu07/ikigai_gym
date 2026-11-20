@@ -6,7 +6,7 @@
 import { useState } from "react";
 import { contact, fullAddress, hours, mapsEmbed, mapsUrl, telLink, visit, waLink } from "@/lib/content";
 import Section, { SectionHead } from "./Section";
-import { Picture } from "./Media";
+import { BgLayer } from "./Media";
 import { Confirm, StatusChip } from "./ui";
 import Button, { WhatsAppIcon } from "./Button";
 
@@ -14,6 +14,7 @@ export default function Visit() {
   const [map, setMap] = useState(false);
   return (
     <Section id="visit" className="visit">
+      <BgLayer id={visit.bg} />
       <div className="wrap vs-grid">
         <div className="vs-info">
           <SectionHead id="visit" title={visit.heading} sub={visit.sub} />
@@ -52,9 +53,6 @@ export default function Visit() {
         </div>
 
         <div className="vs-media">
-          <figure className="vs-photo reveal">
-            <Picture id={visit.photo.photo} alt={visit.photo.alt} sizes="(min-width: 1024px) 22vw, 60vw" />
-          </figure>
           <div className="vs-map reveal">
             {map ? (
               <iframe title={`Map: ${fullAddress}`} src={mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />

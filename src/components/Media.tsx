@@ -6,7 +6,7 @@
  * Picture: AVIF/WebP srcset from the manifest widths.
  */
 import { useEffect, useRef, useSyncExternalStore, type CSSProperties } from "react";
-import { videos, images, srcSet } from "@/lib/media";
+import { videos, images, backgrounds, srcSet, BG_WIDE } from "@/lib/media";
 import { Tag } from "./ui";
 
 /** Tasteful stand-in where we have no footage yet: an ink wash with a brush circle and a tag. */
@@ -85,6 +85,47 @@ export function LoopVideo({ id, className = "", style, play = true, eager = fals
         </>
       )}
     </video>
+  );
+}
+
+/**
+ * Art-directed background picture: the 16:9 pano at ≥768px, the portrait below, AVIF then WebP.
+ * Lazy unless `priority` (hero only). Decorative, so alt="".
+ */
+export function BgPicture({ id, priority = false, imgClassName = "" }: { id: string; priority?: boolean; imgClassName?: string }) {
+  const b = backgrounds[id];
+  if (!b) return null;
+  return (
+    <picture>
+      <source media={BG_WIDE} type="image/avif" srcSet={srcSet(b.pano, "avif")} sizes="100vw" />
+      <source media={BG_WIDE} type="image/webp" srcSet={srcSet(b.pano, "webp")} sizes="100vw" />
+      <source type="image/avif" srcSet={srcSet(b.portrait, "avif")} sizes="100vw" />
+      <source type="image/webp" srcSet={srcSet(b.portrait, "webp")} sizes="100vw" />
+      <img
+        src={`${b.pano.base}-${b.pano.widths[0]}.webp`}
+        alt=""
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
+        decoding="async"
+        className={`media-el ${imgClassName}`}
+        style={{ backgroundImage: `url(${b.placeholder})`, backgroundSize: "cover" }}
+      />
+    </picture>
+  );
+}
+
+/**
+ * Full-bleed section background behind a section's content, under a 60–75% black gradient.
+ * `parallax` marks it for the shared transform-only parallax in <Effects /> (≥768px, motion OK).
+ */
+export function BgLayer({ id, className = "", parallax = true }: { id: string; className?: string; parallax?: boolean }) {
+  if (!backgrounds[id]) return null;
+  return (
+    <div className={`sbg ${className}`} aria-hidden>
+      <div className="sbg-img" data-parallax={parallax ? "" : undefined}>
+        <BgPicture id={id} />
+      </div>
+    </div>
   );
 }
 

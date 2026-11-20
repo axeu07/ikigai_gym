@@ -1,14 +1,99 @@
-/** 08 仲間 Nakama: community events (TO CONFIRM), a strip of real footage and the Instagram follow CTA. */
+"use client";
+/**
+ * 08 仲間 Nakama: community events (TO CONFIRM), a draggable photo strip and the Instagram CTA.
+ * Desktop (fine pointer, motion OK): drag the strip with inertia (transform only, clamped with a soft
+ * edge); each photo sits at a slight rotation. Touch: native swipe. Click / tap opens a lightbox.
+ */
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "@/lib/motion";
+import { useFinePointer, useReducedMotion } from "@/lib/useReducedMotion";
 import { contact, tribe } from "@/lib/content";
+import Lightbox from "./Lightbox";
 import Section, { SectionHead } from "./Section";
-import { LoopVideo, Picture } from "./Media";
+import { BgLayer, LoopVideo, Picture } from "./Media";
 import { Confirm } from "./ui";
 import Button from "./Button";
 
 export default function Tribe() {
   const ig = contact.instagram;
+  const fine = useFinePointer();
+  const reduced = useReducedMotion();
+  const drag = fine && !reduced;
+  const viewport = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLUListElement>(null);
+  const [box, setBox] = useState<number | null>(null);
+  const n = tribe.strip.length;
+
+  useEffect(() => {
+    const vp = viewport.current;
+    const tr = track.current;
+    if (!drag || !vp || !tr) return;
+    let x = 0;
+    let startX = 0;
+    let startPos = 0;
+    let lastX = 0;
+    let lastT = 0;
+    let vel = 0;
+    let moved = 0;
+    let down = false;
+    const setX = gsap.quickSetter(tr, "x", "px") as (v: number) => void;
+    const min = () => Math.min(0, vp.clientWidth - tr.scrollWidth);
+    const soft = (v: number) => (v > 0 ? v * 0.3 : v < min() ? min() + (v - min()) * 0.3 : v);
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      down = true;
+      moved = 0;
+      startX = lastX = e.clientX;
+      lastT = performance.now();
+      startPos = x;
+      vel = 0;
+      gsap.killTweensOf(tr);
+      vp.classList.add("is-dragging");
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!down) return;
+      const now = performance.now();
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      if (moved > 6 && !vp.hasPointerCapture(e.pointerId)) vp.setPointerCapture(e.pointerId);
+      vel = (e.clientX - lastX) / Math.max(1, now - lastT);
+      lastX = e.clientX;
+      lastT = now;
+      x = soft(startPos + dx);
+      setX(x);
+    };
+    const onUp = () => {
+      if (!down) return;
+      down = false;
+      vp.classList.remove("is-dragging");
+      const target = gsap.utils.clamp(min(), 0, x + vel * 380);
+      gsap.to(tr, { x: target, duration: 0.9, ease: "power3.out", onUpdate: () => (x = Number(gsap.getProperty(tr, "x"))) });
+    };
+    // a real drag shouldn't count as a click on the photo underneath
+    const onClickCapture = (e: MouseEvent) => {
+      if (moved > 6) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    };
+    vp.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerup", onUp);
+    vp.addEventListener("click", onClickCapture, true);
+    return () => {
+      vp.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      vp.removeEventListener("click", onClickCapture, true);
+      gsap.set(tr, { clearProps: "transform" });
+    };
+  }, [drag]);
+
+  const item = box !== null ? tribe.strip[box] : null;
   return (
     <Section id="tribe" className="tribe">
+      <BgLayer id={tribe.bg} />
       <div className="wrap">
         <SectionHead id="tribe" title={tribe.heading} sub={tribe.sub} />
         <ul className="tb-events">
@@ -22,14 +107,30 @@ export default function Tribe() {
           ))}
         </ul>
       </div>
-      <ul className="tb-strip" aria-label="Life at IKIGAI">
-        {tribe.strip.map((m, i) => (
-          <li key={m.caption} className="tb-frame reveal" style={{ ["--d" as string]: `${i * 70}ms`, ["--r" as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg` }}>
-            <div className="tb-media">{m.video ? <LoopVideo id={m.video} /> : <Picture id={m.photo!} alt={m.alt ?? ""} sizes="240px" />}</div>
-            <p>{m.caption}</p>
-          </li>
-        ))}
-      </ul>
+      <div ref={viewport} className={`tb-viewport ${drag ? "is-draggable" : ""}`} data-cursor="Drag">
+        <ul ref={track} className="tb-strip" aria-label="Life at IKIGAI">
+          {tribe.strip.map((m, i) => (
+            <li key={m.caption} className="tb-frame reveal" style={{ ["--d" as string]: `${i * 70}ms`, ["--r" as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg` }}>
+              <button type="button" className="tb-open" onClick={() => setBox(i)} aria-label={`Open photo: ${m.caption}`}>
+                <div className="tb-media" data-skew>
+                  {m.video ? <LoopVideo id={m.video} /> : <Picture id={m.photo!} alt={m.alt ?? ""} sizes="(min-width: 1024px) 26vw, 70vw" />}
+                </div>
+                <p>{m.caption}</p>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Lightbox
+        open={item !== null}
+        onClose={() => setBox(null)}
+        onPrev={() => setBox((b) => (b === null ? b : (b - 1 + n) % n))}
+        onNext={() => setBox((b) => (b === null ? b : (b + 1) % n))}
+        caption={item?.caption ?? ""}
+        counter={box !== null ? `${box + 1} / ${n}` : ""}
+      >
+        {item && (item.video ? <LoopVideo id={item.video} eager /> : <Picture id={item.photo!} alt={item.alt ?? ""} sizes="90vw" eager />)}
+      </Lightbox>
       <div className="wrap tb-follow reveal">
         <Button href={ig.value.url} external variant="ghost">
           {tribe.follow} · {ig.value.handle}

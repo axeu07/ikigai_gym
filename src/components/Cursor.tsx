@@ -1,8 +1,10 @@
 "use client";
 /**
- * Pointer effects, mouse/trackpad only and off under reduced motion. One pointermove listener,
- * one rAF per frame, transforms and CSS variables only:
- *  - ensō cursor ring that swells over interactive elements
+ * Pointer effects, mouse/trackpad only and off under reduced motion. One pointermove listener;
+ * the work runs on GSAP's ticker (the same single rAF as Lenis and the scroll-velocity skew), and
+ * only on frames after the pointer moved. Transforms and CSS variables only:
+ *  - ensō cursor ring that swells over interactive elements and shows a context label:
+ *    [data-cursor="…"] wins (Drag / Play / Punch), otherwise [data-tilt] cards read "View"
  *  - ember spotlight that follows the cursor and reveals the hexagon texture (outer layer moves with
  *    the cursor, inner hex layer counter-moves, so the hexes stay fixed to the viewport, no repaint)
  *  - 3D tilt + edge glow on [data-tilt] cards (--rx/--ry/--gx/--gy, technique from the Viva cards)
@@ -21,6 +23,7 @@ export default function Cursor() {
   const ring = useRef<HTMLDivElement>(null);
   const spot = useRef<HTMLDivElement>(null);
   const hex = useRef<HTMLDivElement>(null);
+  const label = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const r = ring.current;
@@ -41,7 +44,8 @@ export default function Cursor() {
     let magEl: HTMLElement | null = null;
     const mags = new WeakMap<HTMLElement, { x: (v: number) => void; y: (v: number) => void }>();
     let last: PointerEvent | null = null;
-    let raf = 0;
+    let dirty = false;
+    let lastLabel = "";
 
     const resetTilt = (el: HTMLElement) => {
       el.style.setProperty("--rx", "0deg");
@@ -58,7 +62,8 @@ export default function Cursor() {
     };
 
     const frame = () => {
-      raf = 0;
+      if (!dirty) return;
+      dirty = false;
       const e = last;
       if (!e) return;
       const { clientX: x, clientY: y } = e;
@@ -70,6 +75,12 @@ export default function Cursor() {
       hy(-y);
       const t = e.target as Element | null;
       r.dataset.hover = t?.closest(INTERACTIVE) ? "1" : "";
+      const ctx = t?.closest<HTMLElement>("[data-cursor]")?.dataset.cursor ?? (t?.closest("[data-tilt]") ? "View" : "");
+      if (ctx !== lastLabel) {
+        lastLabel = ctx;
+        if (label.current) label.current.textContent = ctx;
+        r.dataset.label = ctx ? "1" : "";
+      }
 
       // tilt
       const card = t?.closest<HTMLElement>("[data-tilt]") ?? null;
@@ -109,15 +120,16 @@ export default function Cursor() {
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       last = e;
-      if (!raf) raf = requestAnimationFrame(frame);
+      dirty = true;
     };
+    gsap.ticker.add(frame);
     const leave = () => html.classList.add("cursor-out");
     const enter = () => html.classList.remove("cursor-out");
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerleave", leave);
     document.addEventListener("pointerenter", enter);
     return () => {
-      cancelAnimationFrame(raf);
+      gsap.ticker.remove(frame);
       if (tiltEl) resetTilt(tiltEl);
       html.classList.remove("has-cursor", "cursor-out");
       window.removeEventListener("pointermove", move);
@@ -136,6 +148,7 @@ export default function Cursor() {
         <svg viewBox="0 0 100 100">
           <path d={ENSO_PATH} />
         </svg>
+        <span ref={label} className="cursor-label" />
       </div>
     </>
   );

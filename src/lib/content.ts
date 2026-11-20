@@ -120,7 +120,9 @@ export const hero = {
   headline: ["Find your", "Ikigai"],
   tagline: "Find your reason to move.",
   sub: "Strength, cardio, boxing, dance, yoga and recovery under one roof. A unisex, women-friendly gym with a community that keeps you coming back.",
-  video: "dance-group",
+  /** sharp still painted first (preloaded), then the reel fades in over it */
+  bg: "gym-floor",
+  video: "hero-reel",
   ctaPrimary: { label: "Book a free trial", href: "#book" },
   ctaWhatsApp: { label: "WhatsApp us", text: "Hi IKIGAI! I'd like to know more about joining." },
   wallLine: "This place will change you, if you let it.",
@@ -132,7 +134,6 @@ export const philosophy = {
   heading: "Four circles. One reason. Yours.",
   intro: "The Japanese ikigai is drawn as four overlapping circles. Where they meet is your reason for being. We built the gym the same way.",
   centre: { word: "Ikigai", line: "Where all four meet. Find your reason to move." },
-  sign: { photo: "sign-venn", alt: "The ikigai four-circle diagram on IKIGAI's glass entrance door: what you love, what you are good at, what the world needs, what you can be paid for" },
   signNote: "The four circles hang on our front door.",
 } as const;
 
@@ -204,8 +205,8 @@ export const boxing = {
   ],
   punch: "Throw a jab",
   media: {
-    main: { photo: "boxing-mural", alt: "The Ikigai Boxing Club sign above a boxer mural on the glass wall" },
-    bag: { photo: "punchbag", alt: "Heavy punching bag hanging in the studio" },
+    /** banner background (the club sign + boxer mural) */
+    banner: "boxing-mural",
     clip: { video: "shadowbox" },
   },
 } as const;
@@ -243,6 +244,7 @@ export const sensei = {
 
 // ── 08 Nakama: the tribe ────────────────────────────────────────────────────
 export const tribe = {
+  bg: "functional",
   heading: "Not just a gym. A tribe.",
   sub: "Come for the workout, stay for the people.",
   events: [
@@ -322,7 +324,8 @@ export const faq: { q: string; a: string; confirmed: boolean }[] = [
 export const visit = {
   heading: "Come and see it.",
   sub: "First floor, Doon Zone Tower, on Rajpur Road at Jakhan.",
-  photo: { photo: "exterior", alt: "The building front at dusk with the IKIGAI FITNESS CLUB sign on the first floor" },
+  /** background: the building front with the IKIGAI FITNESS CLUB sign */
+  bg: "exterior",
   mapButton: "Load the map",
   mapNote: "Loads Google Maps",
 } as const;

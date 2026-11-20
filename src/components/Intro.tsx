@@ -105,10 +105,14 @@ export default function Intro() {
     el.addEventListener("click", skip);
     return () => {
       tl.kill();
+      gsap.killTweensOf([venn, el]);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("resize", onResize);
       el.removeEventListener("click", skip);
-      finish();
+      // Don't finish here. React StrictMode (dev) mounts, cleans up and mounts again: finishing in this
+      // cleanup marked the intro seen, removed data-intro and fired INTRO_DONE before anything played,
+      // so the second mount bailed out. Hand the state back instead so the next mount replays it.
+      if (!finished) html.dataset.intro = "pending";
     };
   }, []);
 

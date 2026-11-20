@@ -4,7 +4,7 @@ import { bands } from "@/lib/content";
 export function Band({ words, tone }: { words: readonly string[]; tone: "sun" | "paper" }) {
   const row = [...words, ...words];
   return (
-    <div className={`band band-${tone}`}>
+    <div className={`band band-${tone}`} data-skew>
       <div className="band-track">
         {[0, 1].map((k) => (
           <p key={k} className="band-row" aria-hidden={k === 1 || undefined}>

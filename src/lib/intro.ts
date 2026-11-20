@@ -8,8 +8,13 @@ export const INTRO_DONE = "ikigai:intro-done";
 export const IGNITE = "ikigai:ignite";
 export const INTRO_KEY = "ikigai-intro-seen";
 
-/** Runs before first paint: play the intro unless it was already seen this session. */
-export const INTRO_BOOT = `(function(){var h=document.documentElement;try{if(!sessionStorage.getItem("${INTRO_KEY}")){h.dataset.intro="pending";return}}catch(e){h.dataset.intro="pending";return}h.classList.add("lit")})()`;
+/**
+ * Runs before first paint: play the intro unless it was already seen this session.
+ * Only reads sessionStorage; the "seen" key is written by <Intro /> when the intro actually finishes.
+ * URL override for testing: ?intro=1 always plays it (ignores sessionStorage), ?intro=0 skips it.
+ * (prefers-reduced-motion is still honoured by <Intro />: it skips straight to the final state.)
+ */
+export const INTRO_BOOT = `(function(){var h=document.documentElement,m=/[?&]intro=([01])(?:&|$)/.exec(location.search);function play(){h.dataset.intro="pending"}function skip(){h.classList.add("lit")}if(m){m[1]==="1"?play():skip();return}try{if(!sessionStorage.getItem("${INTRO_KEY}")){play();return}}catch(e){play();return}skip()})()`;
 
 const pending = () => {
   const s = document.documentElement.dataset.intro;

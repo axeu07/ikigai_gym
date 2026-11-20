@@ -3,6 +3,7 @@ import { Anton, Manrope, Noto_Serif_JP, JetBrains_Mono } from "next/font/google"
 import { site } from "@/lib/content";
 import "lenis/dist/lenis.css";
 import "./globals.css";
+import "./sections.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import CircleProgress from "@/components/CircleProgress";

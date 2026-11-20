@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T06:17:34.648Z",
+  "generatedAt": "2026-11-20T07:14:41.875Z",
   "inventory": [
     {
       "file": "ikigai-airbike.mp4",
@@ -10,20 +10,20 @@
       "sizeKB": 817
     },
     {
+      "file": "ikigai-background.mp4",
+      "type": "video",
+      "width": 478,
+      "height": 850,
+      "duration": 14.32,
+      "sizeKB": 2083
+    },
+    {
       "file": "ikigai-boxing-mural.png",
       "type": "image",
       "width": 283,
       "height": 456,
       "duration": null,
       "sizeKB": 227
-    },
-    {
-      "file": "ikigai-coach-reel.mp4",
-      "type": "video",
-      "width": 478,
-      "height": 850,
-      "duration": 14.32,
-      "sizeKB": 2083
     },
     {
       "file": "ikigai-dance-group.mp4",
@@ -187,6 +187,22 @@
         "webm": 963
       }
     },
+    "hero-reel": {
+      "id": "hero-reel",
+      "label": "Member running on a treadmill by the window (hero background)",
+      "width": 478,
+      "height": 440,
+      "duration": 4.6,
+      "mp4": "/media/video/hero-reel.mp4",
+      "webm": "/media/video/hero-reel.webm",
+      "poster": "/media/video/hero-reel.jpg",
+      "posterAvif": "/media/video/hero-reel.avif",
+      "placeholder": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBgCdASoUABIAPu1mq06ppaOiKA1RMB2JQBhp3AYIB+gHv/3YAAnSgyRcTAr+myF8VKlz9MDO8YAA+evJizQVCo7eJcLwet+38hYcSDUne0ReOPrixgplrUwYV9nC8fvMDqp0lJSptZiq0Zr42Pa0KBQFsG2Js3OybsAvAAA=",
+      "sizeKB": {
+        "mp4": 152,
+        "webm": 201
+      }
+    },
     "sun": {
       "id": "sun",
       "label": "Treadmill row by the daylight window (hero sun circle)",
@@ -299,20 +315,6 @@
       "placeholder": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBQCdASoUABwAPu1gqk2ppaQiMBgMATAdiWMAwoAPXwqrPvCU1Y2YEaFE46NN+WWAAP7xeLM+IKYR3cpKahQqC7QVwQnWJ0BWhBv5CBeVdxYxPYHC7Qo8Y6OQGxqgQGD+2PN4cLT2XMtK3AXyUtczMPajAAAA",
       "source": "ikigai-floor.jpg"
     },
-    "floor-wide": {
-      "id": "floor-wide",
-      "label": "Strength floor, landscape crop with the wall slogan",
-      "width": 1280,
-      "height": 860,
-      "widths": [
-        480,
-        800,
-        1280
-      ],
-      "base": "/media/img/floor-wide",
-      "placeholder": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBQCdASoUAA4APu1iqk2ppaQiMAgBMB2JbACdHX/3AP8BhAHr/3bN+qoDgGL7YDLTAAD+7EQ5rkdgRE1G2a0eiw6xY82CGJPdIW0tciFLW71DvjoVsohOdp5Q+jcfZmBtEePHdxDsFgql70nL18SF+AUhV9//w8ymwDDy/oHymfe+gfJcAAAA",
-      "source": "ikigai-floor.jpg"
-    },
     "boxing-sign": {
       "id": "boxing-sign",
       "label": "The Ikigai Boxing Club wooden sign",
@@ -360,30 +362,6 @@
       "base": "/media/img/washroom",
       "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQBQCdASoUAAwAPu1kq04ppaQiMAgBMB2JbACdGuAwQD9APf/Adz3kxpbi5R3Af13AAP7kYoFHH7+KsXd+uHGDD2sVN7P6TVeshgxWPfXFjJ2bGenP11gEuwhp1ulAzP6WgAAA",
       "source": "ikigai-poster.jpg"
-    },
-    "sign-venn": {
-      "id": "sign-venn",
-      "label": "The ikigai four-circle diagram sign on the glass entrance door",
-      "width": 282,
-      "height": 460,
-      "widths": [
-        282
-      ],
-      "base": "/media/img/sign-venn",
-      "placeholder": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwBACdASoUACAAPu1krE+ppSQiMBgIATAdiWUAsOwQ7MkXGbuJOXT4JN7pAAD+8QqBofU2rFrzgVSRLjAHZPQPWLv+sLCJobRg7IGF7uWPuv98XLtooLgcNfc2koLi5WZvjZvh1rQsKhXQAAA=",
-      "source": "ikigai-sign-venn.png"
-    },
-    "boxing-mural": {
-      "id": "boxing-mural",
-      "label": "Ikigai Boxing Club sign above the boxer mural on the glass wall",
-      "width": 278,
-      "height": 452,
-      "widths": [
-        278
-      ],
-      "base": "/media/img/boxing-mural",
-      "placeholder": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABQBQCdASoUACAAPu1oq04ppiQiMAgBMB2JZQC/a1XDTqQHsv4gxhJriirJmbglZnwSHlgA/vKYNLv0v3JUwgtqqt6NQ7PJbDfiBSaLdXYlTl4X5WBFqFIyOBrcnLJpt3FhrxxTCQoF9HsWHtxpsoUGIxAAAA==",
-      "source": "ikigai-boxing-mural.png"
     },
     "floor-dark": {
       "id": "floor-dark",
@@ -456,26 +434,219 @@
       "base": "/media/img/functional",
       "placeholder": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQBACdASoUACAAPu1qrlCppaQiqAqpMB2JZwAAMXnhrNOUmPPeJ30Xv5kYZDMwAAD+7FOTZ31UQIcqlcx3OsWRurFY19IJmWTGOTvjS9SwwjpgolfmHC73JPyy6URnCKa1QAAA",
       "source": "ikigai-functional.png"
+    }
+  },
+  "backgrounds": {
+    "gym-floor": {
+      "id": "gym-floor",
+      "label": "Strength floor seen through a doorway (hero)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-gym-floor-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACQBACdASoUAAwAPu1kqU2ppaQiMAgBMB2JagC24uAwQD9APf/uwAETxXBkrZAA/vCN4YWNp/Rl6SsJP/ZZ1C/7zO0/F54VDy9qzJcLq+UJGYaAAAA=",
+      "portrait": {
+        "width": 1259,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-gym-floor-portrait"
+      }
+    },
+    "ikigai-sign": {
+      "id": "ikigai-sign",
+      "label": "The ikigai four-circle sign on the entrance door (four circles)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-ikigai-sign-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABwBACdASoUAAwAPu1iqU2ppaQiMAgBMB2JbABCAMEA/QD3/7sAAwNjIprdgAD+8uOp+ewZSG9c2SltSrf/GUvzH5aGCbp/xfpL06wF+UZ9N0CEC2gAAA==",
+      "portrait": {
+        "width": 1331,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-ikigai-sign-portrait"
+      }
+    },
+    "boxing-mural": {
+      "id": "boxing-mural",
+      "label": "Ikigai Boxing Club sign and boxer mural (boxing banner)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-boxing-mural-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwBQCdASoUAAwAPu1kqU2ppaQiMAgBMB2JagCdGuAwQD9APf/uwADBnoffwMUpg4payAD+9J4qgWn0P0bIIoksrz+Ul6epqnHbcX6S9OsBflo34KO2vyilsFNgAA==",
+      "portrait": {
+        "width": 1341,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-boxing-mural-portrait"
+      }
+    },
+    "punchbag": {
+      "id": "punchbag",
+      "label": "Heavy bag in the wood-floored studio (boxing, secondary layer)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-punchbag-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAwBACdASoUAAwAPu1iqU2ppaQiMAgBMB2JagCdGuAwQD9APf/uwAEUngAA/vCNNAMnlB8ubpv4yl+Y/LQwTdNnC8fvMDqrIQtuK6LHAAA=",
+      "portrait": {
+        "width": 1503,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-punchbag-portrait"
+      }
+    },
+    "power-rack": {
+      "id": "power-rack",
+      "label": "Power racks with loaded barbells (programs heading)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-power-rack-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABwBACdASoUAAwAPu1iqk2ppaQiMAgBMB2JagBCAMEA/QD3/7sABALg9qj4AAD+8KMCFG94QyiGHP/ZZ1C/7zO0/F/2H67Kb6qcdpGwfyZdUxZKoCwAAA==",
+      "portrait": {
+        "width": 1445,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-power-rack-portrait"
+      }
+    },
+    "plate-machine": {
+      "id": "plate-machine",
+      "label": "Red plate-loaded machine (programs cards)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-plate-machine-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwBACdASoUAAwAPu1iqU2ppaOiMAgBMB2JagC1AuAwQD9APf/uwAC9iJ5clY/4AP7y42hnsDWuLDoBtcd9lnUL/vM7T8XnhUPL2rMl2VNeOUDSJvveAAAA",
+      "portrait": {
+        "width": 1365,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-plate-machine-portrait"
+      }
+    },
+    "dumbbells": {
+      "id": "dumbbells",
+      "label": "Dumbbell rack along the mirror wall (timetable)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-dumbbells-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAABwBACdASoUAAwAPu1iqU2ppaOiMAgBMB2JagC24uAwQD9APf/uwADA0fr6UAD+9ZcaVVY+fykvT1NU47bs4Xj95gdVU2rR5ZyAAA==",
+      "portrait": {
+        "width": 1235,
+        "height": 2160,
+        "widths": [
+          750
+        ],
+        "base": "/media/img/bg-dumbbells-portrait"
+      }
+    },
+    "functional": {
+      "id": "functional",
+      "label": "Functional zone (tribe)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-functional-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACwBACdASoUAAwAPu1iqk2ppaQiMAgBMB2JagBCAMEA/QD3/7sAAvo+Y0W9+vuAAP70WdXgJlru4O99yv/ss6hf95nafi/7D9dlN9VOOzTXNuyb6WAAAA==",
+      "portrait": {
+        "width": 1360,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-functional-portrait"
+      }
     },
     "exterior": {
       "id": "exterior",
-      "label": "Building front at dusk with the IKIGAI FITNESS CLUB sign",
-      "width": 282,
-      "height": 296,
-      "widths": [
-        282
-      ],
-      "base": "/media/img/exterior",
-      "placeholder": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACQBQCdASoUABQAPuFeqk2opSQiMAwBEBwJYgDE6yAfoB7/92AAVyIOUtd4ITrTZzEpvTlrAAD+7q8yLjYartq+1R4v8G4hifb/YjqoX++DmMFFA8T9UPLrJ3WuA+WkoO86jON64ghunkDKpTbroARGiiQbAAAA",
-      "source": "ikigai-exterior.png"
+      "label": "Building front with the IKIGAI sign (visit)",
+      "pano": {
+        "width": 3840,
+        "height": 2160,
+        "widths": [
+          1920,
+          3840
+        ],
+        "base": "/media/img/bg-exterior-pano"
+      },
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQBACdASoUAAwAPu1iqk2ppaQiMAgBMB2JbACdGuAwQD9APf/uwAEDHAD+78nXz99oaNiVwfLNZFB9dzs8ZS/MfloYKA98X6S9OsBflub8yECZ4OwAAA==",
+      "portrait": {
+        "width": 2060,
+        "height": 2160,
+        "widths": [
+          750,
+          1242
+        ],
+        "base": "/media/img/bg-exterior-portrait"
+      }
     }
   },
-  "backdropBlur": {
-    "id": "floor-wide",
-    "webp": "/media/img/floor-wide-blur.webp",
-    "avif": "/media/img/floor-wide-blur.avif"
-  },
   "unmapped": [
-    "ikigai-coach-reel.mp4"
+    "ikigai-boxing-mural.png",
+    "ikigai-exterior.png",
+    "ikigai-sign-venn.png"
   ]
 }

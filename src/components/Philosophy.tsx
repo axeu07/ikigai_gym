@@ -120,10 +120,7 @@ export default function Philosophy() {
             </p>
           </li>
         </ol>
-        <figure className="ph-sign reveal">
-          <Picture id={philosophy.sign.photo} alt={philosophy.sign.alt} sizes="200px" />
-          <figcaption>{philosophy.signNote}</figcaption>
-        </figure>
+        <p className="ph-sign-note reveal">{philosophy.signNote}</p>
       </div>
     </Section>
   );

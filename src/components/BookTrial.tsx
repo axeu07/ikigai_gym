@@ -1,10 +1,12 @@
 "use client";
 /**
  * 12 Book a free trial: an honest WhatsApp enquiry (no backend), styled as a Japanese ticket with a
- * red hanko stamp. Valid form → a pre-filled WhatsApp message in a new tab. Picks up the goal chosen
+ * red hanko stamp. The ticket prints out of a slot as the section enters (CSS, transform only); on send
+ * the hanko slams down with a small shake. Valid form → a pre-filled WhatsApp message in a new tab. Picks up the goal chosen
  * in "Find your circle" (lib/booking.ts).
  */
-import { useId, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { punch } from "@/lib/motion";
 import { booking, waLink } from "@/lib/content";
 import { GOAL_EVENT, getGoalPrefill } from "@/lib/booking";
 import Section, { SectionHead } from "./Section";
@@ -27,6 +29,7 @@ export default function BookTrial() {
   const minDate = useSyncExternalStore(noSubscribe, todayIST, () => undefined);
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const ticket = useRef<HTMLFormElement>(null);
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,6 +59,8 @@ export default function BookTrial() {
     ].filter(Boolean);
     window.open(waLink(lines.join("\n")), "_blank", "noopener,noreferrer");
     setSent(true);
+    // the stamp lands ~0.25s into its slam animation
+    window.setTimeout(() => ticket.current && punch(ticket.current), 250);
   };
 
   return (
@@ -69,7 +74,10 @@ export default function BookTrial() {
           )}
         </SectionHead>
 
-        <form className="ticket reveal" onSubmit={submit} noValidate aria-describedby={`${uid}-note`}>
+        <div className="bk-slot">
+          <span className="bk-slot-mouth" aria-hidden />
+          <div className="bk-slot-window">
+        <form ref={ticket} className="ticket" onSubmit={submit} noValidate aria-describedby={`${uid}-note`}>
           <div className="ticket-stub" aria-hidden>
             <span lang="ja">入場券</span>
             <span>Admit one</span>
@@ -144,6 +152,8 @@ export default function BookTrial() {
             <span>甲斐</span>
           </div>
         </form>
+          </div>
+        </div>
       </div>
     </Section>
   );

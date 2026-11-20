@@ -1,0 +1,119 @@
+/*
+ * Venn ring elements (imported by Venn.tsx). Sizes in cqw of the .venn container, so the intro's
+ * FLIP onto the hero stays pixel-true. All animation is transform/opacity on small composited layers;
+ * blur filters are static (never animated). Reduced motion is handled by the global rule in globals.css.
+ */
+
+.vfx { position: absolute; inset: -1px; border-radius: 50%; pointer-events: none; }
+@keyframes vfx-spin { to { transform: rotate(360deg); } }
+
+/* ring tints: each element colours its own ring */
+.v-power { border-color: rgb(255 130 70 / 0.9) !important; box-shadow: 0 0 3cqw rgb(255 90 31 / 0.35), inset 0 0 2cqw rgb(255 90 31 / 0.2); }
+.v-restore { border-color: rgb(140 210 255 / 0.85) !important; box-shadow: 0 0 3cqw rgb(90 170 255 / 0.3), inset 0 0 2cqw rgb(90 170 255 / 0.18); }
+.v-tribe { border-color: rgb(242 238 230 / 0.85) !important; }
+.v-joy { border-color: rgb(255 185 205 / 0.8) !important; box-shadow: 0 0 2.5cqw rgb(255 160 190 / 0.22); }
+
+/* ── fire (POWER) ── */
+.vfx-fire-glow {
+  position: absolute; inset: -3cqw; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 8%, rgb(255 90 31 / 0.9) 17%, rgb(255 190 80 / 0.95) 23%, transparent 33%, transparent 48%, rgb(255 90 31 / 0.75) 60%, rgb(255 210 110 / 0.85) 66%, transparent 77%);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 4.6cqw), #000 calc(100% - 3.2cqw), #000 calc(100% - 1.6cqw), transparent 100%);
+  mask: radial-gradient(closest-side, transparent calc(100% - 4.6cqw), #000 calc(100% - 3.2cqw), #000 calc(100% - 1.6cqw), transparent 100%);
+  filter: blur(0.7cqw);
+  animation: vfx-spin 2.8s linear infinite;
+}
+.flame { position: absolute; inset: 0; transform: rotate(var(--a)); }
+.flame i {
+  position: absolute; left: 50%; top: 0; width: 4.6cqw; height: 8.6cqw; margin: -7.6cqw 0 0 -2.3cqw;
+  border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%;
+  background: radial-gradient(ellipse at 50% 82%, #fff4c8 0%, #ffc04d 22%, #ff6a1f 52%, rgb(194 65 12 / 0) 76%);
+  filter: blur(0.22cqw);
+  transform-origin: 50% 92%;
+  animation: flame 0.85s ease-in-out infinite alternate;
+  animation-delay: var(--fd, 0s);
+}
+@keyframes flame {
+  0% { transform: scale(calc(var(--fs, 1) * 0.75), calc(var(--fs, 1) * 0.55)) skewX(3deg); opacity: 0.6; }
+  50% { transform: scale(var(--fs, 1), var(--fs, 1)) skewX(-4deg); opacity: 1; }
+  100% { transform: scale(calc(var(--fs, 1) * 0.85), calc(var(--fs, 1) * 1.25)) skewX(5deg); opacity: 0.85; }
+}
+
+/* ── water (RESTORE) ── */
+.vfx-water-shimmer {
+  position: absolute; inset: -2cqw; border-radius: 50%;
+  background: conic-gradient(from 90deg, transparent 0 10%, rgb(110 195 255 / 0.9) 19%, rgb(225 247 255 / 0.95) 22%, transparent 31%, transparent 54%, rgb(80 165 255 / 0.8) 65%, rgb(200 238 255 / 0.85) 68%, transparent 77%);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 3.1cqw), #000 calc(100% - 2.4cqw), #000 calc(100% - 1.5cqw), transparent calc(100% - 0.7cqw));
+  mask: radial-gradient(closest-side, transparent calc(100% - 3.1cqw), #000 calc(100% - 2.4cqw), #000 calc(100% - 1.5cqw), transparent calc(100% - 0.7cqw));
+  filter: blur(0.3cqw);
+  animation: vfx-spin 4.2s linear infinite reverse;
+}
+.vfx-water-inner { position: absolute; inset: 3px; border-radius: 50%; overflow: hidden; }
+.ripple-w {
+  position: absolute; left: 50%; top: 64%; width: 44%; aspect-ratio: 1; margin: -22% 0 0 -22%;
+  border-radius: 50%; border: 0.35cqw solid rgb(160 220 255 / 0.6);
+  opacity: 0; transform: scale(0.15, 0.06);
+  animation: ripple-w 3.6s ease-out infinite;
+}
+.ripple-w:nth-child(2) { animation-delay: 1.2s; }
+.ripple-w:nth-child(3) { animation-delay: 2.4s; }
+@keyframes ripple-w { 0% { opacity: 0.95; transform: scale(0.15, 0.06); } 100% { opacity: 0; transform: scale(1.7, 0.62); } }
+.vfx-wave { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; }
+.vfx-wave svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; animation: wave 3.8s linear infinite; }
+.vfx-wave path { fill: rgb(80 165 255 / 0.34); }
+.vfx-wave .vfx-wave-back { height: 118%; animation-duration: 6.4s; animation-direction: reverse; }
+.vfx-wave .vfx-wave-back path { fill: rgb(150 215 255 / 0.18); }
+@keyframes wave { to { transform: translateX(-50%); } }
+
+/* ── ink: Japanese words orbiting (TRIBE) ── */
+.vfx-ink::before { content: ""; position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(circle, rgb(242 238 230 / 0.07), transparent 70%); }
+.vfx-kanji { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: vfx-spin 36s linear infinite reverse; }
+.vfx-kanji text { font-family: var(--ff-jp), "Noto Serif JP", serif; font-size: 6.6px; font-weight: 700; fill: rgb(242 238 230 / 0.88); }
+
+/* ── sakura petals (JOY) ── */
+.vfx-sakura-orbit { position: absolute; inset: 0; animation: vfx-spin 16s linear infinite; }
+.petal-arm { position: absolute; inset: 0; transform: rotate(var(--a)); }
+.petal-arm i {
+  position: absolute; left: 50%; top: 0; width: 3.4cqw; height: 2.3cqw; margin: -1.15cqw 0 0 -1.7cqw;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(135deg, #ffe0e8, #ff9fb8);
+  box-shadow: 0 0 1cqw rgb(255 160 190 / 0.5);
+  animation: petal 2.8s ease-in-out infinite;
+  animation-delay: var(--pd, 0s);
+}
+@keyframes petal {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.95; }
+  50% { transform: translate(1.6cqw, 2.2cqw) rotate(170deg) scale(0.75); opacity: 0.65; }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); opacity: 0.95; }
+}
+
+/* ── combine: one orb per element rushes into the core, which reads IKIGAI ── */
+.v-orb { position: absolute; width: 10cqw; height: 10cqw; margin: -5cqw 0 0 -5cqw; border-radius: 50%; opacity: 0; pointer-events: none; filter: blur(0.5cqw); }
+.v-orb-joy { left: 33%; top: 33%; --mx: 17cqw; --my: 17cqw; background: radial-gradient(circle, #fff 0%, #ffb3c8 35%, rgb(255 150 185 / 0) 70%); }
+.v-orb-power { left: 67%; top: 33%; --mx: -17cqw; --my: 17cqw; background: radial-gradient(circle, #fff6d0 0%, #ff8a3d 35%, rgb(255 90 31 / 0) 70%); }
+.v-orb-tribe { left: 33%; top: 67%; --mx: 17cqw; --my: -17cqw; background: radial-gradient(circle, #fff 0%, #f2eee6 35%, rgb(242 238 230 / 0) 70%); }
+.v-orb-restore { left: 67%; top: 67%; --mx: -17cqw; --my: -17cqw; background: radial-gradient(circle, #fff 0%, #8fd0ff 35%, rgb(90 170 255 / 0) 70%); }
+
+/* intro: timed to land just as the core ignites (~1.2s into the intro timeline) */
+.intro .v-orb { animation: orb-merge 0.55s cubic-bezier(0.6, 0, 0.35, 1) 0.7s both; }
+@keyframes orb-merge {
+  0% { opacity: 0; transform: scale(0.3); }
+  35% { opacity: 1; transform: scale(1.25); }
+  90% { opacity: 1; transform: translate(var(--mx), var(--my)) scale(0.45); }
+  100% { opacity: 0; transform: translate(var(--mx), var(--my)) scale(0.3); }
+}
+
+/* hero: the elements re-combine every few seconds and the core flares */
+.hero-venn .v-orb { animation: orb-loop 9s cubic-bezier(0.6, 0, 0.35, 1) 3s infinite; }
+@keyframes orb-loop {
+  0%, 70% { opacity: 0; transform: scale(0.3); }
+  77% { opacity: 1; transform: scale(1.15); }
+  91% { opacity: 1; transform: translate(var(--mx), var(--my)) scale(0.45); }
+  95%, 100% { opacity: 0; transform: translate(var(--mx), var(--my)) scale(0.3); }
+}
+.hero-venn .v-flash { animation: core-flare 9s ease-out 3s infinite; }
+@keyframes core-flare {
+  0%, 90% { opacity: 0; transform: scale(0.4); }
+  93% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.4); }
+}
+.v-name { text-shadow: 0 0 1.2cqw rgb(255 240 220 / 0.6); }

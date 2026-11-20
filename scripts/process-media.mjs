@@ -5,7 +5,7 @@
  * Source:  media-src/raw/ (clean-named copies of ../ikigai_media; override with IKIGAI_MEDIA_SRC).
  *          Originals are never modified. media-src/raw/ is git-ignored and never deployed.
  * Output:          public/media/video/    <id>.mp4 (H.264) + <id>.webm (VP9) loops, <id>.jpg/.avif posters
- *          public/media/img/      <id>-<w>.avif / .webp photos and stills
+ *          public/media/img/      <id>-<w>.avif / .webp photos and stills; bg-<id>-<pano|portrait>-<w> backgrounds
  *          public/media/logo-stopgap.png
  *          src/lib/media-manifest.json   (read by src/lib/media.ts; includes tiny blur placeholders)
  *
@@ -15,7 +15,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, copyFileSync, statSync, readdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { sources, clips, frames, photos, photoWidths, loopSize, backdropBlur, ogImage } from "./media.config.mjs";
+import { sources, clips, frames, photos, photoWidths, loopSize, backgrounds, ogImage } from "./media.config.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SRC_CANDIDATES = [process.env.IKIGAI_MEDIA_SRC, path.join(root, "media-src", "raw")].filter(Boolean);
@@ -69,7 +69,7 @@ if (!existsSync(SRC)) {
 for (const d of [RAW, VID, IMG, TMP]) mkdirSync(d, { recursive: true });
 
 const prev = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : { videos: {}, images: {} };
-const manifest = { generatedAt: new Date().toISOString(), inventory: [], videos: {}, images: {}, backdropBlur: null, unmapped: [] };
+const manifest = { generatedAt: new Date().toISOString(), inventory: [], videos: {}, images: {}, backgrounds: {}, unmapped: [] };
 
 // ── 1. inventory + raw copies ──────────────────────────────────────────────
 console.log(`\n▸ Inventory (${SRC})`);
@@ -166,32 +166,51 @@ for (const p of photos) {
   emitImage(p.id, p.label, input, filters, even(cw), even(ch), { source: p.file });
 }
 
-// Pre-blurred hero backdrop: CSS blur → brightness → saturate, reproduced exactly (all are sRGB-space
-// linear operations, so brightness × the CSS saturate() matrix collapse into one channel mixer).
+// Full-bleed section backgrounds: pano (≥768px) + portrait (<768px), AVIF + WebP per width.
+// Each file is encoded at decreasing quality until it fits backgrounds.budgetKB. Never upscaled.
+console.log("\n▸ Section backgrounds");
 {
-  const { photo: pid, sigma, brightness: k, saturate: s } = backdropBlur;
-  const p = photos.find((x) => x.id === pid);
-  if (!p) throw new Error(`backdropBlur.photo "${pid}" is not in photos`);
-  const input = path.join(SRC, p.file);
-  const m = (v) => (v * k).toFixed(4);
-  const mix = [
-    `rr=${m(0.213 + 0.787 * s)}:rg=${m(0.715 - 0.715 * s)}:rb=${m(0.072 - 0.072 * s)}`,
-    `gr=${m(0.213 - 0.213 * s)}:gg=${m(0.715 + 0.285 * s)}:gb=${m(0.072 - 0.072 * s)}`,
-    `br=${m(0.213 - 0.213 * s)}:bg=${m(0.715 - 0.715 * s)}:bb=${m(0.072 + 0.928 * s)}`,
-  ].join(":");
-  const vf = [
-    ...(p.delogo ?? []).map((b) => { const [x, y, w, h] = b.split(":"); return `delogo=x=${x}:y=${y}:w=${w}:h=${h}`; }),
-    `crop=${p.crop}`,
-    "format=gbrp",
-    `gblur=sigma=${sigma}`,
-    `colorchannelmixer=${mix}`,
-  ].join(",");
-  const webp = path.join(IMG, `${pid}-blur.webp`);
-  const avif = path.join(IMG, `${pid}-blur.avif`);
-  if (!fresh(webp, input)) ff(["-i", input, "-frames:v", "1", "-vf", vf, "-c:v", "libwebp", "-quality", "80", webp]);
-  if (!fresh(avif, input)) ff(["-i", input, "-frames:v", "1", "-vf", `${vf},format=yuv420p`, "-c:v", "libaom-av1", "-still-picture", "1", "-crf", "30", "-b:v", "0", avif]);
-  manifest.backdropBlur = { id: pid, webp: `/media/img/${pid}-blur.webp`, avif: `/media/img/${pid}-blur.avif` };
-  console.log(`  ${(pid + "-blur").padEnd(16)} pre-blurred hero backdrop (${kb(webp)} KB webp, ${kb(avif)} KB avif)`);
+  const BG = path.join(root, "media-src", backgrounds.dir);
+  const budget = backgrounds.budgetKB * 1024;
+  const encode = (input, vf, out, fmt) => {
+    if (fresh(out, input)) return;
+    const steps = fmt === "avif" ? [30, 34, 38, 42, 46, 50] : [80, 72, 64, 56, 48, 40];
+    for (const q of steps) {
+      const codec = fmt === "avif"
+        ? ["-c:v", "libaom-av1", "-still-picture", "1", "-crf", String(q), "-b:v", "0", "-cpu-used", "5", "-row-mt", "1"]
+        : ["-c:v", "libwebp", "-quality", String(q)];
+      ff(["-i", input, "-frames:v", "1", "-vf", vf, ...codec, out]);
+      if (statSync(out).size <= budget) return;
+    }
+    console.warn(`  ⚠ ${path.basename(out)} still ${kb(out)} KB at the lowest quality step`);
+  };
+  const kinds = [
+    ["pano", "panoramic", "-pano-4k"],
+    ["portrait", "upscaled", "-portrait"],
+  ];
+  for (const b of backgrounds.items) {
+    const entry = { id: b.id, label: b.label };
+    const sizes = [];
+    for (const [kind, dir, suffix] of kinds) {
+      const input = path.join(BG, dir, `ikigai-${b.id}${suffix}.jpg`);
+      if (!existsSync(input)) throw new Error(`Missing background source: ${input}`);
+      const s = probe(input).streams.find((x) => x.codec_type === "video");
+      const native = s.width - (s.width % 2);
+      const widths = backgrounds.widths[kind].filter((w) => w <= native);
+      if (!widths.length) widths.push(native);
+      const base = `bg-${b.id}-${kind}`;
+      for (const w of widths) {
+        const vf = `scale=${w}:-2:flags=lanczos`;
+        encode(input, vf, path.join(IMG, `${base}-${w}.avif`), "avif");
+        encode(input, vf, path.join(IMG, `${base}-${w}.webp`), "webp");
+        sizes.push(`${kind[0]}${w} ${kb(path.join(IMG, `${base}-${w}.avif`))}/${kb(path.join(IMG, `${base}-${w}.webp`))}`);
+      }
+      entry[kind] = { width: s.width, height: s.height, widths, base: `/media/img/${base}` };
+      if (kind === "pano") entry.placeholder = prev.backgrounds?.[b.id]?.placeholder && fresh(path.join(IMG, `${base}-${widths[0]}.webp`), input) && !FORCE ? prev.backgrounds[b.id].placeholder : tinyPlaceholder(input);
+    }
+    manifest.backgrounds[b.id] = entry;
+    console.log(`  ${b.id.padEnd(14)} ${sizes.join("  ")} KB (avif/webp)`);
+  }
 }
 
 console.log("\n▸ Stills from video");

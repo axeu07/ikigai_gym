@@ -1,4 +1,7 @@
-/** Footer: hills silhouette + ensō, address, hours, socials and links. */
+/**
+ * Footer: hills silhouette (parallax) + a giant outline "IKIGAI" that fills with ember as you reach the
+ * bottom (both scrubbed in <Effects />, transform only), then address, hours, socials and links.
+ */
 import { contact, footer, fullAddress, hours, nav, site, telLink, waLink } from "@/lib/content";
 import Enso from "./Enso";
 import Hills from "./Hills";
@@ -8,7 +11,19 @@ import { Confirm } from "./ui";
 export default function Footer() {
   return (
     <footer className="footer">
-      <Hills className="footer-hills" />
+      <div className="ft-hero">
+        <div className="ft-hills" data-ft-hills>
+          <Hills className="footer-hills" />
+        </div>
+        <p className="ft-giant" aria-hidden>
+          <span className="ft-giant-outline">IKIGAI</span>
+          <span className="ft-fill" data-ft-fill>
+            <span className="ft-fill-inner" data-ft-fill-inner>
+              IKIGAI
+            </span>
+          </span>
+        </p>
+      </div>
       <div className="wrap footer-grid">
         <div className="footer-brand">
           <Logo />

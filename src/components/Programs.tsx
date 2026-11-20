@@ -2,7 +2,8 @@
 /**
  * 04 道 Michi: the seven ways to train as large cards. Desktop (≥1024px, motion OK): the row pins and
  * scrolls horizontally. Mobile: a native swipe carousel (scroll-snap). Video cards play a muted preview
- * on hover or tap. Then a SAMPLE weekly timetable with a live NOW / NEXT UP marker (IST).
+ * on hover or tap. A HUD shows the active card (01 / 07) and a progress bar; on desktop the card nearest
+ * the centre zooms its image in (transform only). Then a SAMPLE weekly timetable with NOW / NEXT UP (IST).
  */
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { gsap, useGSAP } from "@/lib/motion";
@@ -18,6 +19,33 @@ export default function Programs() {
   const [preview, setPreview] = useState<number | null>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
+  const barRef = useRef<HTMLSpanElement>(null);
+  const [cur, setCur] = useState(0);
+  const total = programs.list.length;
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  // mobile / reduced motion: native carousel → counter + bar from its scroll position
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const max = track.scrollWidth - track.clientWidth;
+        if (max <= 0) return;
+        const p = track.scrollLeft / max;
+        barRef.current?.style.setProperty("transform", `scaleX(${p.toFixed(3)})`);
+        setCur(Math.round(p * (total - 1)));
+      });
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [total]);
 
   useGSAP(
     () => {
@@ -27,6 +55,13 @@ export default function Programs() {
         const pin = pinRef.current;
         if (!track || !pin) return;
         const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
+        const cards = Array.from(track.children) as HTMLElement[];
+        const zoomers = cards.map((c) => c.querySelector<HTMLElement>(".pg-media > *"));
+        const setZoom = zoomers.map((z) => (z ? (gsap.quickSetter(z, "scale") as (v: number) => void) : () => {}));
+        let centres: number[] = [];
+        const measure = () => (centres = cards.map((c) => c.offsetLeft + c.offsetWidth / 2));
+        measure();
+        let last = -1;
         const tween = gsap.to(track, {
           x: () => -dist(),
           ease: "none",
@@ -39,12 +74,33 @@ export default function Programs() {
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onToggle: (st) => track.style.setProperty("will-change", st.isActive ? "transform" : "auto"),
+            onRefresh: measure,
+            onUpdate: (st) => {
+              if (barRef.current) gsap.set(barRef.current, { scaleX: st.progress });
+              const x = Number(gsap.getProperty(track, "x"));
+              const mid = window.innerWidth / 2;
+              let best = 0;
+              let bestD = Infinity;
+              centres.forEach((c, i) => {
+                const d = Math.abs(c + x - mid);
+                if (d < bestD) {
+                  bestD = d;
+                  best = i;
+                }
+                setZoom[i](1 + 0.14 * Math.max(0, 1 - d / mid));
+              });
+              if (best !== last) {
+                last = best;
+                setCur(best);
+              }
+            },
           },
         });
         return () => {
           tween.scrollTrigger?.kill();
           tween.kill();
           gsap.set(track, { clearProps: "transform,willChange" });
+          zoomers.forEach((z) => z && gsap.set(z, { clearProps: "transform" }));
         };
       });
       return () => mm.revert();
@@ -80,24 +136,36 @@ export default function Programs() {
   };
 
   return (
-    <Section id="programs" tone="paper" className="programs">
-      <div className="wrap">
-        <SectionHead id="programs" title={programs.heading} sub={programs.sub} mega />
+    <Section id="programs" className="programs">
+      <div className="pg-band pg-band-head">
+        <div className="wrap">
+          <SectionHead id="programs" title={programs.heading} sub={programs.sub} mega />
+        </div>
       </div>
 
       <div ref={pinRef} className="pg-pin">
-        <ul ref={trackRef} className="pg-list" aria-label="Programs">
+        <div className="pg-hud" aria-hidden>
+          <span className="pg-count">
+            <b>{pad(cur + 1)}</b> / {pad(total)}
+          </span>
+          <span className="pg-name">{programs.list[cur]?.name}</span>
+          <span className="pg-bar">
+            <span ref={barRef} />
+          </span>
+        </div>
+        <ul ref={trackRef} className="pg-list" aria-label="Programs" data-cursor="Drag">
           {programs.list.map((p, i) => (
             <li
               key={p.name}
               className={`pg-card reveal tilt-card ${p.media?.video ? "has-video" : ""} ${preview === i ? "is-preview" : ""}`}
               style={{ ["--d" as string]: `${i * 60}ms` }}
               data-tilt
+              data-cursor={p.media?.video ? "Play" : "View"}
               onPointerEnter={(e) => e.pointerType === "mouse" && setPreview(i)}
               onPointerLeave={(e) => e.pointerType === "mouse" && setPreview((v) => (v === i ? null : v))}
               onClick={() => p.media?.video && setPreview((v) => (v === i ? null : i))}
             >
-              <div className="pg-media">
+              <div className="pg-media" data-skew>
                 {p.media?.video ? (
                   <LoopVideo id={p.media.video} play={preview === i} />
                 ) : p.media?.photo ? (
@@ -118,6 +186,7 @@ export default function Programs() {
         </ul>
       </div>
 
+      <div className="pg-band pg-band-tt">
       <div className="wrap">
         <div className="tt reveal">
           <div className="tt-head">
@@ -160,6 +229,7 @@ export default function Programs() {
             ))}
           </ol>
         </div>
+      </div>
       </div>
     </Section>
   );

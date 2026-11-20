@@ -29,12 +29,17 @@ export type ImageAsset = {
   placeholder: string;
 };
 
-type Manifest = { videos?: Record<string, VideoAsset>; images?: Record<string, ImageAsset>; backdropBlur?: { id: string; webp: string; avif: string } | null };
+type BgVariant = { width: number; height: number; widths: number[]; base: string };
+/** Full-bleed section background: `pano` is served ≥768px, `portrait` below (see backgrounds in media.config.mjs). */
+export type BgAsset = { id: string; label: string; pano: BgVariant; portrait: BgVariant; placeholder: string };
+
+type Manifest = { videos?: Record<string, VideoAsset>; images?: Record<string, ImageAsset>; backgrounds?: Record<string, BgAsset> };
 const m = manifest as Manifest;
 
 export const videos: Record<string, VideoAsset> = m.videos ?? {};
 export const images: Record<string, ImageAsset> = m.images ?? {};
-/** Hero backdrop with its blur/darken baked in (see backdropBlur in scripts/media.config.mjs). */
-export const backdropBlur = m.backdropBlur ?? null;
+export const backgrounds: Record<string, BgAsset> = m.backgrounds ?? {};
 
-export const srcSet = (img: ImageAsset, ext: "avif" | "webp") => img.widths.map((w) => `${img.base}-${w}.${ext} ${w}w`).join(", ");
+export const srcSet = (img: { widths: number[]; base: string }, ext: "avif" | "webp") => img.widths.map((w) => `${img.base}-${w}.${ext} ${w}w`).join(", ");
+/** Media query that switches a background from portrait to pano. */
+export const BG_WIDE = "(min-width: 768px)";

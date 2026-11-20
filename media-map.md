@@ -12,7 +12,7 @@ Originals live in `../ikigai_media` (WhatsApp exports and Instagram screenshots,
 | ikigai-floor.jpg | WhatsApp Image 10.53.14 | 1280×1600 | — | Strength floor, turf sled track, wall slogan "This place will change you, if you let it." | Good, the sharpest asset |
 | ikigai-shadowbox.mp4 | WhatsApp Video 10.53.10 (1) | 478×850 | 13.6 s | Man shadowboxing on a footbridge, Doon hills behind | OK |
 | ikigai-dance-lead.mp4 | WhatsApp Video 10.53.10 | 478×850 | 20.6 s | Dance class, male lead in front. Burned-in logo and caption (cropped off) | OK |
-| ikigai-coach-reel.mp4 | WhatsApp Video 10.53.12 | 478×850 | 14.3 s | Edited trainer promo, heavy graphics | **Unused** until the client confirms who it is |
+| ikigai-background.mp4 | background.mp4 (= WhatsApp Video 10.53.12) | 478×850 | 14.3 s | Edited treadmill promo with burned-in captions | Hero background (`hero-reel`: 9–13.6 s, top 478×440 only, captions cropped off) |
 | ikigai-airbike.mp4 | WhatsApp Video 10.53.13 | 368×464 | 5.1 s | Member on an air bike | Low-res, fine in a circle |
 | ikigai-treadmills.mp4 | WhatsApp Video 10.53.14 | 720×900 | 3.1 s | Treadmill row by the daylight window | Good |
 | ikigai-dance-group.mp4 | WhatsApp Video 10.53.15 | 478×850 | 21.2 s | Group dance/aerobics class, women in front | OK |
@@ -30,25 +30,37 @@ Originals live in `../ikigai_media` (WhatsApp exports and Instagram screenshots,
 
 | Asset id | Source | Used in |
 |---|---|---|
-| `floor-wide-blur` (backdrop) | ikigai-floor.jpg | Hero backdrop (blur + darken baked in) |
+| `hero-reel` (loop) | ikigai-background.mp4 | Hero background video, over the `gym-floor` still |
 | `og.jpg` (1200×630) | ikigai-floor.jpg | Open Graph / Twitter share image |
 | `joy` / `power` / `tribe` (square loops) | dance-group / airbike / shadowbox | Philosophy circles JOY, POWER, TRIBE |
 | `steam-room` | poster tile | Philosophy RESTORE circle, Find your circle, Restore |
-| `sign-venn` | ikigai-sign-venn.png | Philosophy ("the four circles hang on our front door") |
 | `floor` | ikigai-floor.jpg | Find your circle (Get stronger), Tribe strip |
 | `racks` | ikigai-racks.png | Programs: Gym floor |
 | `treadmills` (loop) | ikigai-treadmills.mp4 | Programs: Cardio |
-| `punchbag` | ikigai-punchbag.png | Programs: Boxing; Boxing section |
+| `punchbag` | ikigai-punchbag.png | Programs: Boxing |
 | `dance-group` (loop) | ikigai-dance-group.mp4 | Programs: Zumba; Find your circle; Tribe strip |
 | `plate-machine` | ikigai-plate-machine.png | Programs: Personal training |
-| `boxing-mural` | ikigai-boxing-mural.png | Boxing section (main image; replaces the poster tile) |
 | `shadowbox` (loop) | ikigai-shadowbox.mp4 | Boxing section; Find your circle (Learn to box) |
 | `airbike` (loop) | ikigai-airbike.mp4 | Find your circle (Lose weight) |
 | `dance-lead` (loop) | ikigai-dance-lead.mp4 | Find your circle (Find my people); Tribe strip |
 | `washroom` | poster tile | Restore |
 | `dumbbells`, `functional` | screenshots | Tribe strip (replace the weaker air-bike poster tile) |
-| `exterior` | ikigai-exterior.png | Visit (helps people find the building) |
 | `boxing-sign`, `air-bikes`, `floor-dark`, `sun` | — | Built but currently unused (spares) |
+
+## Section backgrounds (enhanced stills)
+
+Sources: `media-src/bg/panoramic/ikigai-<id>-pano-4k.jpg` (3840×2160) and `media-src/bg/upscaled/ikigai-<id>-portrait.jpg` (2160 tall), copied from `../ikigai_media/ikigai-enhanced-backgrounds`. Built as `bg-<id>-pano-{1920,3840}` and `bg-<id>-portrait-{750,1242}` (portrait capped at native width), AVIF + WebP, each under 400 KB. The pano is served at 768px and wider, the portrait below. Shown under a 60–75% black gradient. Only the hero is preloaded; the rest lazy-load.
+
+| Background | Section |
+|---|---|
+| `gym-floor` | Hero, right side (preloaded); `hero-reel` (background.mp4) plays in a masked panel on the left |
+| `boxing-mural` | 05 Boxing (full section) |
+| `functional` | 08 Tribe |
+| `exterior` | 14 Visit |
+
+Built but intentionally unused (kept for later): `ikigai-sign`, `power-rack`, `plate-machine`, `dumbbells`, `punchbag`. Backgrounds are used sparingly so the sections with live media (circles, program cards, strip) stay the focus.
+
+The low-res `sign-venn`, `boxing-mural` and `exterior` photo cards and the `floor-wide` hero backdrop were removed; their sources remain in raw/ (unmapped).
 
 ## Still placeholders (ink wash + tag)
 
