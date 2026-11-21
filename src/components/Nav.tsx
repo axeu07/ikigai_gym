@@ -10,7 +10,6 @@ import { getLenis, prefersReducedMotion } from "@/lib/motion";
 import { nav } from "@/lib/content";
 import Logo from "./Logo";
 import NavLoader, { type NavLoaderHandle } from "./NavLoader";
-import { StatusChip } from "./ui";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -108,7 +107,6 @@ export default function Nav() {
             ))}
           </nav>
           <div className="nav-right">
-            <StatusChip className="nav-status" />
             <a
               href={nav.cta.href}
               className="btn btn-sun btn-sm"
@@ -155,7 +153,6 @@ export default function Nav() {
               {nav.cta.label}
             </a>
           </nav>
-          <StatusChip />
         </div>
       </header>
       <NavLoader ref={loader} />
