@@ -14,6 +14,7 @@ import Button, { WhatsAppIcon } from "./Button";
 import Venn from "./Venn";
 import { LoopVideo } from "./Media";
 import { StatusChip } from "./ui";
+import "./hero-center-bg.css";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -46,6 +47,11 @@ export default function Hero() {
 
   return (
     <section ref={root} id="top" className="hero" aria-labelledby="top-title">
+      {/* faint ember-lit gym floor behind the Venn + headline, in the dark centre between the videos */}
+      <picture className="hero-center-bg" aria-hidden>
+        <source srcSet="/media/img/bg-ember-floor-1130.avif" type="image/avif" />
+        <img src="/media/img/bg-ember-floor-1130.webp" alt="" decoding="async" fetchPriority="low" />
+      </picture>
       {/* background.mp4 (hero-reel): the full promo loops in a portrait panel on the left; the rest of
           the hero stays on the plain dark background */}
       <div className="hero-vid" aria-hidden>
