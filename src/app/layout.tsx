@@ -7,7 +7,6 @@ import "./sections.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import CircleProgress from "@/components/CircleProgress";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Nav from "@/components/Nav";
 import Intro from "@/components/Intro";
 import Effects from "@/components/Effects";
@@ -75,7 +74,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <Effects />
         <CircleProgress />
-        <FloatingWhatsApp />
         <Intro />
         <Cursor />
       </body>
