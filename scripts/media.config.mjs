@@ -31,7 +31,7 @@ export const clips = [
   { id: "power", size: circle, label: "Member on an air bike (POWER)", segments: [["airbike", 0.0, 4.9]], crop: { airbike: "368:368:0:50" } },
   { id: "tribe", size: circle, label: "Shadowboxing on a footbridge, Doon hills behind (TRIBE)", segments: [["shadowbox", 0.5, 8.0]], crop: { shadowbox: "478:478:0:300" } },
   // hero video: the full background.mp4 promo (0–14.3 s), uncropped portrait, looped in the hero's left panel
-  { id: "hero-reel", size: { w: 478, h: 850 }, label: "Treadmill promo reel, full clip (hero left panel)", segments: [["heroReel", 0.0, 14.3]] },
+  { id: "hero-reel", size: { w: 478, h: 850 }, label: "Treadmill promo reel, full clip (hero left panel)", segments: [["heroReel", 2.5, 14.3]] },
   // hero right panel: the full zumba.mp4, uncropped portrait
   { id: "hero-zumba", size: { w: 478, h: 850 }, label: "Zumba class, full clip (hero right panel)", segments: [["zumba", 0.0, 20.6]] },
   { id: "sun", size: { w: 480, h: 480 }, label: "Treadmill row by the daylight window (hero sun circle)", boomerang: true, segments: [["treadmills", 0.0, 2.9]], crop: { treadmills: "720:720:0:120" } },

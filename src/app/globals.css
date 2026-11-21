@@ -253,8 +253,6 @@ html[data-intro] .intro .v-ring, html[data-intro] .intro .v-core, html[data-intr
    the clip's own aspect ratio, so the whole frame shows; only the right edge melts into the dark hero.
    No background photo: the rest of the hero is the plain --sumi background. */
 .hero { --vid-w: min(calc(100svh * 478 / 850), 30vw); }
-/* right panel (zumba.mp4): mirror of the left one, fading out towards the centre; desktop only */
-.hero-vid.is-right { left: auto; right: 0; -webkit-mask-image: linear-gradient(270deg, #000 55%, transparent 100%); mask-image: linear-gradient(270deg, #000 55%, transparent 100%); }
 .hero-vid { position: absolute; z-index: 1; left: 0; top: 0; bottom: 0; width: var(--vid-w); pointer-events: none; transition: opacity 1.2s var(--ease);
   -webkit-mask-image: linear-gradient(90deg, #000 55%, transparent 100%); mask-image: linear-gradient(90deg, #000 55%, transparent 100%); }
 html:not(.lit) .hero-vid { opacity: 0; }
@@ -265,7 +263,6 @@ html:not(.lit) .hero-vid { opacity: 0; }
    a bottom scrim keeps the text readable */
 @media (max-width: 1023px) {
   .hero-vid { right: 0; width: auto; -webkit-mask-image: none; mask-image: none; }
-  .hero-vid.is-right { display: none; }
   .hero-vid::after { background: linear-gradient(180deg, rgb(10 10 10 / 0.35) 0%, rgb(10 10 10 / 0.45) 45%, rgb(10 10 10 / 0.85) 75%, var(--sumi) 100%); }
 }
 .hero-glow { position: absolute; z-index: 1; left: 50%; top: 30%; width: 130vmax; height: 130vmax; margin: -65vmax 0 0 -65vmax; border-radius: 50%; background: radial-gradient(circle, rgb(255 90 31 / 0.14), rgb(255 138 61 / 0.03) 14%, transparent 24%); opacity: 0; transform: scale(0.08); transition: opacity 1.4s var(--ease), transform 1.8s var(--ease); pointer-events: none; }
@@ -290,16 +287,14 @@ html[data-intro] .hero-venn { opacity: 0; }
 .hero.is-ignited .hero-in { opacity: 1; transform: none; }
 .hero-sub { max-width: 54ch; font-size: clamp(16px, 1.3vw, 19px); color: rgb(242 238 230 / 0.82); }
 .hero-sub strong { color: var(--washi); }
-.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-.hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 24px; }
 .hero-wall { font-size: 13px; color: var(--ash); font-style: italic; }
 .hero-wall span { font-style: normal; font-family: var(--ff-mono), monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; display: block; opacity: 0.7; }
 .hero-scroll { position: absolute; z-index: 3; left: 50%; bottom: 20px; width: 26px; height: 42px; margin-left: -13px; border: 1.5px solid rgb(242 238 230 / 0.4); border-radius: 13px; }
 .hero-scroll span { position: absolute; left: 50%; top: 8px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: var(--sun); animation: scroll-dot 1.8s infinite; }
 @keyframes scroll-dot { 60% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
 @media (min-width: 768px) { .hero-venn { width: min(40vw, 340px); } }
-/* phones: only the headline, then one compact row: Book a free trial → · ● Open · WhatsApp (icon).
-   Kicker, intro paragraph and wall quote are hidden. Bottom padding keeps the row clear of the floating WhatsApp button. */
+/* phones: circles up top, headline at the bottom (no buttons: they live in the header).
+   Kicker, intro paragraph and wall quote are hidden. Bottom padding keeps it clear of the floating WhatsApp button. */
 @media (max-width: 767px) {
   .hero { padding-bottom: 104px; align-items: stretch; }
   /* circles stay up top (where they sat before the text was trimmed); headline + row stay at the bottom */
@@ -307,39 +302,22 @@ html[data-intro] .hero-venn { opacity: 0; }
   .hero-venn-wrap { align-self: start; margin-top: 8px; }
   .hero-copy { align-self: end; }
   .hero-kicker, .hero-sub, .hero-wall { display: none; }
-  .hero-title { margin-bottom: 18px; }
-  .hero-actions { display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; }
-  .js .hero-actions { opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity 0.9s var(--ease) 0.45s, transform 0.9s var(--ease) 0.45s; }
-  .hero.is-ignited .hero-actions { opacity: 1; transform: none; }
-  .hero-actions .hero-ctas, .hero-actions .hero-meta { display: contents; }
-  .hero-actions .btn { min-height: 40px; padding: 8px 14px; font-size: 13px; gap: 6px; white-space: nowrap; }
-  .hero-actions .btn-sun { order: 1; }
-  .hero-actions .status { order: 2; padding: 0 10px; min-height: 40px; font-size: 11px; white-space: nowrap; }
-  /* the chip shows just "Open"/"Closed"; the full "open now · until …" line stays for screen readers */
-  .hero-actions .status > span:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .hero-actions .status[data-state="open"]::after { content: "Open"; }
-  .hero-actions .status[data-state="closed"]::after { content: "Closed"; }
-  .hero-actions .status[data-state="unknown"]::after { content: "Hours"; }
-  /* WhatsApp: round icon button; its label stays for screen readers */
-  .hero-actions .btn-ghost { order: 3; position: relative; width: 40px; padding: 0; flex: none; }
-  .hero-actions .btn-ghost::after { display: none; }
-  .hero-actions .btn-ghost > span:not(.btn-icon) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .hero-title { margin-bottom: 0; }
 }
 @media (min-width: 1024px) {
-  /* one composition: column 1 = the video panel (buttons sit at its foot); column 2 = all the dark space
-     to its right, with the Venn and the headline + intro stacked and centred in it, under one ember glow */
-  .hero-inner { grid-template-columns: calc(var(--vid-w) * 0.6 - var(--gutter)) 1fr calc(var(--vid-w) * 0.6 - var(--gutter)); grid-template-rows: 1fr auto; align-items: end; align-self: stretch; column-gap: 0; row-gap: clamp(8px, 2vh, 20px); }
-  .hero-venn-wrap { grid-column: 2; grid-row: 1; align-self: end; }
-  .hero-copy { grid-column: 2; grid-row: 2; text-align: center; padding-inline: clamp(16px, 3vw, 48px); }
-  .hero-copy .hero-title { font-size: min(10vw, 17vh, 12rem); margin: 10px 0 18px; }
-  .hero-copy .hero-sub { margin-inline: auto; max-width: 52ch; }
-  /* the column is narrow (the copy overlaps the video's fade), so let the buttons use the panel's full width */
-  .hero-actions { grid-column: 1; grid-row: 1 / span 2; align-self: end; position: relative; z-index: 1; width: max-content; max-width: calc(var(--vid-w) - var(--gutter)); }
-  .hero-actions .hero-ctas { margin-top: 0; }
-  .hero-venn { width: min(28vw, 36vh, 460px); }
-  .hero-glow { left: 50%; top: 48%; }
-  /* the vertical kanji would collide with the Zumba clip's burned-in caption; the Venn ring carries 生き甲斐 */
-  .hero-kanji { display: none; }
+  /* two columns: left = kicker, headline, intro and wall quote over the video (which now spreads across
+     the left ~60% and melts into the dark); right = the Venn alone on the dark side, under the ember glow */
+  /* the clip keeps its own portrait size and slides partly off the left edge, fading out early, so its
+     burned-in captions sit left of / under the fade instead of behind the headline */
+  .hero { --vid-w: 30vw; align-items: stretch; padding-bottom: clamp(28px, 5vh, 56px); }
+  .hero-vid { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent 100%); mask-image: linear-gradient(90deg, #000 70%, transparent 100%); }
+  .hero-vid::after { background: rgb(10 10 10 / 0.55); }
+  .hero-inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); grid-template-rows: 1fr; align-items: center; column-gap: clamp(24px, 4vw, 72px); }
+  .hero-copy { grid-column: 1; grid-row: 1; align-self: end; text-align: left; }
+  .hero-copy .hero-title { font-size: min(11vw, 19vh, 13rem); margin: 10px 0 0; }
+  .hero-venn-wrap { grid-column: 2; grid-row: 1; align-self: center; }
+  .hero-venn { width: min(30vw, 54vh, 480px); }
+  .hero-glow { left: 74%; top: 52%; }
   /* short laptop screens: the intro paragraph reaches the bottom, so drop the scroll cue */
   @media (max-height: 820px) { .hero-scroll { display: none; } }
 }

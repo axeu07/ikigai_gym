@@ -1,0 +1,14 @@
+/* Hero Venn → 02 Philosophy stage hand-off (Philosophy.tsx, desktop + motion OK only).
+   A fixed copy of the hero Venn flies down on scroll: shrinks mid-flight, rolls once, then grows
+   onto the four photo circles, which fade in underneath (--arrive on .ph-stage). */
+.venn-travel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  pointer-events: none;
+  visibility: hidden;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.philosophy .ph-stage { opacity: var(--arrive, 1); }

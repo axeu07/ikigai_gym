@@ -1,7 +1,8 @@
 "use client";
 /**
- * 01 始め Hajime: full-screen hero. Two full portrait loops frame a dark centre: the treadmill promo
- * (background.mp4) on the left, the Zumba class (zumba.mp4) on the right; the Venn + headline sit between.
+ * 01 始め Hajime: full-screen hero. The treadmill promo (background.mp4) loops on the left behind the
+ * kicker, headline and intro; the Venn sits alone on the dark right side. No buttons here: Book /
+ * WhatsApp / open-now are in the header.
  * The intro's Venn lands exactly on `.hero-venn`. At ignite, an ember glow spreads and
  * "FIND YOUR IKIGAI" catches letter by letter.
  */
@@ -9,12 +10,11 @@ import { useRef, useState } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/motion";
 import { whenIgnited } from "@/lib/intro";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import { hero, waLink } from "@/lib/content";
-import Button, { WhatsAppIcon } from "./Button";
+import { hero } from "@/lib/content";
 import Venn from "./Venn";
 import { LoopVideo } from "./Media";
-import { StatusChip } from "./ui";
 import "./hero-center-bg.css";
+import "./hero-caps.css";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -57,10 +57,6 @@ export default function Hero() {
       <div className="hero-vid" aria-hidden>
         <LoopVideo id={hero.video} className="hero-vid-el" play={lit} eager />
       </div>
-      {/* zumba.mp4 (hero-zumba): the mirror panel on the right (desktop only); the centre stays dark */}
-      <div className="hero-vid is-right" aria-hidden>
-        <LoopVideo id={hero.videoRight} className="hero-vid-el" play={lit} />
-      </div>
       <div className="grain" aria-hidden />
       <div className="hero-glow" aria-hidden />
 
@@ -73,7 +69,8 @@ export default function Hero() {
           <Venn className="hero-venn" />
         </div>
 
-        {/* right column (desktop): headline + intro sit under the Venn */}
+        {/* left column (desktop): kicker + headline, low on the screen, partly over the video.
+            Book / WhatsApp / open-now live in the header (and the floating WhatsApp button). */}
         <div className="hero-copy">
           <p className="hero-kicker hero-in">{hero.kicker}</p>
           <h1 id="top-title" className="hero-title" aria-label={hero.headline.join(" ")}>
@@ -82,31 +79,28 @@ export default function Hero() {
                 <span key={w}>{w}</span>
               ))}
             </span>
-            {hero.headline.map((w, i) => (
-              <span key={w} aria-hidden className={`hero-line ${i === 0 ? "outline" : "is-ember"}`}>
-                {w}
-              </span>
-            ))}
+            {hero.headline.map((w, i) =>
+              i === 0 ? (
+                <span key={w} aria-hidden className="hero-line outline">
+                  {w}
+                </span>
+              ) : (
+                // "IKIGAI" + the programme capsules (each ringed like its Venn circle) on one row
+                <span key={w} className="hero-row" aria-hidden>
+                  <span className="hero-line is-ember">{w}</span>
+                  <span className="hero-caps">
+                    {hero.capsules.map((c, j) => (
+                      <span key={c.label} className={`cap cap-${c.p} hero-in`} style={{ ["--d" as string]: `${900 + j * 90}ms` }}>
+                        <i className="cap-ring" />
+                        {c.label}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              ),
+            )}
           </h1>
-          <p className="hero-sub hero-in" style={{ ["--d" as string]: "350ms" }}>
-            <strong>{hero.tagline}</strong> {hero.sub}
-          </p>
-        </div>
-
-        {/* left column (desktop): buttons + open chip, over the video */}
-        <div className="hero-actions">
-          <div className="hero-ctas hero-in" style={{ ["--d" as string]: "450ms" }}>
-            <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
-            <Button href={waLink(hero.ctaWhatsApp.text)} external variant="ghost" icon={<WhatsAppIcon />}>
-              {hero.ctaWhatsApp.label}
-            </Button>
-          </div>
-          <div className="hero-meta hero-in" style={{ ["--d" as string]: "550ms" }}>
-            <StatusChip />
-            <p className="hero-wall">
-              “{hero.wallLine}” <span>{hero.wallNote}</span>
-            </p>
-          </div>
+          <p className="sr-only">{hero.sub}</p>
         </div>
       </div>
 

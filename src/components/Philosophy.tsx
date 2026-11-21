@@ -4,17 +4,26 @@
  * (Joy → Power → Tribe → Restore) highlights in turn with its footage and one line, then the
  * ember centre lights. Mobile / reduced motion: no pin, all four shown as a list.
  */
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
 import { philosophy, pillars } from "@/lib/content";
 import Section, { SectionHead } from "./Section";
 import { LoopVideo, Picture } from "./Media";
+import Venn from "./Venn";
+import "./venn-travel.css";
+
+const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+const noSubscribe = () => () => {};
 
 export default function Philosophy() {
   const pin = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [met, setMet] = useState(false);
   const [pinned, setPinned] = useState(false);
+  const travel = useRef<HTMLDivElement>(null);
+  // true on the client only (portal target), without a setState-in-effect
+  const mounted = useSyncExternalStore(noSubscribe, () => true, () => false);
 
   useGSAP(
     () => {
@@ -51,6 +60,62 @@ export default function Philosophy() {
       return () => mm.revert();
     },
     { scope: pin },
+  );
+
+  // Hero Venn → stage: a fixed copy flies from the hero ring to the four photo circles, shrinking
+  // mid-way ("minimise"), rolling once, then growing onto the stage ("maximise").
+  // Kept SEPARATE from the pin above: it waits for the portal (mounted), and re-creating the pin
+  // after the other sections' triggers would break every scroll position below this section.
+  useGSAP(
+    () => {
+      const el = pin.current;
+      const ov = travel.current;
+      if (!el || !ov) return;
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+        const src = document.querySelector<HTMLElement>(".hero .hero-venn");
+        const stage = el.querySelector<HTMLElement>(".ph-stage");
+        if (!src || !stage) return;
+        {
+          const ease = gsap.parseEase("power2.inOut");
+          const render = (p: number) => {
+            if (p <= 0.001 || p >= 0.999) {
+              ov.style.visibility = "hidden";
+              src.style.visibility = "";
+              stage.style.setProperty("--arrive", p >= 0.999 ? "1" : "0");
+              return;
+            }
+            const a = src.getBoundingClientRect();
+            const b = stage.getBoundingClientRect();
+            const e = ease(p);
+            const w = a.width;
+            const scale = (1 + (b.width / w - 1) * e) * (1 - 0.55 * Math.sin(Math.PI * p));
+            const cx = a.left + w / 2 + (b.left + b.width / 2 - (a.left + w / 2)) * e;
+            const cy = a.top + a.height / 2 + (b.top + b.height / 2 - (a.top + a.height / 2)) * e;
+            ov.style.width = `${w}px`;
+            ov.style.visibility = "visible";
+            src.style.visibility = "hidden";
+            gsap.set(ov, { x: cx - w / 2, y: cy - w / 2, scale, rotation: 360 * e, opacity: 1 - clamp01((p - 0.86) / 0.13) });
+            stage.style.setProperty("--arrive", String(clamp01((p - 0.72) / 0.24)));
+          };
+          const fly = ScrollTrigger.create({
+            trigger: el,
+            start: "top bottom",
+            end: "top top",
+            onUpdate: (s) => render(s.progress),
+            onRefresh: (s) => render(s.progress),
+          });
+          return () => {
+            fly.kill();
+            src.style.visibility = "";
+            ov.style.visibility = "hidden";
+            stage.style.removeProperty("--arrive");
+          };
+        }
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [mounted], revertOnUpdate: true },
   );
 
   const p = pillars[active];
@@ -122,6 +187,15 @@ export default function Philosophy() {
         </ol>
         <p className="ph-sign-note reveal">{philosophy.signNote}</p>
       </div>
+
+      {/* the hero Venn in flight (desktop + motion OK); hidden unless the hand-off is mid-scroll */}
+      {mounted &&
+        createPortal(
+          <div ref={travel} className="venn-travel" aria-hidden>
+            <Venn className="hero-venn" />
+          </div>,
+          document.body,
+        )}
     </Section>
   );
 }

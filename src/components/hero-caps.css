@@ -1,0 +1,113 @@
+/* Hero: programme capsules beside "IKIGAI" (Hero.tsx). Each capsule wears a ring in its Venn circle's
+   element colour: a slowly spinning conic glow around the pill + a small notched ring icon
+   (POWER = fire, JOY = sakura, RESTORE = water). */
+@property --cap-spin {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px clamp(16px, 2vw, 32px); }
+.hero-row .hero-line { display: inline-block; }
+
+/* 2-column grid: Strength | Cardio, Boxing | Dance, Recovery | Yoga (Yoga sits under Dance) */
+.hero-caps {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-items: start;
+  gap: 8px;
+  /* reset the h1's display type */
+  font-family: var(--ff-mono), monospace;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cap {
+  --c: 242 238 230;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 9px;
+  border-radius: 999px;
+  color: var(--washi);
+  background: rgb(10 10 10 / 0.55);
+  border: 1px solid rgb(var(--c) / 0.28);
+  box-shadow: 0 0 14px rgb(var(--c) / 0.14), inset 0 0 10px rgb(var(--c) / 0.08);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.cap-power { --c: 255 130 70; }
+.cap-joy { --c: 255 185 205; }
+.cap-restore { --c: 140 210 255; }
+
+/* spinning ring around the pill */
+.cap::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--cap-spin), transparent 0 55%, rgb(var(--c) / 0.95) 75%, transparent 90%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: cap-spin 3.6s linear infinite;
+  pointer-events: none;
+}
+.cap:nth-child(2n)::before { animation-duration: 4.4s; animation-direction: reverse; }
+
+/* mini Venn ring with a notch, like the hero circles */
+.cap-ring {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(var(--c) / 0.95);
+  box-shadow: 0 0 8px rgb(var(--c) / 0.6);
+  animation: cap-rot 6s linear infinite;
+}
+.cap-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgb(var(--c));
+}
+
+@keyframes cap-spin { to { --cap-spin: 360deg; } }
+@keyframes cap-rot { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cap::before, .cap-ring { animation: none; }
+}
+
+/* phones: the capsules wrap under "IKIGAI" */
+@media (max-width: 767px) {
+  .hero-caps { max-width: none; font-size: 10px; gap: 6px; }
+  .cap { padding: 7px 11px 7px 8px; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* desktop: the whole headline block (kicker, FIND YOUR IKIGAI, capsules) sits a little lower */
+@media (min-width: 1024px) {
+  .hero-copy { transform: translateY(0.5vh); }
+}

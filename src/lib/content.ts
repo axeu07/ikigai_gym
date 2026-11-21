@@ -116,6 +116,15 @@ export const hero = {
   headline: ["Find your", "Ikigai"],
   tagline: "Find your reason to move.",
   sub: "Strength, cardio, boxing, dance, yoga and recovery under one roof. A unisex, women-friendly gym with a community that keeps you coming back.",
+  /** capsules beside "IKIGAI" in the headline; `p` = the Venn ring whose element colours the capsule ring */
+  capsules: [
+    { label: "Strength", p: "power" },
+    { label: "Cardio", p: "power" },
+    { label: "Boxing", p: "power" },
+    { label: "Dance", p: "joy" },
+    { label: "Recovery", p: "restore" },
+    { label: "Yoga", p: "joy" },
+  ],
   /** two full portrait loops framing the dark centre: treadmill promo on the left, Zumba class on the right */
   video: "hero-reel",
   videoRight: "hero-zumba",

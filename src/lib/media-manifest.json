@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T12:04:07.340Z",
+  "generatedAt": "2026-11-21T07:28:52.424Z",
   "inventory": [
     {
       "file": "ikigai-airbike.mp4",
@@ -280,15 +280,15 @@
       "label": "Treadmill promo reel, full clip (hero left panel)",
       "width": 478,
       "height": 850,
-      "duration": 14.33,
+      "duration": 11.8,
       "mp4": "/media/video/hero-reel.mp4",
       "webm": "/media/video/hero-reel.webm",
       "poster": "/media/video/hero-reel.jpg",
       "posterAvif": "/media/video/hero-reel.avif",
       "placeholder": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBgCdASoUABIAPu1mq06ppaOiKA1RMB2JQBhp3AYIB+gHv/3YAAnSgyRcTAr+myF8VKlz9MDO8YAA+evJizQVCo7eJcLwet+38hYcSDUne0ReOPrixgplrUwYV9nC8fvMDqp0lJSptZiq0Zr42Pa0KBQFsG2Js3OybsAvAAA=",
       "sizeKB": {
-        "mp4": 1188,
-        "webm": 1493
+        "mp4": 1006,
+        "webm": 1289
       }
     },
     "hero-zumba": {
