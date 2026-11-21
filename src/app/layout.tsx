@@ -66,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Before first paint: enable reveal styles (JS on) and decide whether the ensō intro plays (lib/intro.ts) */}
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js");${INTRO_BOOT}` }} />
       </head>
-      <body className="min-h-full">
+      <body className="min-h-full" suppressHydrationWarning>
         <a href="#main" className="skip-link">
           Skip to content
         </a>

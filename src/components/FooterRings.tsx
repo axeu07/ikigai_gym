@@ -36,13 +36,24 @@ function PhoneIcon() {
   );
 }
 
-type Ring = { key: string; label: string; href: string; aria: string; icon: ReactNode; external?: boolean };
+function FacebookIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+      <path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4a20 20 0 0 0-2.3-.1c-2.3 0-3.8 1.4-3.8 3.9v2.3H9v3h2.5V21" />
+    </svg>
+  );
+}
 
+/** only: "mobile" rings show below 768px, "desktop" rings from 768px (footer-rings.css). */
+type Ring = { key: string; label: string; href: string; aria: string; icon: ReactNode; external?: boolean; only?: "mobile" | "desktop" };
+
+// Phones: WhatsApp · Instagram · Facebook · Mail. Larger screens: WhatsApp · Instagram · Mail · Call.
 const RINGS: Ring[] = [
   { key: "wa", label: "WhatsApp", href: waLink("Hi IKIGAI! I have a question."), aria: "Chat with IKIGAI on WhatsApp (opens in a new tab)", icon: <WhatsAppIcon />, external: true },
   { key: "ig", label: "Instagram", href: contact.instagram.value.url, aria: `IKIGAI on Instagram, ${contact.instagram.value.handle} (opens in a new tab)`, icon: <InstagramIcon />, external: true },
+  { key: "fb", label: "Facebook", href: contact.facebook.value.url, aria: `IKIGAI on Facebook, ${contact.facebook.value.name} (opens in a new tab)`, icon: <FacebookIcon />, external: true, only: "mobile" },
   { key: "mail", label: "Mail", href: `mailto:${contact.email.value}`, aria: `Email IKIGAI at ${contact.email.value}`, icon: <MailIcon /> },
-  { key: "call", label: "Call", href: telLink, aria: `Call IKIGAI on ${contact.phoneDisplay}`, icon: <PhoneIcon /> },
+  { key: "call", label: "Call", href: telLink, aria: `Call IKIGAI on ${contact.phoneDisplay}`, icon: <PhoneIcon />, only: "desktop" },
 ];
 
 export default function FooterRings() {
@@ -54,8 +65,10 @@ export default function FooterRings() {
     // The broken-apart row is the natural (CSS) layout. For the joined logo, each ring gets an offset
     // (--jx/--jy) that pulls it back into a 2x2 overlapping cluster at the left end of the row.
     const place = () => {
-      const items = Array.from(el.querySelectorAll<HTMLElement>(".ft-ring"));
+      // only the rings shown at this width (one per breakpoint is display:none)
+      const items = Array.from(el.querySelectorAll<HTMLElement>(".ft-ring")).filter((li) => li.offsetWidth > 0);
       if (!items.length) return;
+      items.forEach((li, i) => li.style.setProperty("--i", String(i)));
       const s = items[0].offsetWidth;
       const o = s * 0.31; // same overlap as the four-circle logo (CircleProgress)
       const first = items[0].offsetLeft;
@@ -100,8 +113,16 @@ export default function FooterRings() {
     if (visit) ioVisit.observe(visit);
     else inVisit = true;
     ioRings.observe(el);
+    // Phones: the floating WhatsApp button and the four-circle logo step aside once the footer is on
+    // screen (the rings take over as the contact links). CSS: html.at-footer in footer-rings.css.
+    const footer = el.closest("footer");
+    const ioFooter = new IntersectionObserver(([e]) => document.documentElement.classList.toggle("at-footer", e.isIntersecting));
+    const grid = footer?.querySelector(".footer-grid");
+    if (grid) ioFooter.observe(grid);
     return () => {
       window.clearTimeout(timer);
+      ioFooter.disconnect();
+      document.documentElement.classList.remove("at-footer");
       ioVisit.disconnect();
       ioRings.disconnect();
       ro.disconnect();
@@ -113,7 +134,7 @@ export default function FooterRings() {
       <span className="ft-rings-core" aria-hidden />
       <ul className="ft-rings-list" aria-label="Contact IKIGAI">
         {RINGS.map((r, i) => (
-          <li key={r.key} className="ft-ring" style={{ ["--i" as string]: i }}>
+          <li key={r.key} className={`ft-ring${r.only ? ` ft-ring-${r.only}` : ""}`} style={{ ["--i" as string]: i }}>
             <a href={r.href} aria-label={r.aria} {...(r.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
               <span className="ft-ring-icon">{r.icon}</span>
               <span className="ft-ring-label">{r.label}</span>

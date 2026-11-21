@@ -598,8 +598,7 @@ html[data-intro] .hero-venn { opacity: 0; }
 .footer-hills { opacity: 0.9; }
 .footer-grid { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); padding-top: 24px; font-size: 14px; color: rgb(242 238 230 / 0.78); }
 .footer-line { font-family: var(--ff-display), Impact, sans-serif; font-size: 22px; text-transform: uppercase; color: var(--washi); margin-top: 16px; }
-.footer-meaning { font-family: var(--ff-jp), serif; color: var(--ash); margin-top: 4px; }
-.footer-h { font-family: var(--ff-mono), monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ash); margin-bottom: 10px; font-weight: 700; }
+.footer-meaning { font-family: var(--ff-jp), serif; color: var(--ash); margin-top: 4px; }.footer-h { font-family: var(--ff-mono), monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ash); margin-bottom: 10px; font-weight: 700; }
 .footer p { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
 .footer-links { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .footer a { text-decoration: none; }

@@ -222,7 +222,14 @@ export const restore = {
   cafe: {
     name: "Cafeteria",
     line: "Refuel right after your session.",
-    menuNote: "Menu and prices to be confirmed.",
+    /** SAMPLE menu + demo prices: replace with IKIGAI's real cafeteria menu */
+    menu: [
+      { item: "Whey protein shake", price: "₹149" },
+      { item: "Black coffee", price: "₹79" },
+      { item: "Peanut butter toast", price: "₹99" },
+      { item: "Boiled eggs (4)", price: "₹59" },
+    ],
+    menuNote: "Demo menu. Real items and prices to be confirmed.",
   },
   hygiene: "Members keep mentioning hygiene and cleanliness in reviews. We intend to keep it that way.",
 } as const;

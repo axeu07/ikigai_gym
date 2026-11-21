@@ -51,6 +51,13 @@ export default function Footer() {
               </span>
             </span>
           </div>
+          {/* mobile only: the brand block is hidden and its tagline sits beside the big word */}
+          <div className="ft-tag">
+            <p className="footer-line">{footer.line}</p>
+            <p className="footer-meaning" lang="ja">
+              {footer.meaning}
+            </p>
+          </div>
           <FooterRings />
         </div>
         <nav aria-label="Footer" className="footer-nav">

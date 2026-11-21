@@ -36,19 +36,27 @@
   #main .boxing .ken-shot.ken-shot-clip { width: min(74vw, 300px); }
 
   /* ── 11 Book: smaller trial pass (inputs keep 16px text so iOS doesn't zoom) ── */
-  #main .book .ticket { grid-template-columns: 40px 1fr; }
-  #main .book .ticket-stub { padding: 12px 0; }
-  #main .book .ticket-stub span[lang="ja"] { font-size: 15px; }
-  #main .book .ticket-stub span { font-size: 9px; }
-  #main .book .ticket-body { padding: 16px 14px; gap: 10px; }
-  #main .book .ticket-title { font-size: 24px; }
-  #main .book .field { gap: 4px; }
-  #main .book .field label { font-size: 10px; }
+  #main .book .ticket { grid-template-columns: 28px 1fr; }
+  #main .book .ticket-stub { padding: 10px 0; }
+  #main .book .ticket-stub span[lang="ja"] { font-size: 12px; letter-spacing: 0.2em; }
+  #main .book .ticket-stub span { font-size: 8px; }
+  /* two columns: name + mobile side by side, date + time side by side, everything else full width */
+  #main .book .ticket-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 12px 12px 12px; gap: 8px 8px; }
+  #main .book .ticket-body > * { grid-column: 1 / -1; min-width: 0; }
+  #main .book .ticket-body > .field:nth-child(2),
+  #main .book .ticket-body > .field:nth-child(3) { grid-column: auto; }
+  #main .book .field-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  #main .book .ticket-title { font-size: 20px; padding-right: 48px; }
+  #main .book .ticket-title span { font-size: 10px; }
+  #main .book .field { gap: 3px; min-width: 0; }
+  #main .book .field label { font-size: 9px; letter-spacing: 0.08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #main .book .field input,
-  #main .book .field select { min-height: 40px; padding: 7px 12px; font-size: 16px; }
-  #main .book .ticket-send { min-height: 44px; padding: 10px 18px; font-size: 14px; }
-  #main .book .ticket-note { font-size: 11px; }
-  #main .book .hanko { transform: scale(0.8); transform-origin: top right; }
+  #main .book .field select { width: 100%; min-width: 0; min-height: 36px; padding: 5px 10px; border-radius: 6px; font-size: 16px; }
+  #main .book .field-err { font-size: 11px; }
+  #main .book .ticket-send { min-height: 40px; padding: 8px 16px; font-size: 13px; }
+  #main .book .ticket-note { font-size: 10.5px; }
+  #main .book .hanko { right: 10px; top: 10px; transform: scale(0.6); transform-origin: top right; }
+  #main .book .bk-slot-window { padding-bottom: 16px; }
 
   /* ── 08 Proof (reviews + progress): smaller rating rings (review cards are styled in results.css) ── */
   #main .proof .pf-numbers { gap: 12px 16px; margin-bottom: 20px; }

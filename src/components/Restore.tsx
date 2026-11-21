@@ -86,17 +86,17 @@ export default function Restore() {
                 <span className="jp">お品書き</span> Menu · {restore.cafe.name}
               </p>
               <p className="lk-menu-line">{restore.cafe.line}</p>
-              <ul className="lk-menu-rows" aria-label="Menu (to be confirmed)">
-                {["Shakes", "Snacks", "Coffee"].map((r) => (
-                  <li key={r} aria-hidden>
-                    <span className="lk-menu-blank" />
-                    <span className="lk-menu-dots" />
-                    <span className="lk-menu-price">₹ —</span>
+              <ul className="lk-menu-rows" aria-label="Sample cafeteria menu">
+                {restore.cafe.menu.map((r) => (
+                  <li key={r.item}>
+                    <span className="lk-menu-item">{r.item}</span>
+                    <span className="lk-menu-dots" aria-hidden />
+                    <span className="lk-menu-price">{r.price}</span>
                   </li>
                 ))}
               </ul>
               <p className="lk-menu-note">
-                <Tag>TO CONFIRM</Tag> {restore.cafe.menuNote}
+                <Tag>SAMPLE</Tag> <span className="lk-menu-note-text">{restore.cafe.menuNote}</span>
               </p>
             </div>
           </div>

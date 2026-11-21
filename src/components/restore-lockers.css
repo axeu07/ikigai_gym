@@ -178,9 +178,22 @@
 .lk-menu-line { margin: 6px 0 14px; font-family: var(--ff-display), Impact, sans-serif; font-size: 26px; line-height: 1.05; text-transform: uppercase; }
 .lk-menu-rows { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 12px; }
 .lk-menu-rows li { display: flex; align-items: center; gap: 10px; }
-.lk-menu-blank { width: 38%; height: 10px; border-radius: 4px; background: rgb(27 18 11 / 0.18); }
-.lk-menu-dots { flex: 1; border-bottom: 1px dotted rgb(27 18 11 / 0.4); }
-.lk-menu-price { font-family: var(--ff-mono), monospace; font-size: 13px; color: #5a3a1e; }
+.lk-menu-item { font-size: 15px; font-weight: 600; color: #1b120b; white-space: nowrap; }
+.lk-menu-dots { flex: 1; min-width: 12px; border-bottom: 1px dotted rgb(27 18 11 / 0.4); }
+.lk-menu-price { font-family: var(--ff-mono), monospace; font-size: 14px; font-weight: 700; color: #5a3a1e; }
+
+/* mobile: trim copy so the section reads at a glance */
+@media (max-width: 640px) {
+  #restore .lede,
+  #restore .rs-hygiene,
+  .lk-menu-note-text,
+  .lk-inside p { display: none; }
+  .lk-menu-line { font-size: 20px; margin-bottom: 10px; }
+  .lk-menu-rows { gap: 9px; }
+  .lk-menu-item { font-size: 14px; }
+  .lk-menu-price { font-size: 13px; }
+  .lk-inside h3 { font-size: 18px; }
+}
 .lk-menu-note { font-size: 13px; color: #3d2714; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .lk-menu-note .demo-tag { color: var(--sun-deep); background: rgb(194 65 12 / 0.1); }
 

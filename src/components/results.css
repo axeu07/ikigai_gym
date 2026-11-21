@@ -41,4 +41,31 @@
   #proof .kz-card { width: min(56vw, 220px); }
   #proof .cmp-tag { display: none; }
   #proof .kz-cap { font-size: 11px; }
+
+  /* compact: intro hidden, four small rings in one row, tighter review cards */
+  #main #proof .lede { display: none; }
+  #main #proof .rs-numbers { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 4px 0 8px; }
+  #main #proof .rs-numbers .pf-num dd { width: min(100%, 72px); font-size: 19px; }
+  #main #proof .rs-numbers .pf-num dt { margin-top: 6px; gap: 4px; font-size: 8.5px; letter-spacing: 0.06em; line-height: 1.25; }
+  #main #proof .rs-numbers .pf-num dt .demo-tag { font-size: 7.5px; padding: 1px 4px; }
+  #main #proof .pf-theme { width: min(64vw, 240px); padding: 14px 16px; gap: 6px; border-radius: 14px; }
+  #main #proof .pf-quote { display: none; }
+  #main #proof .pf-theme h4 { font-size: 18px; }
+  #main #proof .pf-theme p { font-size: 13px; line-height: 1.4; }
+  #main #proof .pf-label { width: min(44vw, 170px); gap: 6px; padding-left: 12px; }
+  #main #proof .rs-sub { font-size: 11px; }
+  #main #proof .pf-note { font-size: 11.5px; }
+
+  /* rings line up on one baseline: labels of different lengths hang below, circles stay level */
+  #main #proof .rs-numbers { align-items: stretch; }
+  #main #proof .rs-numbers .pf-num { justify-content: flex-end; } /* column-reverse: flex-end = top */
+
+  /* reviews stacked one below the other instead of a swipe row */
+  #main #proof .hp-viewport { overflow: visible; scroll-snap-type: none; margin-top: 12px; }
+  #main #proof .hp-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: auto; padding: 0 var(--gutter) 8px; }
+  #main #proof .pf-label,
+  #main #proof .pf-theme { grid-column: 1 / -1; width: auto; }
+  #main #proof .pf-label { margin: 10px 0 2px; }
+  #main #proof .kz-card { width: auto; }
+  #main #proof .kz-card:last-child { display: none; } /* placeholder slots: two side by side is enough on phones */
 }
